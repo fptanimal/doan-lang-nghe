@@ -1,0 +1,179 @@
+/* ── Navbar ── */
+.main-navbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:16px 32px;transition:.3s}
+.main-navbar.scrolled{background:rgba(26,15,8,.95);backdrop-filter:blur(12px)}
+.navbar-dark{background:transparent}.navbar-dark.scrolled{background:rgba(10,10,10,.95)}
+.main-navbar:not(.navbar-dark){background:var(--cream);border-bottom:1px solid var(--cream-dark)}
+.navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.navbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--terracotta)}
+.navbar-dark .navbar-logo{color:var(--gold)}
+.navbar-logo-icon{font-size:1.4rem}
+.navbar-links{display:flex;gap:24px}
+.navbar-links a{text-decoration:none;font-size:.9rem;font-weight:600;color:var(--gray);transition:.2s;padding:6px 0;border-bottom:2px solid transparent}
+.navbar-links a:hover,.navbar-links a.active{color:var(--terracotta);border-bottom-color:var(--terracotta)}
+.navbar-dark .navbar-links a{color:rgba(255,255,255,.6)}
+.navbar-dark .navbar-links a:hover,.navbar-dark .navbar-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.navbar-actions{display:flex;align-items:center;gap:12px}
+.navbar-user{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink)}
+.navbar-dark .navbar-user{color:#fff}
+.navbar-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--terracotta),var(--gold));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
+.navbar-username{font-weight:600;font-size:.9rem}
+.navbar-toggle{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink)}
+.navbar-dark .navbar-toggle{color:#fff}
+.btn-outline-light{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+.btn-outline-light:hover{background:rgba(255,255,255,.1)}
+@media(max-width:768px){.navbar-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--cream);flex-direction:column;padding:16px 24px;box-shadow:var(--shadow-md)}.navbar-dark .navbar-links{background:#111}.navbar-links.open{display:flex}.navbar-toggle{display:block}.main-navbar{padding:12px 20px}}
+
+/* ── Dark Theme ── */
+.dark-theme{background:#0a0a0a;color:#e0e0e0}
+
+/* ── Hero Landing ── */
+.hero-landing{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-bg-image{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
+.hero-bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.4) 50%,rgba(0,0,0,.6) 100%);z-index:1}
+.hero-landing-content{position:relative;z-index:2;padding:120px 80px 80px;max-width:700px}
+.vr-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(82,183,136,.4);border-radius:999px;font-size:.75rem;font-weight:700;color:#52B788;letter-spacing:.1em;margin-bottom:32px;text-transform:uppercase}
+.vr-dot{width:8px;height:8px;border-radius:50%;background:#52B788;animation:pulse 2s infinite}
+.hero-landing-title{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:24px}
+.hero-highlight{color:var(--gold);font-style:italic}
+.hero-landing-desc{font-size:1.1rem;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:40px;max-width:500px}
+.hero-landing-cta{display:flex;gap:16px;flex-wrap:wrap}
+@media(max-width:768px){.hero-landing-content{padding:100px 24px 60px}.hero-landing-title{font-size:2.2rem}}
+
+/* ── Auth Pages ── */
+.auth-page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px 40px}
+.auth-back{position:fixed;top:80px;left:32px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.05em;z-index:10}
+.auth-back:hover{color:var(--gold)}
+.auth-container{max-width:420px;width:100%;text-align:center}
+.auth-logo{font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--gold);margin-bottom:4px}
+.auth-subtitle{font-size:.7rem;letter-spacing:.15em;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:32px}
+.auth-title{font-family:var(--font-body);font-size:1.4rem;font-weight:700;color:#fff;text-align:left;margin-bottom:4px}
+/* ── Dark Theme Heritage Cards ── */
+.heritage-card, .stat-card, .village-card, .product-card, .profile-card, .result-card,
+.lobby-stat-card, .marketplace-card, .leaderboard-card, .lobby-hero-card, .mp-game-banner, .score-display {
+  background: rgba(20, 15, 10, 0.85) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--gold) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+  color: var(--cream) !important;
+  border-radius: var(--radius-md) !important;
+  transition: var(--transition);
+}
+
+.heritage-card:hover, .stat-card:hover, .village-card:hover, .product-card:hover,
+.lobby-stat-card:hover, .marketplace-card:hover, .mp-game-banner:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2) !important;
+}
+
+/* Ensure text inside these cards is readable */
+.stat-card .stat-value, .village-card h4, .product-card h4, .profile-card h3,
+.lobby-stat-val, .lobby-hero-title {
+  color: var(--gold) !important;
+}
+
+.stat-card .stat-label, .village-card p, .product-card p, .profile-card p,
+.lobby-stat-lbl, .lobby-hero-sub {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.product-card .product-price {
+  color: var(--terracotta-light) !important;
+}
+
+/* Override existing auth page backgrounds */
+.auth-page {
+  background: var(--ink);
+  background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 80%);
+}
+.btn-google{width:100%;padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:8px;background:transparent;color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s}
+.btn-google:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.3)}
+.auth-divider{display:flex;align-items:center;gap:16px;margin:24px 0;color:rgba(255,255,255,.25);font-size:.7rem;letter-spacing:.1em}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1)}
+.auth-form{display:flex;flex-direction:column;gap:16px}
+.auth-field{text-align:left}
+.auth-field label{display:block;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.08em;margin-bottom:6px;text-transform:uppercase}
+.auth-field input{width:100%;padding:14px 16px;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:rgba(255,255,255,.05);color:#fff;font-size:.95rem;font-family:var(--font-body);outline:none;transition:.2s;box-sizing:border-box}
+.auth-field input:focus{border-color:var(--gold);background:rgba(255,255,255,.08)}
+.auth-field input::placeholder{color:rgba(255,255,255,.2)}
+.auth-link-sm{font-size:.75rem;color:rgba(255,255,255,.4);text-decoration:none}
+.auth-link-sm:hover{color:var(--gold)}
+.auth-error{color:#D4614A;font-size:.85rem;min-height:20px;text-align:left}
+.btn-auth-submit{width:100%;padding:16px;border:none;border-radius:8px;background:var(--terracotta);color:#fff;font-size:.9rem;font-weight:800;letter-spacing:.05em;cursor:pointer;transition:.2s;text-transform:uppercase}
+.btn-auth-submit:hover{background:var(--terracotta-dark);transform:translateY(-2px)}
+.auth-switch{margin-top:24px;font-size:.85rem;color:rgba(255,255,255,.4)}
+.auth-switch a{color:var(--gold);font-weight:700;text-decoration:none}
+.auth-switch a:hover{text-decoration:underline}
+
+/* ── Sections (Homepage) ── */
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.section-featured,.section-howtoplay,.section-stats,.section-marketplace-preview{padding:80px 0}
+.dark-theme .section-featured,.dark-theme .section-howtoplay{background:#111}
+.dark-theme .section-stats{background:#0a0a0a}
+.dark-theme .section-marketplace-preview{background:#111}
+.section-header{text-align:center;margin-bottom:48px}
+.section-tag{display:inline-block;padding:4px 14px;border-radius:999px;font-size:.75rem;font-weight:700;letter-spacing:.08em;margin-bottom:12px}
+.dark-theme .section-tag{background:rgba(232,184,75,.1);color:var(--gold)}
+.section-title{font-family:var(--font-display);font-size:clamp(1.6rem,3.5vw,2.5rem);margin-bottom:8px}
+.dark-theme .section-title{color:#fff}
+.section-desc{color:rgba(255,255,255,.5);font-size:.95rem}
+
+/* Villages Scroll */
+.villages-scroll{display:flex;gap:20px;overflow-x:auto;padding:0 24px 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.villages-scroll::-webkit-scrollbar{height:6px}
+.villages-scroll::-webkit-scrollbar-thumb{background:var(--terracotta);border-radius:3px}
+.village-card{min-width:260px;border-radius:20px;overflow:hidden;cursor:pointer;transition:.3s;scroll-snap-align:start;animation:slideInUp .5s ease-out both}
+.dark-theme .village-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08)}
+.village-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.village-card-img{height:180px;background-size:cover;background-position:center}
+.village-card-body{padding:16px 20px}
+.village-card-name{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.dark-theme .village-card-name{color:#fff}
+.village-card-loc{font-size:.8rem;color:var(--gray);margin-bottom:8px}
+.village-card-tag{font-size:.7rem;padding:3px 10px;border-radius:999px;background:rgba(192,83,58,.1);color:var(--terracotta);font-weight:600}
+
+/* How To Play */
+.howto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.howto-card{padding:32px 24px;border-radius:20px;text-align:center;transition:.3s;position:relative}
+.dark-theme .howto-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.06)}
+.howto-card:hover{transform:translateY(-4px)}
+.howto-num{position:absolute;top:16px;right:20px;font-family:var(--font-display);font-size:2rem;font-weight:800;opacity:.08}
+.dark-theme .howto-num{color:#fff}
+.howto-icon{font-size:2.5rem;margin-bottom:16px}
+.howto-card h3{font-family:var(--font-body);font-size:1rem;font-weight:700;margin-bottom:8px}
+.dark-theme .howto-card h3{color:#fff}
+.howto-card p{font-size:.85rem;color:var(--gray);line-height:1.5}
+
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat-card{text-align:center;padding:32px 16px;border-radius:16px}
+.dark-theme .stat-card{border:1px solid rgba(255,255,255,.08)}
+.stat-card-value{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--gold)}
+.stat-card-label{font-size:.8rem;color:var(--gray);margin-top:4px}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Products Preview */
+.products-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.product-preview-card{border-radius:16px;overflow:hidden;cursor:pointer;transition:.3s;animation:slideInUp .5s ease-out both}
+.dark-theme .product-preview-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08)}
+.product-preview-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.product-preview-img{height:200px;background-size:cover;background-position:center}
+.product-preview-body{padding:16px 20px}
+.product-preview-body h4{font-size:.95rem;font-weight:700;margin-bottom:4px}
+.dark-theme .product-preview-body h4{color:#fff}
+.product-preview-artisan{font-size:.78rem;color:var(--gray)}
+.product-preview-village{font-size:.75rem;color:var(--gray);margin-top:4px}
+.product-preview-price{font-family:var(--font-display);font-size:1.1rem;font-weight:800;color:var(--terracotta);margin-top:8px}
+
+/* Footer */
+.site-footer{padding:60px 0 24px;border-top:1px solid rgba(255,255,255,.08)}
+.dark-theme .site-footer{background:#0a0a0a;color:rgba(255,255,255,.5)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--gold);margin-bottom:8px}
+.footer-brand p{font-size:.85rem;line-height:1.6}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.dark-theme .footer-links h4{color:rgba(255,255,255,.7)}
+.footer-links a{text-decoration:none;font-size:.85rem;color:rgba(255,255,255,.4);transition:.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:20px;text-align:center;font-size:.8rem}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr}}

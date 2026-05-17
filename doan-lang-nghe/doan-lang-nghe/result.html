@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Làng Nghề — Kết quả</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/pages2.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div class="bg-pattern"></div>
+<div class="page-wrapper result-page">
+
+  <!-- Mascot hero -->
+  <div class="result-hero">
+    <div id="result-mascot-container" class="mascot-container" style="margin:0 auto 16px;"></div>
+  </div>
+
+  <!-- Title -->
+  <h1 class="result-title" id="result-title">Tuyệt vời!</h1>
+  <p class="result-subtitle" id="result-subtitle">Bạn đã hoàn thành hành trình!</p>
+
+  <!-- Score card -->
+  <div class="score-display">
+    <div class="score-label-big">TỔNG ĐIỂM</div>
+    <div class="score-big" id="final-score">000000</div>
+    <div class="result-stats">
+      <div class="result-stat">
+        <div class="result-stat-val" id="correct-count">0</div>
+        <div class="result-stat-lbl">Câu đúng</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-val" id="total-count">5</div>
+        <div class="result-stat-lbl">Tổng câu</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-val" id="best-streak">0</div>
+        <div class="result-stat-lbl">Streak tốt nhất</div>
+      </div>
+    </div>
+    <div id="high-score-badge" class="high-score-badge" style="display:none">
+      ⭐ Kỷ lục mới!
+    </div>
+  </div>
+
+  <!-- Breakdown -->
+  <div class="results-breakdown">
+    <h3>Chi tiết từng câu</h3>
+    <div id="results-list"></div>
+  </div>
+
+  <!-- Star rating -->
+  <div id="star-rating" style="font-size:2rem;margin-bottom:24px;animation:slideInUp 0.6s 0.5s ease-out both;letter-spacing:6px;"></div>
+
+  <!-- Marketplace Suggestions & Video -->
+  <div class="results-marketplace" id="results-marketplace" style="width:100%;max-width:600px;margin:0 auto 32px;">
+    <h3 style="font-family:var(--font-display);color:var(--brown);margin-bottom:16px;text-align:center;">🛒 Mang làng nghề về nhà</h3>
+    <div class="suggest-products" id="result-products" style="justify-content:center;flex-wrap:wrap;margin-bottom:16px;"></div>
+    <div style="text-align:center; display:flex; gap:12px; justify-content:center;">
+      <a href="marketplace.html" class="btn btn-secondary btn-sm">Khám phá Marketplace ⟶</a>
+      <a href="artisan-video.html" class="btn btn-outline-light btn-sm" style="background:var(--cream); color:var(--brown); border-color:var(--cream-dark);">🎥 Xem câu chuyện Nghệ nhân</a>
+    </div>
+  </div>
+
+  <!-- Share -->
+  <div style="margin-bottom:24px;animation:slideInUp 0.6s 0.55s ease-out both;">
+    <button class="btn btn-gold" onclick="shareResults()">📤 Chia sẻ kết quả</button>
+  </div>
+
+  <!-- Actions -->
+  <div class="result-actions">
+    <button class="btn btn-primary btn-lg" onclick="playAgain()">🔥 Chơi lại</button>
+    <button class="btn btn-secondary" onclick="App.navigate('leaderboard.html')">🏆 Bảng xếp hạng</button>
+    <button class="btn btn-ghost" onclick="App.navigate('lobby.html')">🏠 Sảnh chơi</button>
+  </div>
+
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/mascot.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const state = App.getState();
+    const results = state.lastGameResults || [];
+    const score = state.lastGameScore || 0;
+    const correct = state.lastGameCorrect || 0;
+    const total = state.lastGameTotal || 5;
+    const streak = state.lastGameStreak || 0;
+    const isHighScore = state.isHighScore;
+
+    // Update user stats
+    const user = App.getCurrentUser();
+    if (user) {
+      App.updateUser({
+        gamesPlayed: (user.gamesPlayed || 0) + 1,
+        totalScore: (user.totalScore || 0) + score,
+        bestScore: Math.max(user.bestScore || 0, score),
+        villagesDiscovered: [...new Set([...(user.villagesDiscovered || []), ...results.map(r => r.villageId)])]
+      });
+      App.checkBadges();
+    }
+
+    // Mascot mood
+    Mascot.init('result-mascot-container');
+    const pct = correct / total;
+    if (pct >= 0.8) setTimeout(() => Mascot.speak('correct', 'Xuất sắc! Bạn là chuyên gia làng nghề!'), 600);
+    else if (pct >= 0.5) setTimeout(() => Mascot.speak('idle', 'Không tệ! Tiếp tục học hỏi nhé!'), 600);
+    else setTimeout(() => Mascot.speak('wrong', 'Đừng nản! Mỗi lần chơi là một bài học mới!'), 600);
+
+    // Title
+    const titles = ['Cần cố gắng hơn!', 'Đang tiến bộ!', 'Khá tốt!', 'Xuất sắc!', 'Huyền thoại!'];
+    const idx = Math.floor(pct * 4);
+    document.getElementById('result-title').textContent = titles[idx] || 'Hoàn thành!';
+    document.getElementById('result-subtitle').textContent =
+      `${state.playerName || 'Bạn'} đã trả lời đúng ${correct}/${total} câu hỏi`;
+
+    // Score
+    animateScore(score);
+    document.getElementById('correct-count').textContent = correct;
+    document.getElementById('total-count').textContent = total;
+    document.getElementById('best-streak').textContent = streak;
+
+    if (isHighScore) {
+      document.getElementById('high-score-badge').style.display = 'inline-flex';
+      App.launchConfetti();
+    }
+
+    // Stars
+    const stars = Math.ceil(pct * 5);
+    document.getElementById('star-rating').textContent = '⭐'.repeat(stars) + '☆'.repeat(5 - stars);
+
+    // Breakdown list
+    const list = document.getElementById('results-list');
+    results.forEach((r, i) => {
+      const el = document.createElement('div');
+      el.className = `result-item ${r.correct ? 'correct' : 'wrong'}`;
+      el.style.animationDelay = `${0.1 + i * 0.08}s`;
+      el.innerHTML = `
+        <div class="result-item-icon">${r.correct ? '✅' : (r.timeout ? '⏰' : '❌')}</div>
+        <div>
+          <div class="result-item-name">${r.villageName}</div>
+          <div class="result-item-detail">📍 ${r.location} · Dùng ${r.clueUsed} gợi ý${r.timeout ? ' · Hết giờ' : ''}</div>
+        </div>
+        <div class="result-item-pts">${r.pointsEarned > 0 ? '+' + r.pointsEarned : '—'}</div>
+      `;
+      list.appendChild(el);
+    });
+
+    // Marketplace suggestions from played villages
+    const productContainer = document.getElementById('result-products');
+    const villageIds = [...new Set(results.map(r => r.villageId))];
+    const suggestedProducts = [];
+    villageIds.forEach(vid => {
+      const v = getVillageById(vid);
+      if (v && v.products) suggestedProducts.push(...v.products.slice(0, 1).map(p => ({...p, villageName: v.name})));
+    });
+    suggestedProducts.slice(0, 4).forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'suggest-product-card';
+      card.innerHTML = `
+        <div class="suggest-product-img" style="background-image:url('${p.image}')"></div>
+        <div class="suggest-product-info">
+          <h5>${p.name}</h5>
+          <p>${p.villageName}</p>
+          <div class="suggest-price">${formatPrice(p.price)}</div>
+        </div>
+      `;
+      card.onclick = () => App.navigate('marketplace.html');
+      productContainer.appendChild(card);
+    });
+
+    if (pct >= 0.8) setTimeout(() => App.launchConfetti(), 800);
+  });
+
+  function animateScore(target) {
+    const el = document.getElementById('final-score');
+    let current = 0;
+    const step = Math.ceil(target / 60);
+    const interval = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = App.formatScore(current);
+      if (current >= target) clearInterval(interval);
+    }, 16);
+  }
+
+  function playAgain() {
+    App.clearGame();
+    App.navigate('game.html');
+  }
+
+  function shareResults() {
+    const state = App.getState();
+    const text = `🔥 Làng Nghề — Tôi đạt ${state.lastGameScore || 0} điểm! ${state.lastGameCorrect || 0}/${state.lastGameTotal || 5} câu đúng! Bạn thử được không?`;
+    if (navigator.share) {
+      navigator.share({ title: 'Làng Nghề', text });
+    } else {
+      navigator.clipboard.writeText(text).then(() => alert('Đã copy kết quả! Dán vào mạng xã hội để chia sẻ.'));
+    }
+  }
+</script>
+</body>
+</html>

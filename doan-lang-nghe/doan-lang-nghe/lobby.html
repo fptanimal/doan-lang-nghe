@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Làng Nghề — Sảnh chơi</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/pages2.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div class="bg-pattern"></div>
+<div id="main-navbar"></div>
+
+<div class="page-wrapper lobby-page">
+  <!-- Hero: Daily Challenge -->
+  <section class="lobby-hero-section">
+    <div class="lobby-hero-card">
+      <div class="lobby-hero-img" id="daily-hero-img"></div>
+      <div class="lobby-hero-overlay">
+        <div class="daily-badge">🔥 Thử thách hàng ngày — <span id="daily-date"></span></div>
+        <h1 class="lobby-hero-title">Đoán Làng Nghề</h1>
+        <p class="lobby-hero-sub">Bạn biết bao nhiêu làng nghề Việt Nam?</p>
+        <div class="lobby-streak" id="lobby-streak">🔥 Chuỗi 0 ngày liên tiếp</div>
+        <button class="btn btn-primary btn-lg lobby-play-btn" onclick="startGame()">▶ BẮT ĐẦU CHƠI</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="lobby-stats">
+    <div class="lobby-stat-card">
+      <div class="lobby-stat-icon">🏆</div>
+      <div class="lobby-stat-val" id="stat-high-score">0</div>
+      <div class="lobby-stat-lbl">Điểm cao nhất</div>
+    </div>
+    <div class="lobby-stat-card">
+      <div class="lobby-stat-icon">✅</div>
+      <div class="lobby-stat-val" id="stat-games">0</div>
+      <div class="lobby-stat-lbl">Trò chơi</div>
+    </div>
+    <div class="lobby-stat-card">
+      <div class="lobby-stat-icon">📅</div>
+      <div class="lobby-stat-val" id="stat-streak">0</div>
+      <div class="lobby-stat-lbl">Chuỗi ngày</div>
+    </div>
+  </section>
+
+  <!-- Featured Villages -->
+  <section class="lobby-villages-section">
+    <h2 class="lobby-section-title">🏮 Khám phá làng nghề</h2>
+    <div class="lobby-villages-scroll" id="lobby-villages">
+      <!-- Filled by JS -->
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="lobby-quick-links">
+    <a href="marketplace.html" class="lobby-quick-card">
+      <span class="lobby-quick-icon">🛒</span>
+      <span>Marketplace</span>
+    </a>
+    <a href="leaderboard.html" class="lobby-quick-card">
+      <span class="lobby-quick-icon">🏆</span>
+      <span>Xếp hạng</span>
+    </a>
+    <a href="profile.html" class="lobby-quick-card">
+      <span class="lobby-quick-icon">👤</span>
+      <span>Hồ sơ</span>
+    </a>
+  </section>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/mascot.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    App.renderNavbar('lobby');
+
+    // Daily date
+    const today = new Date();
+    document.getElementById('daily-date').textContent = today.toLocaleDateString('vi-VN', { day:'numeric', month:'long', year:'numeric' });
+
+    // Random hero image
+    const randomVillage = VILLAGES[Math.floor(Math.random() * VILLAGES.length)];
+    const heroImg = document.getElementById('daily-hero-img');
+    heroImg.style.backgroundImage = `url('${randomVillage.thumbnail}')`;
+
+    // User stats
+    const user = App.getCurrentUser();
+    if (user) {
+      document.getElementById('stat-high-score').textContent = user.bestScore || 0;
+      document.getElementById('stat-games').textContent = user.gamesPlayed || 0;
+      document.getElementById('stat-streak').textContent = user.dailyStreak || 0;
+      document.getElementById('lobby-streak').textContent = `🔥 Chuỗi ${user.dailyStreak || 0} ngày liên tiếp`;
+    } else {
+      const state = App.getState();
+      document.getElementById('stat-high-score').textContent = state.highScore || 0;
+    }
+
+    // Villages scroll
+    const villagesContainer = document.getElementById('lobby-villages');
+    VILLAGES.forEach((v, i) => {
+      const card = document.createElement('div');
+      card.className = 'lobby-village-card';
+      card.style.animationDelay = `${i * 0.08}s`;
+      card.innerHTML = `
+        <div class="lobby-village-img" style="background-image:url('${v.thumbnail}')"></div>
+        <div class="lobby-village-info">
+          <div class="lobby-village-name">${v.name}</div>
+          <div class="lobby-village-loc">📍 ${v.location}</div>
+        </div>
+      `;
+      card.addEventListener('click', () => startGame());
+      villagesContainer.appendChild(card);
+    });
+  });
+
+  function startGame() {
+    App.updateDailyStreak();
+    App.navigate('game.html');
+  }
+</script>
+</body>
+</html>

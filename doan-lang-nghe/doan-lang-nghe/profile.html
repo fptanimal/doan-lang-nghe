@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Làng Nghề — Hồ sơ</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/pages2.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div class="bg-pattern"></div>
+<div id="main-navbar"></div>
+
+<div class="page-wrapper profile-page">
+  <div class="container" style="max-width:700px;">
+
+    <!-- Profile Header -->
+    <div class="profile-header" id="profile-header">
+      <div class="profile-avatar" id="profile-avatar">?</div>
+      <h1 class="profile-name" id="profile-name">Khách</h1>
+      <p class="profile-email" id="profile-email"></p>
+      <p class="profile-joined" id="profile-joined"></p>
+    </div>
+
+    <!-- Stats -->
+    <div class="profile-stats">
+      <div class="profile-stat">
+        <div class="profile-stat-val" id="p-games">0</div>
+        <div class="profile-stat-lbl">Trò chơi</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-val" id="p-best">0</div>
+        <div class="profile-stat-lbl">Điểm cao nhất</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-val" id="p-streak">0</div>
+        <div class="profile-stat-lbl">Chuỗi ngày</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-val" id="p-villages">0</div>
+        <div class="profile-stat-lbl">Làng nghề</div>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="profile-section">
+      <h2 class="profile-section-title">🏅 Huy hiệu</h2>
+      <div class="profile-badges" id="profile-badges">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="profile-actions">
+      <button class="btn btn-primary" onclick="App.navigate('lobby.html')">🎮 Chơi ngay</button>
+      <button class="btn btn-secondary" onclick="App.navigate('leaderboard.html')">🏆 Xếp hạng</button>
+      <button class="btn btn-ghost" onclick="handleLogout()" id="btn-logout" style="display:none;">🚪 Đăng xuất</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    App.renderNavbar('profile');
+    const user = App.getCurrentUser();
+
+    if (user) {
+      document.getElementById('profile-avatar').textContent = (user.displayName || '?').charAt(0).toUpperCase();
+      document.getElementById('profile-name').textContent = user.displayName || 'Người dùng';
+      document.getElementById('profile-email').textContent = user.email || '';
+      document.getElementById('profile-joined').textContent = 'Tham gia: ' + new Date(user.createdAt).toLocaleDateString('vi-VN');
+      document.getElementById('p-games').textContent = user.gamesPlayed || 0;
+      document.getElementById('p-best').textContent = user.bestScore || 0;
+      document.getElementById('p-streak').textContent = user.dailyStreak || 0;
+      document.getElementById('p-villages').textContent = (user.villagesDiscovered || []).length;
+      document.getElementById('btn-logout').style.display = 'inline-flex';
+
+      // Badges
+      App.checkBadges();
+      const updatedUser = App.getCurrentUser();
+      renderBadges(updatedUser.badges || []);
+    } else {
+      document.getElementById('profile-name').textContent = 'Khách';
+      document.getElementById('profile-email').textContent = 'Đăng nhập để lưu tiến trình';
+      const state = App.getState();
+      document.getElementById('p-best').textContent = state.highScore || 0;
+      renderBadges([]);
+    }
+  });
+
+  function renderBadges(userBadges) {
+    const container = document.getElementById('profile-badges');
+    const allBadges = Object.keys(App.BADGE_INFO);
+    container.innerHTML = '';
+    allBadges.forEach(key => {
+      const info = App.BADGE_INFO[key];
+      const earned = userBadges.includes(key);
+      const el = document.createElement('div');
+      el.className = 'badge-item' + (earned ? ' earned' : ' locked');
+      el.innerHTML = `
+        <div class="badge-icon">${info.icon}</div>
+        <div class="badge-name">${info.name}</div>
+        <div class="badge-desc">${info.desc}</div>
+      `;
+      container.appendChild(el);
+    });
+  }
+
+  function handleLogout() {
+    if (confirm('Bạn muốn đăng xuất?')) App.logout();
+  }
+</script>
+</body>
+</html>
