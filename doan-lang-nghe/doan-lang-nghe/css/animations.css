@@ -1,0 +1,216 @@
+/* ============================================================
+   ANIMATIONS.CSS — Keyframes & transitions
+   ============================================================ */
+
+/* Flame character */
+@keyframes flameWobble {
+  0%, 100% { transform: scaleX(1) scaleY(1) rotate(-1deg); }
+  25% { transform: scaleX(1.04) scaleY(0.97) rotate(1deg); }
+  50% { transform: scaleX(0.97) scaleY(1.03) rotate(-0.5deg); }
+  75% { transform: scaleX(1.03) scaleY(0.98) rotate(1.5deg); }
+}
+
+@keyframes flameFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes eyeBlink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.05); }
+}
+
+@keyframes armWaveLeft {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-20deg); }
+}
+
+@keyframes armWaveRight {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(20deg); }
+}
+
+@keyframes armCelebrate {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25% { transform: rotate(-30deg) translateY(-8px); }
+  75% { transform: rotate(30deg) translateY(-8px); }
+}
+
+@keyframes mascotBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-20px) scale(1.05); }
+  60% { transform: translateY(-8px) scale(0.98); }
+}
+
+/* Speech bubble */
+@keyframes bubblePop {
+  0% { transform: scale(0.5) translateY(10px); opacity: 0; }
+  70% { transform: scale(1.05) translateY(-2px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes bubbleFade {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.9) translateY(-5px); }
+}
+
+/* UI Elements */
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes progressFill {
+  from { width: 0%; }
+}
+
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes correctFlash {
+  0% { background: var(--green); box-shadow: 0 0 0 0 rgba(45,106,79,0.5); }
+  50% { box-shadow: 0 0 0 15px rgba(45,106,79,0); }
+  100% { background: var(--green); box-shadow: 0 0 0 0 rgba(45,106,79,0); }
+}
+
+@keyframes wrongShake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-8px); }
+  30% { transform: translateX(8px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(6px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(3px); }
+}
+
+@keyframes pointsFloat {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-60px); opacity: 0; }
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes starPop {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes scoreCount {
+  from { transform: scale(1.4); color: var(--gold); }
+  to { transform: scale(1); }
+}
+
+@keyframes logoFlame {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(232,184,75,0.6)); }
+  50% { filter: drop-shadow(0 0 20px rgba(232,184,75,0.9)); }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.1); }
+  66% { transform: translate(-20px, 15px) scale(0.9); }
+}
+
+@keyframes patternMove {
+  from { background-position: 0 0; }
+  to { background-position: 60px 60px; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+/* Applied classes */
+.flame-wobble {
+  animation: flameWobble 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.mascot-character {
+  animation: flameFloat 3s ease-in-out infinite;
+}
+
+.eye-blink {
+  animation: eyeBlink 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.arm-wave-left {
+  animation: armWaveLeft 2.5s ease-in-out infinite;
+}
+
+.arm-wave-right {
+  animation: armWaveRight 2.5s ease-in-out infinite 0.3s;
+}
+
+.arm-wave-left.celebrate,
+.arm-wave-right.celebrate {
+  animation: armCelebrate 0.4s ease-in-out 5;
+}
+
+.bounce {
+  animation: mascotBounce 0.6s ease-out !important;
+}
+
+.speech-bubble.visible {
+  animation: bubblePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.option-btn.correct {
+  animation: correctFlash 0.6s ease-out forwards;
+}
+
+.option-btn.wrong {
+  animation: wrongShake 0.5s ease-out;
+}
+
+#points-popup.show {
+  animation: pointsFloat 1.4s ease-out forwards;
+}
