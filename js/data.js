@@ -20,6 +20,7 @@ const VILLAGES = [
       "Câu ca dao: 'Ước gì anh lấy được nàng / Để anh mua gạch... xây nhà'",
       "Sản phẩm chính của làng là gốm sứ tinh xảo"
     ],
+    video: "https://www.youtube.com/embed/ljR0F5J_vPM",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778986920879!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0dwOWlnNmdF!2m2!1d20.97889063302469!2d105.916034568623!3f80!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -44,6 +45,7 @@ const VILLAGES = [
       "Có bộ phim điện ảnh nổi tiếng mang tên 'Áo lụa...'",
       "Đặc sản của làng là lụa tơ tằm mềm mại"
     ],
+    video: "https://www.youtube.com/embed/ubxDksPw_lg",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987290766!6m8!1m7!1sJuwEgQFlEqxzsA2QSH4tTw!2m2!1d20.97938475928094!2d105.7734039812194!3f339.86737!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -113,10 +115,35 @@ const VILLAGES = [
       "Nguyên liệu làm ra sản phẩm thường là khối đá cẩm thạch",
       "Có tên là Non..."
     ],
+    video: "https://www.youtube.com/embed/vz0-NhjVTgI",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987653616!6m8!1m7!1sr2fnjB3nOkoLO1IF85ANcw!2m2!1d16.00212397610592!2d108.2633006239604!3f34.24348!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
       { id: "p6", name: "Tượng điêu khắc cẩm thạch", artisan: "Nghệ nhân Non Nước", price: 2500000, image: "", desc: "Tượng điêu khắc tinh xảo từ đá cẩm thạch tự nhiên" }
+    ]
+  },
+  {
+    id: 6,
+    name: "Mây tre đan Phú Vinh",
+    location: "Chương Mỹ, Hà Nội",
+    region: "mien-bac",
+    category: "may-tre-dan",
+    thumbnail: "images/Làng nghề mây tre đan.jpg",
+    description: "Làng nghề mây tre đan truyền thống tại Phú Vinh, huyện Chương Mỹ với những sản phẩm thủ công mỹ nghệ tinh xảo từ mây, tre, giang, nứa.",
+    funFact: "Sản phẩm mây tre đan của Phú Vinh không chỉ phục vụ trong nước mà còn xuất khẩu đi nhiều quốc gia trên thế giới.",
+    established: "Hàng trăm năm",
+    specialty: "Rổ, rá, thúng, đồ trang trí mây tre",
+    clues: [
+      "Nằm ở Phú Vinh, huyện Chương Mỹ, Hà Nội",
+      "Nguyên liệu chính là mây, tre, giang, nứa",
+      "Sản phẩm rất gần gũi với đời sống nông thôn Việt Nam như rổ, rá...",
+      "Có tên là làng nghề Mây tre đan..."
+    ],
+    video: "https://www.youtube.com/embed/MW-88Rn9A_0",
+    images: [""],
+    panorama: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.790515159385!2d105.7511059!3d20.9197926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31344da0df7e59c5%3A0xcda6b0fc14a66a70!2zQsOtY2ggSMOyYSwgVGhhbmggT2FpLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
+    products: [
+      { id: "p7", name: "Lẵng hoa mây tre", artisan: "Nghệ nhân Phú Vinh", price: 150000, image: "", desc: "Lẵng hoa đan tay tinh xảo từ mây tre tự nhiên" }
     ]
   }
 ];
@@ -127,8 +154,8 @@ const QUESTIONS_BANK = VILLAGES.map(v => ({
   clues: v.clues
 }));
 
-function getRandomVillages(count = 5) {
-  // Vì giờ chỉ còn đúng 5 làng nghề có 360 độ, ta trả về ngẫu nhiên 5 làng này
+function getRandomVillages(count = 6) {
+  // Trả về ngẫu nhiên các làng
   const shuffled = [...VILLAGES].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count);
 }

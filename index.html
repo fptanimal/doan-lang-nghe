@@ -12,13 +12,23 @@
 </head>
 <body class="dark-theme">
 
+<!-- CURTAIN ANIMATION -->
+<div class="curtain-container" id="page-curtain">
+  <div class="curtain-panel"></div>
+  <div class="curtain-panel right"></div>
+</div>
+
 <div id="main-navbar"></div>
 
 <!-- HERO SECTION -->
-<section class="hero-landing" id="hero-landing">
-  <div class="hero-bg-overlay"></div>
-  <div class="hero-bg-image" style="background-image:url('https://images.unsplash.com/photo-1555217851-6141535bd771?w=1920&q=80')"></div>
-  <div class="hero-landing-content">
+<section class="hero-landing" id="hero-landing" style="position:relative; overflow:hidden;">
+  <div class="hero-bg-overlay" style="z-index:1;"></div>
+  <div class="hero-slider-bg" style="background-image:url('images/lang-gom-bat-trang-1.jpg')"></div>
+  <div class="hero-slider-bg" style="background-image:url('images/Lụa vạn phúc.jpg')"></div>
+  <div class="hero-slider-bg" style="background-image:url('images/Chiếu cói Nga sơn.jpg')"></div>
+  <div class="hero-slider-bg" style="background-image:url('images/Gốm thanh hà.jpg')"></div>
+  <div class="hero-slider-bg" style="background-image:url('images/Làng nghề mây tre đan.jpg')"></div>
+  <div class="hero-landing-content" style="position:relative; z-index:2;">
     <div class="vr-badge">
       <span class="vr-dot"></span>
       VR EXPERIENCE ENABLED
@@ -201,6 +211,11 @@
       card.addEventListener('click', () => App.navigate('marketplace.html'));
       productsGrid.appendChild(card);
     });
+
+    // Open curtain animation
+    setTimeout(() => {
+      document.getElementById('page-curtain').classList.add('open');
+    }, 100);
   });
 </script>
 </body>
