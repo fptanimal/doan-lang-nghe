@@ -75,6 +75,10 @@ const Game = (() => {
     const resultArea = document.getElementById('result-area');
     if (resultArea) resultArea.style.display = 'none';
     
+    // Clear video to stop playback
+    const revealVideo = document.getElementById('reveal-video');
+    if (revealVideo) revealVideo.src = "";
+
     const inputEl = document.getElementById('answer-input');
     if (inputEl) {
       inputEl.value = '';
@@ -197,11 +201,26 @@ const Game = (() => {
 
     const resultArea = document.getElementById('result-area');
     if (resultArea) {
+      resultArea.style.display = 'block'; // Hiển thị container trước để iframe không bị đen
+      
       document.getElementById('reveal-name').textContent = village.name;
       document.getElementById('reveal-location').textContent = village.location;
+      
+      const videoContainer = document.getElementById('reveal-video-container');
+      const revealVideo = document.getElementById('reveal-video');
+      if (village.video) {
+        videoContainer.style.display = 'block';
+        // Thêm timeout nhỏ để đảm bảo DOM đã render xong block
+        setTimeout(() => {
+          revealVideo.src = village.video;
+        }, 50);
+      } else {
+        videoContainer.style.display = 'none';
+        revealVideo.src = "";
+      }
+
       document.getElementById('reveal-desc').textContent = village.description;
       document.getElementById('reveal-fact').textContent = '💡 ' + village.funFact;
-      resultArea.style.display = 'block';
 
       // Show marketplace suggestions
       const products = village.products || [];
@@ -267,7 +286,6 @@ const Game = (() => {
     if (state.answered || state.clueIndex >= village.clues.length - 1) return;
     state.clueIndex++;
     renderClue(village);
-    if (typeof Mascot !== 'undefined') Mascot.speak('hint');
   }
 
   function startTimer() {

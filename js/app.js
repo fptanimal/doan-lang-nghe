@@ -253,3 +253,20 @@ const App = (() => {
     renderNavbar
   };
 })();
+
+// Automatically inject and trigger curtain animation for all pages
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.getElementById('page-curtain')) {
+    const curtainHtml = `
+<div class="curtain-container" id="page-curtain">
+  <div class="curtain-panel"></div>
+  <div class="curtain-panel right"></div>
+</div>`;
+    document.body.insertAdjacentHTML('afterbegin', curtainHtml);
+  }
+  
+  setTimeout(() => {
+    const curtain = document.getElementById('page-curtain');
+    if (curtain) curtain.classList.add('open');
+  }, 100);
+});
