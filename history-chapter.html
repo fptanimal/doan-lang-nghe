@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Hành Trình Lịch Sử</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/pages2.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    body { background-color: #0b0907; color: white; overflow-x: hidden; }
+    .history-layout {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-height: 100vh;
+    }
+    .history-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(232, 184, 75, 0.3);
+      flex-shrink: 0;
+    }
+    .history-title {
+      font-family: var(--font-display);
+      color: var(--gold);
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .history-score {
+      font-weight: bold;
+      color: white;
+    }
+    .video-container {
+      width: 100%;
+      background: #000;
+      flex-shrink: 0;
+      max-height: 40vh; /* Tối ưu cho mobile */
+      aspect-ratio: 16/9;
+      position: relative;
+    }
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .quiz-container {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+    .question-progress {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .question-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .option-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      color: white;
+      font-size: 1rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-height: 48px; /* Dễ bấm trên mobile */
+      display: flex;
+      align-items: center;
+    }
+    .option-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    .option-btn.correct {
+      background: rgba(45, 106, 79, 0.3) !important;
+      border-color: #2D6A4F !important;
+      color: #A7F3D0;
+    }
+    .option-btn.wrong {
+      background: rgba(192, 83, 58, 0.3) !important;
+      border-color: #C0533A !important;
+      color: #FECACA;
+    }
+    .option-btn:disabled {
+      cursor: not-allowed;
+    }
+    .feedback-area {
+      margin-top: auto; /* Push to bottom */
+      padding-top: 24px;
+      min-height: 80px;
+    }
+    .next-btn {
+      width: 100%;
+      display: none;
+      padding: 16px;
+      font-size: 1.1rem;
+      background: var(--gold);
+      color: var(--brown);
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    @media (min-width: 768px) {
+      .history-layout {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+      .history-header {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.9);
+      }
+      .video-container {
+        width: 50%;
+        max-height: none;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 60px; /* offset header */
+      }
+      .quiz-container {
+        width: 50%;
+        padding: 80px 40px 40px;
+        height: 100vh;
+      }
+      .question-text {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="history-layout">
+  <div class="history-header">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button onclick="exitChapter()" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;">✕</button>
+      <div>
+        <h1 class="history-title" id="chapter-title">Chương Lịch Sử</h1>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);" id="village-name">Đang tải...</div>
+      </div>
+    </div>
+    <div class="history-score">Điểm: <span id="chapter-score">0</span></div>
+  </div>
+
+  <div class="video-container">
+    <iframe id="history-video" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <div class="quiz-container">
+    <div class="question-progress" id="question-progress">Câu hỏi 1/10</div>
+    <div class="question-text" id="question-text">Đang tải câu hỏi...</div>
+    
+    <div class="options-grid" id="options-grid">
+      <!-- Generated by JS -->
+    </div>
+    
+    <div class="feedback-area">
+      <button class="next-btn" id="next-q-btn" onclick="nextQuestion()">Tiếp tục ⟶</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/history-chapter.js"></script>
+</body>
+</html>

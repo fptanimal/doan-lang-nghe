@@ -1,5 +1,6 @@
 // ============================================================
 // DATA.JS — Dữ liệu 5 làng nghề Việt Nam có ảnh 360 độ (VR)
+// Cập nhật: Thêm historyQuestions và tours
 // ============================================================
 
 const VILLAGES = [
@@ -20,12 +21,30 @@ const VILLAGES = [
       "Câu ca dao: 'Ước gì anh lấy được nàng / Để anh mua gạch... xây nhà'",
       "Sản phẩm chính của làng là gốm sứ tinh xảo"
     ],
-    video: "https://www.youtube.com/embed/ljR0F5J_vPM",
+    video: "https://www.youtube.com/embed/ljR0F5J_vPM?playsinline=1&rel=0",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778986920879!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0dwOWlnNmdF!2m2!1d20.97889063302469!2d105.916034568623!3f80!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p1", name: "Bình gốm men lam", artisan: "Nghệ nhân Trần Độ", price: 1200000, image: "", desc: "Bình gốm men lam cổ được phục dựng tinh xảo" },
-      { id: "p2", name: "Bộ ấm trà tử sa", artisan: "Nghệ nhân Vương Quốc", price: 850000, image: "", desc: "Bộ ấm trà bằng đất tử sa giữ hương vị trà cực tốt" }
+      { id: "p1_1", name: "Bộ ấm chén cao cấp vẽ vinh quy bái tổ", artisan: "Nghệ nhân Bát Tràng", price: 1550000, image: "https://gomsubattrang.com/Images/SanPham/MKC_bo-am-chen-cao-cap-bat-trang-ve-vinh-quy-bai-to.jpg", desc: "Bộ ấm chén cao cấp Bát Tràng vẽ tay họa tiết vinh quy bái tổ truyền thống." },
+      { id: "p1_2", name: "Bộ ấm chén men hoàng kim sa", artisan: "Nghệ nhân Trần Độ", price: 2200000, image: "https://gomsubattrang.com/Images/sanpham/zfh-bo-am-chen-men-hoang-kim-sa-bat-trang-2.jpg", desc: "Bộ ấm chén men hoàng kim sa Bát Tràng sang trọng, vẽ tay chi tiết." },
+      { id: "p1_3", name: "Bộ ấm chén cao cấp vẽ hoa mai", artisan: "Nghệ nhân Vương Quốc", price: 1850000, image: "https://gomsubattrang.com/Images/sanpham/ooa-bo-am-chen-cao-cap-ve-hoa-mai-trang.jpg", desc: "Ấm chén sứ Bát Tràng vẽ hoa mai trắng tinh khôi, giữ nhiệt cực tốt." },
+      { id: "p1_4", name: "Đôi lọ lộc bình đắp nổi phú quý mãn đường", artisan: "Nghệ nhân Bát Tràng", price: 15000000, image: "https://gomsubattrang.com/Images/SanPham/BBZ_lo-luc-binh-dap-noi-cao-cap-bat-trang-de-tai-phu-quy-man-duong.jpg", desc: "Đôi lọ lộc bình đắp nổi cao cấp Bát Tràng đề tài phú quý mãn đường." },
+    ],
+    tours: [
+      { id: "t1_1", name: "Trải nghiệm làm thợ gốm Bát Tràng", duration: "Nửa ngày", price: 350000, image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&q=80&w=800", desc: "Tự tay vuốt nặn, tô tượng và nung gốm mang về làm kỷ niệm. Bao gồm vé tham quan bảo tàng gốm." },
+      { id: "t1_2", name: "Tour văn hóa Làng Gốm & Ẩm thực", duration: "1 Ngày", price: 850000, image: "https://images.unsplash.com/photo-1595181702787-8d234ba4430e?auto=format&fit=crop&q=80&w=800", desc: "Khám phá ngõ ngách làng cổ, thăm xưởng nghệ nhân nổi tiếng và thưởng thức mâm cỗ truyền thống Bát Tràng." }
+    ],
+    historyQuestions: [
+      { q: "Làng gốm Bát Tràng được hình thành vào khoảng thời gian nào?", options: ["Thời Lý", "Thời Trần", "Thời Hậu Lê", "Thời Nguyễn"], answer: 0 },
+      { q: "Loại đất nào là nguyên liệu chính đặc trưng để làm gốm Bát Tràng xưa?", options: ["Đất sét vàng", "Đất sét trắng", "Đất đỏ bazan", "Đất phù sa"], answer: 1 },
+      { q: "Kỹ thuật men nào là độc bản nổi tiếng nhất của Bát Tràng?", options: ["Men ngọc", "Men lam", "Men rạn", "Men nâu"], answer: 2 },
+      { q: "Gạch Bát Tràng từng được dùng để xây dựng công trình nổi tiếng nào?", options: ["Kinh thành Huế", "Hoàng thành Thăng Long", "Thành nhà Hồ", "Lăng Cô Chủ Tịch"], answer: 1 },
+      { q: "Nhiệt độ nung trung bình của gốm sứ Bát Tràng là bao nhiêu?", options: ["800 - 900 độ C", "1000 - 1100 độ C", "1200 - 1300 độ C", "1400 - 1500 độ C"], answer: 2 },
+      { q: "Công đoạn nào quan trọng nhất quyết định hình dáng sản phẩm gốm?", options: ["Chọn đất", "Vuốt gốm (Tạo hình)", "Tráng men", "Nung gốm"], answer: 1 },
+      { q: "Dòng men rạn cổ Bát Tràng được phục hồi vào thế kỷ nào?", options: ["Thế kỷ 18", "Thế kỷ 19", "Thế kỷ 20", "Thế kỷ 21"], answer: 2 },
+      { q: "Nghề gốm Bát Tràng có nguồn gốc từ đâu chuyển đến?", options: ["Làng Bồ Bát (Ninh Bình)", "Làng Chu Đậu (Hải Dương)", "Làng Phù Lãng (Bắc Ninh)", "Làng Hương Canh (Vĩnh Phúc)"], answer: 0 },
+      { q: "Lò nung gốm truyền thống phổ biến nhất ngày xưa ở Bát Tràng gọi là gì?", options: ["Lò gas", "Lò bầu", "Lò hộp", "Lò điện"], answer: 1 },
+      { q: "Đặc điểm nào sau đây KHÔNG phải của gốm Bát Tràng?", options: ["Làm thủ công", "Nung ở nhiệt độ thấp", "Họa tiết đậm chất dân gian", "Cốt gốm dày dặn"], answer: 1 }
     ]
   },
   {
@@ -45,11 +64,29 @@ const VILLAGES = [
       "Có bộ phim điện ảnh nổi tiếng mang tên 'Áo lụa...'",
       "Đặc sản của làng là lụa tơ tằm mềm mại"
     ],
-    video: "https://www.youtube.com/embed/ubxDksPw_lg",
+    video: "https://www.youtube.com/embed/ubxDksPw_lg?playsinline=1&rel=0",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987290766!6m8!1m7!1sJuwEgQFlEqxzsA2QSH4tTw!2m2!1d20.97938475928094!2d105.7734039812194!3f339.86737!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p3", name: "Khăn lụa tơ tằm", artisan: "Nghệ nhân Triệu Văn", price: 450000, image: "", desc: "Khăn lụa 100% tơ tằm tự nhiên, dệt thủ công" }
+      { id: "p2_1", name: "Khăn lụa vẽ tay thủ công cao cấp", artisan: "Nghệ nhân Vạn Phúc", price: 850000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/102001691317097262318-1775577534.jpg.webp", desc: "Khăn lụa vẽ tay thủ công 100% tơ tằm tự nhiên, họa tiết độc bản." },
+      { id: "p2_2", name: "Khăn lụa nhăn nhuộm loang tự nhiên", artisan: "Xưởng lụa Vạn Phúc", price: 450000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/khan-xanh-1758252400.jpg.webp", desc: "Khăn lụa nhăn nhuộm màu loang tự nhiên, siêu mềm mịn." },
+      { id: "p2_3", name: "Cà vạt lụa tơ tằm cao cấp", artisan: "Nghệ nhân Vạn Phúc", price: 350000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/z6750308916537eaf9346b7ea56bc976d366cfca51bb44-1751112228.jpg.webp", desc: "Cà vạt 100% lụa tơ tằm nguyên chất, họa tiết chìm sang trọng." },
+      { id: "p2_4", name: "Vải lụa Satin tơ tằm (1m)", artisan: "Làng lụa Vạn Phúc", price: 400000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/z67783118455700b591033e5ada2693d20920a13e8012f-1762050368.jpg.webp", desc: "Vải lụa satin bóng mượt, chuyên may áo dài cao cấp." }
+    ],
+    tours: [
+      { id: "t2_1", name: "Hành trình tơ lụa ngàn năm", duration: "Nửa ngày", price: 250000, image: "https://images.unsplash.com/photo-1605658607384-269e802a8069?auto=format&fit=crop&q=80&w=800", desc: "Tìm hiểu quy trình trồng dâu, nuôi tằm, ươm tơ, dệt lụa. Mặc thử trang phục áo dài lụa truyền thống." }
+    ],
+    historyQuestions: [
+      { q: "Làng lụa Vạn Phúc nằm bên bờ con sông nào?", options: ["Sông Hồng", "Sông Đáy", "Sông Nhuệ", "Sông Tô Lịch"], answer: 2 },
+      { q: "Bà tổ nghề lụa Vạn Phúc là ai?", options: ["Bà Chúa Kho", "Bà Ả Lã Đê Nương", "Bà Triệu", "Công chúa Tiên Dung"], answer: 1 },
+      { q: "Loại lụa cao cấp nhất của Vạn Phúc, hoa văn chìm nổi tinh tế gọi là gì?", options: ["Lụa satin", "Lụa vân", "Lụa đũi", "Lụa the"], answer: 1 },
+      { q: "Lụa Vạn Phúc từng tham gia hội chợ quốc tế nào năm 1931?", options: ["Hội chợ Paris", "Hội chợ Marseille", "Hội chợ London", "Hội chợ Milan"], answer: 1 },
+      { q: "Bước đầu tiên trong quy trình làm lụa là gì?", options: ["Ươm tơ", "Trồng dâu nuôi tằm", "Dệt vải", "Nhuộm màu"], answer: 1 },
+      { q: "Nhạc cụ nào thường gắn liền với âm thanh của làng lụa?", options: ["Tiếng sáo", "Tiếng thoi đưa", "Tiếng đàn tranh", "Tiếng trống"], answer: 1 },
+      { q: "Màu nhuộm truyền thống của lụa Vạn Phúc chủ yếu lấy từ đâu?", options: ["Hóa chất", "Khoáng sản", "Rễ cây, lá cây (tự nhiên)", "Vỏ sò"], answer: 2 },
+      { q: "Lụa Vạn Phúc từng được dùng may quốc phục cho triều đại nào?", options: ["Triều Lý", "Triều Lê", "Triều Nguyễn", "Triều Trần"], answer: 2 },
+      { q: "Sợi tơ tằm có đặc tính nổi bật nào?", options: ["Mát mẻ mùa hè, ấm áp mùa đông", "Chống cháy", "Không thấm nước", "Chống đạn"], answer: 0 },
+      { q: "Hoa văn trên lụa Vạn Phúc thường mang ý nghĩa gì?", options: ["Phong thủy, cầu may mắn, trường thọ", "Các câu chuyện cổ tích", "Sự tích anh hùng", "Không mang ý nghĩa gì"], answer: 0 }
     ]
   },
   {
@@ -69,11 +106,29 @@ const VILLAGES = [
       "Nằm tại một huyện ven biển của tỉnh Thanh Hóa",
       "Gắn liền với sự tích Từ Thức gặp tiên"
     ],
-    video: "https://www.youtube.com/embed/ubxDksPw_lg", // Placeholder video
+    video: "https://www.youtube.com/embed/ubxDksPw_lg?playsinline=1&rel=0",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1715915220261!6m8!1m7!1sDUwiOS_2gT7DHpV4y0sX9A!2m2!1d20.0069578!2d106.0003452!3f12.95!4f10!5f75" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p4", name: "Chiếu cói hoa Nga Sơn", artisan: "Nghệ nhân Nguyễn Thị Tình", price: 350000, image: "", desc: "Chiếu cói dệt hoa văn truyền thống, nằm rất mát" }
+      { id: "p3_1", name: "Chiếu cói Nga Sơn 180 x 200 cm", artisan: "Không", price: 1400000, image: "https://chieucoi.com.vn/wp-content/uploads/2017/06/20190825_075039-300x250.jpg", desc: "Chiếu cói dệt tay thủ công 100% sợi cói tự nhiên Nga Sơn. Hàng chất lượng cao loại 1." },
+      { id: "p3_2", name: "Chiếu cói Nga Sơn 160 x 200 cm", artisan: "Không", price: 1000000, image: "https://chieucoi.com.vn/wp-content/uploads/2022/05/155-300x250.jpg", desc: "Chiếu cói trắng loại dày dặn, viền vải dù chắc chắn." },
+      { id: "p3_3", name: "Chiếu cói Nga Sơn 150 x 190 cm", artisan: "Không", price: 600000, image: "https://chieucoi.com.vn/wp-content/uploads/2022/05/20190825_075333-300x250.jpg", desc: "Chiếu cói Nga Sơn kích thước tiêu chuẩn, phù hợp giường đơn rộng." },
+      { id: "p3_4", name: "Chiếu cói Nga Sơn 140 x 190 cm", artisan: "Không", price: 550000, image: "https://chieucoi.com.vn/wp-content/uploads/2017/06/160-300x300.jpg", desc: "Chiếu cói trắng, sợi nhỏ dệt khít, dùng rất mát vào mùa hè." }
+    ],
+    tours: [
+      { id: "t3_1", name: "Khám phá xứ Cói & Động Từ Thức", duration: "1 Ngày", price: 650000, image: "https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&q=80&w=800", desc: "Tham gia thu hoạch cói, học cách dệt chiếu truyền thống và tham quan động Từ Thức huyền bí." }
+    ],
+    historyQuestions: [
+      { q: "Nga Sơn là một huyện ven biển thuộc tỉnh nào?", options: ["Ninh Bình", "Nghệ An", "Thanh Hóa", "Nam Định"], answer: 2 },
+      { q: "Câu ca dao nổi tiếng nào nhắc đến chiếu Nga Sơn?", options: ["Chiếu Nga Sơn, gạch Bát Tràng", "Chiếu Nga Sơn, nón Bài Thơ", "Chiếu Nga Sơn, lụa Vạn Phúc", "Chiếu Nga Sơn, gốm Thanh Hà"], answer: 0 },
+      { q: "Cây cói phát triển tốt nhất ở môi trường đất nào?", options: ["Đất đỏ bazan", "Đất chua phèn, ngập mặn", "Đất đồi núi", "Đất cát sa mạc"], answer: 1 },
+      { q: "Sợi cói Nga Sơn có ưu điểm gì so với vùng khác?", options: ["Rất cứng và to", "Sợi nhỏ, dai, mềm mại, óng mượt", "Có mùi thơm hoa hồng", "Nhiều màu sắc tự nhiên"], answer: 1 },
+      { q: "Loại chiếu nào của Nga Sơn thường có họa tiết chữ Thọ, hoa sen?", options: ["Chiếu trơn", "Chiếu in hoa", "Chiếu đậu", "Chiếu trúc"], answer: 1 },
+      { q: "Công đoạn nào khó nhất trong nghề dệt chiếu?", options: ["Chẻ cói", "Phơi cói", "Dệt chiếu (Bắt mép, gõ go)", "Nhuộm cói"], answer: 2 },
+      { q: "Nga Sơn còn gắn liền với sự tích nổi tiếng nào?", options: ["Sơn Tinh Thủy Tinh", "Từ Thức gặp Tiên", "Trọng Thủy Mỵ Châu", "Thạch Sanh"], answer: 1 },
+      { q: "Chiếu Nga Sơn từng là vật phẩm để làm gì thời xưa?", options: ["Làm quà tặng ngoại giao", "Tiến vua", "Làm buồm cho tàu", "Xuất khẩu sang châu Âu"], answer: 1 },
+      { q: "Cói sau khi chẻ cần được làm gì trước khi dệt?", options: ["Phơi nắng", "Luộc chín", "Ủ chua", "Ngâm muối"], answer: 0 },
+      { q: "Chiếu cói mang lại lợi ích gì cho sức khỏe người dùng?", options: ["Chữa bách bệnh", "Giữ nhiệt vào mùa hè", "Thoáng mát, thấm hút mồ hôi tốt", "Trị bệnh mất ngủ hoàn toàn"], answer: 2 }
     ]
   },
   {
@@ -93,11 +148,28 @@ const VILLAGES = [
       "Đặc trưng là gốm đất nung màu đỏ gạch, không tráng men",
       "Có tên là gốm Thanh ..."
     ],
-    video: "https://www.youtube.com/embed/ljR0F5J_vPM", // Placeholder video
+    video: "https://www.youtube.com/embed/ljR0F5J_vPM?playsinline=1&rel=0", // Placeholder video
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987488279!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRGp0UE9hNHdF!2m2!1d15.87717948614401!2d108.2992130416365!3f359.88742!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p5", name: "Tò he đất nung", artisan: "Nghệ nhân Làng Thanh Hà", price: 50000, image: "", desc: "Đồ chơi dân gian bằng gốm có thể thổi kêu tiếng chim" }
+      { id: "p4_1", name: "Tò he đất nung Thanh Hà", artisan: "Nghệ nhân Làng Thanh Hà", price: 50000, image: "https://images.unsplash.com/photo-1599557457279-d58117769530?auto=format&fit=crop&q=80&w=800", desc: "Đồ chơi dân gian bằng gốm đất nung, hình con giáp, thổi kêu vui tai." },
+      { id: "p4_2", name: "Bình hoa gốm mộc Thanh Hà", artisan: "Xưởng gốm Thanh Hà", price: 150000, image: "https://images.unsplash.com/photo-1600868843577-c3761cc292f7?auto=format&fit=crop&q=80&w=800", desc: "Bình hoa đất nung không tráng men, kiểu dáng thô mộc tự nhiên." },
+      { id: "p4_3", name: "Bộ trà gốm mộc đỏ", artisan: "Nghệ nhân Làng Thanh Hà", price: 350000, image: "https://images.unsplash.com/photo-1595181702787-8d234ba4430e?auto=format&fit=crop&q=80&w=800", desc: "Bộ ấm trà làm từ đất sét sông Thu Bồn nung đỏ tự nhiên." }
+    ],
+    tours: [
+      { id: "t4_1", name: "Vuốt gốm Thanh Hà & Phố cổ", duration: "Nửa ngày", price: 300000, image: "https://images.unsplash.com/photo-1596701198642-f8c5c7d0d0ce?auto=format&fit=crop&q=80&w=800", desc: "Dạo chơi công viên đất nung Thanh Hà, tự tay làm tò he con giáp và dạo phố cổ Hội An." }
+    ],
+    historyQuestions: [
+      { q: "Làng gốm Thanh Hà nằm bên bờ con sông nào?", options: ["Sông Hương", "Sông Hàn", "Sông Thu Bồn", "Sông Trà Khúc"], answer: 2 },
+      { q: "Gốm Thanh Hà có đặc trưng nổi bật nhất là gì?", options: ["Tráng men lam", "Không tráng men, đất nung mộc", "Khảm trai", "Vẽ vàng"], answer: 1 },
+      { q: "Gạch ngói âm dương của Thanh Hà từng được sử dụng để xây dựng công trình nào?", options: ["Nhà cổ Hội An", "Cố đô Huế", "Tháp Chăm", "Kinh thành Thăng Long"], answer: 0 },
+      { q: "Món đồ chơi dân gian bằng gốm phát ra âm thanh của Thanh Hà gọi là gì?", options: ["Diều sáo", "Tò he đất nung", "Kèn lá", "Trống bỏi"], answer: 1 },
+      { q: "Công cụ tạo hình gốm truyền thống ở Thanh Hà là gì?", options: ["Bàn xoay bằng chân", "Khuôn đúc nhựa", "Máy in 3D", "Bàn xoay máy"], answer: 0 },
+      { q: "Làng Thanh Hà được hình thành vào khoảng thế kỷ nào?", options: ["Thế kỷ 10", "Thế kỷ 12", "Thế kỷ 15", "Thế kỷ 19"], answer: 2 },
+      { q: "Màu sắc tự nhiên của gốm Thanh Hà sau khi nung chủ yếu là màu gì?", options: ["Trắng tinh", "Xanh ngọc", "Đỏ gạch, đỏ hồng", "Đen nhánh"], answer: 2 },
+      { q: "Người dân Thanh Hà thường dùng củi gì để nung gốm tạo nhiệt độ đều?", options: ["Củi thông", "Củi tạp, lá khô", "Than đá", "Dầu hỏa"], answer: 1 },
+      { q: "Nơi tôn vinh các tác phẩm nghệ thuật gốm đương đại tại đây có tên là gì?", options: ["Bảo tàng Louvre", "Công viên Đất nung Thanh Hà", "Triển lãm Mỹ thuật", "Nhà hát Lớn"], answer: 1 },
+      { q: "Đất sét làm gốm Thanh Hà được lấy từ đâu?", options: ["Khai thác trên núi", "Múc từ lòng sông Thu Bồn", "Nhập khẩu từ nơi khác", "Dùng đất sét nhân tạo"], answer: 1 }
     ]
   },
   {
@@ -117,11 +189,29 @@ const VILLAGES = [
       "Nguyên liệu làm ra sản phẩm thường là khối đá cẩm thạch",
       "Có tên là Non..."
     ],
-    video: "https://www.youtube.com/embed/vz0-NhjVTgI",
+    video: "https://www.youtube.com/embed/vz0-NhjVTgI?playsinline=1&rel=0",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987653616!6m8!1m7!1sr2fnjB3nOkoLO1IF85ANcw!2m2!1d16.00212397610592!2d108.2633006239604!3f34.24348!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p6", name: "Tượng điêu khắc cẩm thạch", artisan: "Nghệ nhân Non Nước", price: 2500000, image: "", desc: "Tượng điêu khắc tinh xảo từ đá cẩm thạch tự nhiên" }
+      { id: "p5_1", name: "Tượng Phật A Di Đà cẩm thạch trắng", artisan: "Nghệ nhân Non Nước", price: 15000000, image: "https://images.unsplash.com/photo-1620610344584-82a884e930f7?auto=format&fit=crop&q=80&w=800", desc: "Tượng A Di Đà nguyên khối đá cẩm thạch tự nhiên, điêu khắc thủ công cao 50cm." },
+      { id: "p5_2", name: "Tượng Quan Âm Bồ Tát ngự liên hoa", artisan: "Xưởng điêu khắc Non Nước", price: 22000000, image: "https://images.unsplash.com/photo-1589139616035-15a0133ad785?auto=format&fit=crop&q=80&w=800", desc: "Tượng Mẹ Quan Âm bằng đá tự nhiên tinh xảo, phong thái từ bi, cao 80cm." },
+      { id: "p5_3", name: "Tượng Di Lặc vác cành đào", artisan: "Nghệ nhân Non Nước", price: 12000000, image: "https://images.unsplash.com/photo-1584444580424-91b656722247?auto=format&fit=crop&q=80&w=800", desc: "Tượng Di Lặc hoan hỉ, mang lại tài lộc ấm no, đá sa thạch." },
+      { id: "p5_4", name: "Cặp Thiềm Thừ (Cóc ngậm tiền) phong thủy", artisan: "Làng đá Non Nước", price: 4500000, image: "https://images.unsplash.com/photo-1602431766548-c2b3e8e2003c?auto=format&fit=crop&q=80&w=800", desc: "Cóc ba chân chiêu tài lộc từ đá ngọc bích tự nhiên." }
+    ],
+    tours: [
+      { id: "t5_1", name: "Hành hương Ngũ Hành Sơn & Làng Đá", duration: "1 Ngày", price: 450000, image: "https://images.unsplash.com/photo-1605335805562-b9123c52e697?auto=format&fit=crop&q=80&w=800", desc: "Leo núi Ngũ Hành Sơn thăm chùa chiền hang động, sau đó tham quan xưởng chế tác đá Non Nước." }
+    ],
+    historyQuestions: [
+      { q: "Làng đá Non Nước nằm dưới chân ngọn núi nổi tiếng nào?", options: ["Núi Bà Đen", "Núi Ngũ Hành Sơn", "Núi Sơn Trà", "Núi Yên Tử"], answer: 1 },
+      { q: "Nguyên liệu đá chủ yếu được sử dụng tại làng nghề này là gì?", options: ["Đá thạch anh", "Đá vôi", "Đá cẩm thạch", "Đá ong"], answer: 2 },
+      { q: "Người có công khai sáng nghề đá Non Nước là ai?", options: ["Ông Huỳnh Bá Quát", "Ông Lỗ Ban", "Ông tổ nghề gốm", "Bà Huyện Thanh Quan"], answer: 0 },
+      { q: "Làng đá Non Nước thuộc thành phố nào?", options: ["Huế", "Đà Nẵng", "Hội An", "Quy Nhơn"], answer: 1 },
+      { q: "Quá trình hoàn thiện một bức tượng đá không bao gồm công đoạn nào?", options: ["Đục phôi", "Nung trong lò", "Đánh bóng", "Chạm nét chi tiết"], answer: 1 },
+      { q: "Đá cẩm thạch xưa kia được khai thác trực tiếp từ đâu?", options: ["Nhập khẩu từ nước ngoài", "Ngay tại núi Ngũ Hành Sơn", "Tây Bắc", "Từ đáy biển"], answer: 1 },
+      { q: "Sản phẩm nào không phổ biến tại làng đá Non Nước?", options: ["Tượng Phật", "Vòng tay đá", "Tượng linh vật", "Trang phục dệt"], answer: 3 },
+      { q: "Công cụ đục đá truyền thống được làm từ gì?", options: ["Gỗ", "Thép", "Đồng", "Nhựa"], answer: 1 },
+      { q: "Màu sắc đá cẩm thạch Ngũ Hành Sơn đa dạng do đâu?", options: ["Nhuộm màu", "Các khoáng chất tự nhiên", "Phun sơn", "Phản chiếu ánh sáng"], answer: 1 },
+      { q: "Làng nghề đá Non Nước được hình thành vào thế kỷ nào?", options: ["Thế kỷ 15", "Thế kỷ 17", "Thế kỷ 19", "Thế kỷ 20"], answer: 1 }
     ]
   },
   {
@@ -141,13 +231,29 @@ const VILLAGES = [
       "Sản phẩm rất gần gũi với đời sống nông thôn Việt Nam như rổ, rá...",
       "Có tên là làng nghề Mây tre đan..."
     ],
-    video: "https://www.youtube.com/embed/MW-88Rn9A_0",
+    video: "https://www.youtube.com/embed/MW-88Rn9A_0?playsinline=1&rel=0",
     images: [""],
-    // TODO: Thay thế link src dưới đây bằng link nhúng (embed) 360 độ của làng Phú Vinh.
-    // Hiện tại đang dùng một link 360 VR mẫu để đảm bảo tính năng 3D hoạt động không bị lỗi 2D.
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778986920879!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0dwOWlnNmdF!2m2!1d20.97889063302469!2d105.916034568623!3f80!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p7", name: "Lẵng hoa mây tre", artisan: "Nghệ nhân Phú Vinh", price: 150000, image: "", desc: "Lẵng hoa đan tay tinh xảo từ mây tre tự nhiên" }
+      { id: "p6_1", name: "Lẵng hoa mây tre đan tay", artisan: "Nghệ nhân Phú Vinh", price: 150000, image: "https://images.unsplash.com/photo-1605417409252-0c9f1a26d7b6?auto=format&fit=crop&q=80&w=800", desc: "Lẵng hoa đan tay tinh xảo từ mây tre tự nhiên." },
+      { id: "p6_2", name: "Giỏ mây đi picnic vintage", artisan: "Xưởng mây Phú Vinh", price: 450000, image: "https://images.unsplash.com/photo-1558231713-b5bb80608051?auto=format&fit=crop&q=80&w=800", desc: "Giỏ mây tre đan lót vải bọc phong cách cổ điển." },
+      { id: "p6_3", name: "Khay mây tre tròn đựng trái cây", artisan: "Nghệ nhân Phú Vinh", price: 200000, image: "https://images.unsplash.com/photo-1615822366668-3e4492bf602a?auto=format&fit=crop&q=80&w=800", desc: "Khay đan tỉ mỉ dùng để trang trí hoặc đựng đồ ăn nhẹ." },
+      { id: "p6_4", name: "Chụp đèn mây tre đan thả trần", artisan: "Xưởng mây Phú Vinh", price: 350000, image: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=800", desc: "Chụp đèn trang trí nội thất phong cách rustic tự nhiên." }
+    ],
+    tours: [
+      { id: "t6_1", name: "Workshop đan mây tre cùng nghệ nhân", duration: "Nửa ngày", price: 400000, image: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=800", desc: "Tham quan làng nghề Phú Vinh thanh bình, học cách đan một giỏ mây nhỏ đem về." }
+    ],
+    historyQuestions: [
+      { q: "Làng nghề mây tre đan Phú Vinh thuộc huyện nào của Hà Nội?", options: ["Đông Anh", "Chương Mỹ", "Thường Tín", "Thanh Oai"], answer: 1 },
+      { q: "Nguyên liệu chính của làng nghề này là gì?", options: ["Gỗ lim", "Mây, tre, giang, nứa", "Lá cọ", "Lục bình"], answer: 1 },
+      { q: "Sản phẩm mây tre đan Phú Vinh nổi tiếng vì điều gì?", options: ["Sơn mài bóng loáng", "Kỹ thuật đan tinh xảo, như tơ lụa", "Nặng và bền", "Dễ cháy"], answer: 1 },
+      { q: "Sản phẩm nào thường KHÔNG làm từ mây tre đan?", options: ["Rổ, rá", "Khay đựng trái cây", "Áo dài", "Chụp đèn trang trí"], answer: 2 },
+      { q: "Quy trình xử lý mây tre chống mối mọt truyền thống thường làm gì?", options: ["Ngâm hóa chất độc hại", "Ngâm dưới ao bùn, hun khói", "Quét sơn dầu", "Sấy bằng lò điện"], answer: 1 },
+      { q: "Thị trường xuất khẩu chính của mây tre đan Phú Vinh hiện nay là ở đâu?", options: ["Chỉ tiêu thụ trong nước", "Nhật Bản, Mỹ, Châu Âu", "Nam Cực", "Châu Phi"], answer: 1 },
+      { q: "Nghề đan mây tre đòi hỏi người thợ phải có phẩm chất gì cao nhất?", options: ["Sức khỏe phi thường", "Khéo léo, kiên nhẫn, tỉ mỉ", "Biết tính toán giỏi", "Tốc độ cực nhanh"], answer: 1 },
+      { q: "Làng Phú Vinh có lịch sử nghề đan cách đây khoảng bao lâu?", options: ["Vài chục năm", "Gần 400 năm", "1000 năm", "Mới thành lập"], answer: 1 },
+      { q: "Sản phẩm 'chân dung Bác Hồ' bằng mây tre đan thể hiện điều gì?", options: ["Kỹ thuật đan tạo hình đỉnh cao", "Máy móc hiện đại", "In ấn màu sắc", "Nghề thêu ren"], answer: 0 },
+      { q: "Trước khi đan, mây tre phải trải qua công đoạn gì để mềm và dễ uốn?", options: ["Nướng trên lửa lớn", "Chẻ lạt, tuốt sợi", "Cắt khúc ngắn", "Ép bằng máy dập"], answer: 1 }
     ]
   }
 ];
@@ -159,7 +265,6 @@ const QUESTIONS_BANK = VILLAGES.map(v => ({
 }));
 
 function getRandomVillages(count = 6) {
-  // Trả về ngẫu nhiên các làng
   const shuffled = [...VILLAGES].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count);
 }
@@ -189,6 +294,16 @@ function getProductById(productId) {
     if (p) return { ...p, villageName: v.name, villageId: v.id, location: v.location };
   }
   return null;
+}
+
+function getAllTours() {
+  const tours = [];
+  VILLAGES.forEach(v => {
+    (v.tours || []).forEach(t => {
+      tours.push({ ...t, villageName: v.name, villageId: v.id, location: v.location });
+    });
+  });
+  return tours;
 }
 
 function formatPrice(price) {

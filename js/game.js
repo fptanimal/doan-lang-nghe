@@ -26,6 +26,24 @@ const Game = (() => {
   };
 
   function init() {
+    // KHÔI PHỤC STATE NẾU TRỞ VỀ TỪ HISTORY CHAPTER
+    const savedSession = sessionStorage.getItem('historyChapterState');
+    if (savedSession) {
+      try {
+        const sessionData = JSON.parse(savedSession);
+        if (sessionData.chapterFinished) {
+          state = sessionData.gameState;
+          state.score = sessionData.totalScore;
+          document.getElementById('score').textContent = App.formatScore(state.score);
+          sessionStorage.removeItem('historyChapterState');
+          
+          state.currentIndex++;
+          renderQuestion();
+          return;
+        }
+      } catch(e) {}
+    }
+
     const saved = App.getState();
     state.villages = getRandomVillages(state.totalQuestions);
     state.score = 0;
@@ -196,7 +214,21 @@ const Game = (() => {
     if (skipBtn) skipBtn.style.display = 'none';
     if (nextBtn) {
       nextBtn.style.display = 'inline-block';
-      nextBtn.textContent = state.currentIndex >= state.villages.length - 1 ? '🏁 Xem kết quả' : 'Câu tiếp theo →';
+      if (isCorrect && village.historyQuestions && village.historyQuestions.length > 0) {
+        nextBtn.textContent = `Vào Chương ${state.currentIndex + 1}: Khám phá Lịch sử ⟶`;
+        nextBtn.onclick = () => {
+          sessionStorage.setItem('historyChapterState', JSON.stringify({
+            villageId: village.id,
+            chapterIndex: state.currentIndex + 1,
+            totalScore: state.score,
+            gameState: state
+          }));
+          window.location.href = 'history-chapter.html';
+        };
+      } else {
+        nextBtn.textContent = state.currentIndex >= state.villages.length - 1 ? '🏁 Xem kết quả' : 'Câu tiếp theo →';
+        nextBtn.onclick = () => window.nextQuestion();
+      }
     }
 
     const resultArea = document.getElementById('result-area');
