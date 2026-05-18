@@ -69,6 +69,7 @@ const VILLAGES = [
       "Nằm tại một huyện ven biển của tỉnh Thanh Hóa",
       "Gắn liền với sự tích Từ Thức gặp tiên"
     ],
+    video: "https://www.youtube.com/embed/ubxDksPw_lg", // Placeholder video
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1715915220261!6m8!1m7!1sDUwiOS_2gT7DHpV4y0sX9A!2m2!1d20.0069578!2d106.0003452!3f12.95!4f10!5f75" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -92,6 +93,7 @@ const VILLAGES = [
       "Đặc trưng là gốm đất nung màu đỏ gạch, không tráng men",
       "Có tên là gốm Thanh ..."
     ],
+    video: "https://www.youtube.com/embed/ljR0F5J_vPM", // Placeholder video
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987488279!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRGp0UE9hNHdF!2m2!1d15.87717948614401!2d108.2992130416365!3f359.88742!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -141,7 +143,9 @@ const VILLAGES = [
     ],
     video: "https://www.youtube.com/embed/MW-88Rn9A_0",
     images: [""],
-    panorama: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.790515159385!2d105.7511059!3d20.9197926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31344da0df7e59c5%3A0xcda6b0fc14a66a70!2zQsOtY2ggSMOyYSwgVGhhbmggT2FpLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
+    // TODO: Thay thế link src dưới đây bằng link nhúng (embed) 360 độ của làng Phú Vinh.
+    // Hiện tại đang dùng một link 360 VR mẫu để đảm bảo tính năng 3D hoạt động không bị lỗi 2D.
+    panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778986920879!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0dwOWlnNmdF!2m2!1d20.97889063302469!2d105.916034568623!3f80!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
       { id: "p7", name: "Lẵng hoa mây tre", artisan: "Nghệ nhân Phú Vinh", price: 150000, image: "", desc: "Lẵng hoa đan tay tinh xảo từ mây tre tự nhiên" }
     ]
