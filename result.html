@@ -58,9 +58,9 @@
   <div class="results-marketplace" id="results-marketplace" style="width:100%;max-width:600px;margin:0 auto 32px;">
     <h3 style="font-family:var(--font-display);color:var(--brown);margin-bottom:16px;text-align:center;">🛒 Mang làng nghề về nhà</h3>
     <div class="suggest-products" id="result-products" style="justify-content:center;flex-wrap:wrap;margin-bottom:16px;"></div>
-    <div style="text-align:center; display:flex; gap:12px; justify-content:center;">
+    <div style="text-align:center; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
       <a href="marketplace.html" class="btn btn-secondary btn-sm">Khám phá Marketplace ⟶</a>
-      <a href="artisan-video.html" class="btn btn-outline-light btn-sm" style="background:var(--cream); color:var(--brown); border-color:var(--cream-dark);">🎥 Xem câu chuyện Nghệ nhân</a>
+      <a href="tours.html" id="result-tour-link" class="btn btn-outline-light btn-sm" style="background:var(--cream); color:var(--brown); border-color:var(--cream-dark);">🚐 Đặt Tour Khám Phá</a>
     </div>
   </div>
 
@@ -171,6 +171,10 @@
       card.onclick = () => App.navigate('marketplace.html');
       productContainer.appendChild(card);
     });
+
+    if (villageIds.length > 0) {
+      document.getElementById('result-tour-link').href = `tours.html?village=${villageIds[0]}`;
+    }
 
     if (pct >= 0.8) setTimeout(() => App.launchConfetti(), 800);
   });

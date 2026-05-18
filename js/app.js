@@ -227,6 +227,7 @@ const App = (() => {
           <a href="index.html" class="${activePage==='home'?'active':''}">Trang chủ</a>
           <a href="lobby.html" class="${activePage==='lobby'?'active':''}">Chơi game</a>
           <a href="leaderboard.html" class="${activePage==='leaderboard'?'active':''}">Xếp hạng</a>
+          <a href="tours.html" class="${activePage==='tours'?'active':''}">Tours</a>
           <a href="marketplace.html" class="${activePage==='marketplace'?'active':''}">Marketplace</a>
         </nav>
         <div class="navbar-actions">

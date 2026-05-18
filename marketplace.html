@@ -8,46 +8,287 @@
   <link rel="stylesheet" href="css/pages.css" />
   <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* Specific Marketplace Styling */
+    .ecommerce-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .village-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 100px;
+      height: max-content;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .village-sidebar h3 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .village-nav-item {
+      display: block;
+      padding: 1rem 1.2rem;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+    }
+
+    .village-nav-item:hover, .village-nav-item.active {
+      background: rgba(233, 69, 96, 0.1);
+      color: var(--primary);
+      border-left-color: var(--primary);
+    }
+
+    .ecommerce-main {
+      flex: 1;
+    }
+
+    .village-section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 100px;
+    }
+
+    .village-section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+    }
+
+    .village-section-header h2 {
+      font-size: 2rem;
+      margin: 0;
+      color: #fff;
+    }
+
+    .village-badge {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .eco-card {
+      background: rgba(25, 25, 35, 0.8);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eco-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(233, 69, 96, 0.15);
+      border-color: rgba(233, 69, 96, 0.3);
+    }
+
+    .eco-card-img {
+      width: 100%;
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .eco-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .eco-card-title {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem 0;
+      color: #fff;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .eco-card-artisan {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 1rem;
+    }
+
+    .eco-card-price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--secondary);
+      margin-top: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .eco-btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    
+    .eco-btn-group .btn {
+      padding: 0.6rem 0.5rem;
+      font-size: 0.9rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Modal Styling adjustments for E-commerce */
+    .product-modal-box {
+      max-width: 900px;
+      width: 90%;
+    }
+    
+    .eco-modal-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .eco-modal-img {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      border-radius: 12px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .eco-modal-info {
+      padding: 1rem 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eco-modal-title {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .eco-modal-price {
+      font-size: 2rem;
+      color: var(--secondary);
+      font-weight: bold;
+      margin: 1.5rem 0;
+    }
+
+    .eco-modal-desc {
+      color: #ccc;
+      line-height: 1.6;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .eco-trust-badges {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+    }
+    
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+
+    @media (max-width: 992px) {
+      .ecommerce-container {
+        flex-direction: column;
+      }
+      .village-sidebar {
+        width: 100%;
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        padding: 1rem;
+        margin-bottom: 2rem;
+      }
+      .village-sidebar h3 {
+        display: none;
+      }
+      .village-nav-item {
+        white-space: nowrap;
+        margin: 0 0.5rem 0 0;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+      }
+      .village-nav-item.active {
+        border-left: none;
+        border-bottom-color: var(--primary);
+      }
+      .eco-modal-content {
+        grid-template-columns: 1fr;
+      }
+      .eco-modal-img {
+        min-height: 300px;
+      }
+    }
+  </style>
 </head>
 <body>
 <div class="bg-pattern"></div>
 <div id="main-navbar"></div>
 
 <div class="page-wrapper marketplace-page">
-  <div class="container">
-    <!-- Header -->
-    <div class="mp-header">
-      <h1 class="mp-title">🛒 Marketplace</h1>
-      <p class="mp-desc">Mang một phần làng nghề về nhà bạn — sản phẩm thủ công chính hãng từ nghệ nhân</p>
-    </div>
+  <!-- Header -->
+  <div class="mp-header" style="padding-bottom: 2rem;">
+    <h1 class="mp-title">🛒 Sàn Thương Mại Làng Nghề</h1>
+    <p class="mp-desc">Khám phá và sở hữu những tuyệt tác thủ công tinh xảo nhất từ các làng nghề truyền thống Việt Nam</p>
+  </div>
 
-    <!-- Game Banner -->
-    <div class="mp-game-banner" onclick="App.navigate('lobby.html')">
-      <span>🎮</span>
-      <div>
-        <strong>Bạn có đoán được sản phẩm này từ làng nghề nào không?</strong>
-        <p>Chơi game Đoán Làng Nghề ngay!</p>
+  <div class="ecommerce-container">
+    <!-- Sidebar Navigation -->
+    <aside class="village-sidebar">
+      <h3>Gian hàng Làng nghề</h3>
+      <div id="village-nav-container">
+        <!-- Filled by JS -->
       </div>
-      <span class="mp-banner-arrow">⟶</span>
-    </div>
+    </aside>
 
-    <!-- Filters -->
-    <div class="mp-filters" id="mp-filters">
-      <button class="mp-filter active" data-cat="all">Tất cả</button>
-      <button class="mp-filter" data-cat="gom-su">🏺 Gốm sứ</button>
-      <button class="mp-filter" data-cat="det-lua">🧵 Dệt lụa</button>
-      <button class="mp-filter" data-cat="tranh-dan-gian">🎨 Tranh</button>
-      <button class="mp-filter" data-cat="may-tre-dan">🪨 Mây tre</button>
-      <button class="mp-filter" data-cat="duc-dong">🔔 Đúc đồng</button>
-      <button class="mp-filter" data-cat="non-la">👒 Nón lá</button>
-      <button class="mp-filter" data-cat="da-my-nghe">💎 Đá</button>
-      <button class="mp-filter" data-cat="trong-hoa">🌸 Hoa</button>
-    </div>
-
-    <!-- Products Grid -->
-    <div class="mp-grid" id="mp-grid">
+    <!-- Main Content Area -->
+    <main class="ecommerce-main" id="ecommerce-main">
       <!-- Filled by JS -->
-    </div>
+    </main>
   </div>
 </div>
 
@@ -55,7 +296,7 @@
 <div class="modal-overlay" id="product-modal">
   <div class="modal-box product-modal-box">
     <button class="modal-close" onclick="closeProductModal()">✕</button>
-    <div class="product-modal-content" id="product-modal-content">
+    <div class="eco-modal-content" id="product-modal-content">
       <!-- Filled by JS -->
     </div>
   </div>
@@ -64,80 +305,139 @@
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
 <script>
-  let currentFilter = 'all';
-
   document.addEventListener('DOMContentLoaded', () => {
     App.renderNavbar('marketplace');
-    renderProducts('all');
-
-    // Filter buttons
-    document.querySelectorAll('.mp-filter').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.mp-filter').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.dataset.cat;
-        renderProducts(currentFilter);
-      });
-    });
+    renderEcommercePlatform();
   });
 
-  function renderProducts(category) {
-    const grid = document.getElementById('mp-grid');
-    let products = getAllProducts();
-    if (category !== 'all') products = products.filter(p => p.category === category);
+  function renderEcommercePlatform() {
+    const navContainer = document.getElementById('village-nav-container');
+    const mainContainer = document.getElementById('ecommerce-main');
+    
+    // We will render sections for each village that actually has products
+    const villagesWithProducts = VILLAGES.filter(v => v.products && v.products.length > 0);
+    
+    let navHTML = '';
+    let mainHTML = '';
 
-    grid.innerHTML = '';
-    if (products.length === 0) {
-      grid.innerHTML = '<div class="mp-empty">Chưa có sản phẩm trong danh mục này</div>';
-      return;
-    }
-
-    products.forEach((p, i) => {
-      const card = document.createElement('div');
-      card.className = 'mp-card';
-      card.style.animationDelay = `${i * 0.06}s`;
-      card.innerHTML = `
-        <div class="mp-card-img" style="background-image:url('${p.image}')">
-          <div class="mp-card-badge">${p.villageName}</div>
-        </div>
-        <div class="mp-card-body">
-          <h3 class="mp-card-name">${p.name}</h3>
-          <p class="mp-card-artisan">👤 ${p.artisan}</p>
-          <div class="mp-card-footer">
-            <span class="mp-card-price">${formatPrice(p.price)}</span>
-            <button class="btn btn-sm btn-primary" onclick="openProductModal('${p.id}')">Xem</button>
-          </div>
-        </div>
+    villagesWithProducts.forEach((village, index) => {
+      const sectionId = `village-section-${village.id}`;
+      
+      // Build Sidebar Nav
+      navHTML += `
+        <a href="#${sectionId}" class="village-nav-item ${index === 0 ? 'active' : ''}" data-target="${sectionId}">
+          🏮 ${village.name}
+        </a>
       `;
-      grid.appendChild(card);
+
+      // Build Main Section
+      mainHTML += `
+        <section class="village-section" id="${sectionId}">
+          <div class="village-section-header">
+            <h2>${village.name}</h2>
+            <span class="village-badge">${village.products.length} sản phẩm</span>
+          </div>
+          <div class="product-grid">
+            ${village.products.map((p, i) => `
+              <div class="eco-card" style="animation-delay: ${i * 0.05}s">
+                <div class="eco-card-img" style="background-image:url('${p.image || 'images/placeholder.jpg'}')"></div>
+                <div class="eco-card-body">
+                  <h3 class="eco-card-title">${p.name}</h3>
+                  <p class="eco-card-artisan">👤 ${p.artisan}</p>
+                  <div class="eco-card-price">${formatPrice(p.price)}</div>
+                  <div class="eco-btn-group">
+                    <button class="btn btn-outline-light" onclick="openProductModal('${p.id}')">Xem thêm</button>
+                    <button class="btn btn-primary" onclick="addToCart('${p.id}')">Mua ngay</button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    });
+
+    navContainer.innerHTML = navHTML;
+    mainContainer.innerHTML = mainHTML;
+
+    // Handle scroll spy for sidebar active state
+    setupScrollSpy();
+  }
+
+  function setupScrollSpy() {
+    const sections = document.querySelectorAll('.village-section');
+    const navItems = document.querySelectorAll('.village-nav-item');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href').substring(1) === current) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Handle click on nav items for smooth scroll
+    navItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        window.scrollTo({
+          top: targetSection.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      });
     });
   }
 
   function openProductModal(productId) {
     const p = getProductById(productId);
     if (!p) return;
+    
     const modal = document.getElementById('product-modal');
     const content = document.getElementById('product-modal-content');
     const village = getVillageById(p.villageId);
 
     content.innerHTML = `
-      <div class="product-detail-img" style="background-image:url('${p.image}')"></div>
-      <div class="product-detail-body">
-        <span class="product-detail-village">📍 ${p.villageName} — ${p.location}</span>
-        <h2 class="product-detail-name">${p.name}</h2>
-        <p class="product-detail-artisan">Nghệ nhân: <strong>${p.artisan}</strong></p>
-        <p class="product-detail-desc">${p.desc}</p>
-        <div class="product-detail-price">${formatPrice(p.price)}</div>
+      <div class="eco-modal-img" style="background-image:url('${p.image || 'images/placeholder.jpg'}')"></div>
+      <div class="eco-modal-info">
+        <div style="margin-bottom: 1rem;">
+          <span class="village-badge">📍 ${p.villageName}</span>
+        </div>
+        <h2 class="eco-modal-title">${p.name}</h2>
+        <p style="color: #aaa; font-size: 1.1rem; margin-bottom: 0.5rem;">Cung cấp bởi: <strong>${p.artisan}</strong></p>
+        
+        <div class="eco-modal-price">${formatPrice(p.price)}</div>
+        
+        <div class="eco-trust-badges">
+          <div class="trust-badge">✅ Chính hãng 100%</div>
+          <div class="trust-badge">📦 Giao hàng toàn quốc</div>
+          <div class="trust-badge">🛡️ Đổi trả 7 ngày</div>
+        </div>
+
+        <h4 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.2rem;">Thông tin chi tiết</h4>
+        <p class="eco-modal-desc">${p.desc}</p>
+        
         ${village ? `
-          <div class="product-detail-village-info">
-            <h4>🏮 Về ${village.name}</h4>
-            <p>${village.description}</p>
-            <p class="product-detail-fact">💡 ${village.funFact}</p>
+          <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid var(--primary);">
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Về ${village.name}</h4>
+            <p style="font-size: 0.95rem; color: #ddd; margin: 0;">${village.description}</p>
           </div>
         ` : ''}
-        <div class="product-detail-actions">
-          <button class="btn btn-primary btn-lg" onclick="addToCart('${p.id}')">🛒 Thêm vào giỏ hàng</button>
-          <button class="btn btn-secondary" onclick="closeProductModal()">Đóng</button>
+
+        <div style="display: flex; gap: 1rem; margin-top: auto;">
+          <button class="btn btn-primary btn-lg" style="flex: 2;" onclick="addToCart('${p.id}')">Thêm vào giỏ hàng</button>
+          <button class="btn btn-outline-light btn-lg" style="flex: 1;" onclick="closeProductModal()">Đóng</button>
         </div>
       </div>
     `;
@@ -149,10 +449,12 @@
   }
 
   function addToCart(productId) {
-    alert('🛒 Đã thêm vào giỏ hàng! (Demo)');
+    const p = getProductById(productId);
+    alert('🛒 Đã thêm "' + p.name + '" vào giỏ hàng thành công! (Chức năng Demo)');
     closeProductModal();
   }
 
+  // Close modal on click outside
   document.getElementById('product-modal').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) closeProductModal();
   });
