@@ -3,11 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Làng Nghề — Đăng nhập</title>
+  <title>Làng Nghề — Xác thực</title>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/pages.css" />
   <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* 🌟 View Transition API CSS 🌟 */
+    .auth-wrapper {
+      view-transition-name: auth-wrapper;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    ::view-transition-group(auth-wrapper),
+    ::view-transition-old(auth-wrapper),
+    ::view-transition-new(auth-wrapper) {
+      animation-duration: 0.4s;
+      animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    ::view-transition-old(auth-wrapper) { animation-name: fade-out, scale-down; }
+    ::view-transition-new(auth-wrapper) { animation-name: fade-in, scale-up; }
+    
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes scale-down { from { transform: scale(1); } to { transform: scale(0.95); } }
+    @keyframes scale-up { from { transform: scale(0.95); } to { transform: scale(1); } }
+    
+    .hidden { display: none !important; }
+    .auth-card { width: 100%; }
+  </style>
 </head>
 <body class="dark-theme">
 
@@ -16,41 +41,109 @@
 <div class="auth-page">
   <a href="index.html" class="auth-back">← QUAY LẠI TRANG CHỦ</a>
 
-  <div class="auth-container">
-    <div class="auth-logo">🔥 Làng Nghề</div>
-    <div class="auth-subtitle">KHÁM PHÁ DI SẢN</div>
+  <div class="auth-wrapper" id="auth-container">
+    
+    <!-- ================= LUỒNG ĐĂNG NHẬP ================= -->
+    <div class="auth-container auth-card" id="login-form-wrapper">
+      <div class="auth-logo">🔥 Làng Nghề</div>
+      <div class="auth-subtitle">KHÁM PHÁ DI SẢN</div>
 
-    <h2 class="auth-title">Đăng nhập</h2>
-    <p class="auth-desc">Bắt đầu hành trình khám phá làng nghề</p>
+      <h2 class="auth-title">Đăng nhập</h2>
+      <p class="auth-desc">Bắt đầu hành trình khám phá làng nghề</p>
 
-    <button class="btn-google" id="btn-google" onclick="googleLogin()">
-      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2a10.34 10.34 0 0 0-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92A8.78 8.78 0 0 0 17.64 9.2z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26a5.4 5.4 0 0 1-8.04-2.84H1.04v2.34A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M4 10.71a5.36 5.36 0 0 1 0-3.42V4.95H1.04A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04L4 10.72z"/><path fill="#EA4335" d="M9 3.58a4.86 4.86 0 0 1 3.44 1.35l2.58-2.59A8.65 8.65 0 0 0 9 0 9 9 0 0 0 1.04 4.96L4 7.3A5.36 5.36 0 0 1 9 3.58z"/></svg>
-      Tiếp tục với Google
-    </button>
+      <button class="btn-google" id="btn-google" onclick="googleLogin()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2a10.34 10.34 0 0 0-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92A8.78 8.78 0 0 0 17.64 9.2z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26a5.4 5.4 0 0 1-8.04-2.84H1.04v2.34A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M4 10.71a5.36 5.36 0 0 1 0-3.42V4.95H1.04A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04L4 10.72z"/><path fill="#EA4335" d="M9 3.58a4.86 4.86 0 0 1 3.44 1.35l2.58-2.59A8.65 8.65 0 0 0 9 0 9 9 0 0 0 1.04 4.96L4 7.3A5.36 5.36 0 0 1 9 3.58z"/></svg>
+        Tiếp tục với Google
+      </button>
 
-    <div class="auth-divider">
-      <span>HOẶC TIẾP TỤC VỚI</span>
+      <div class="auth-divider">
+        <span>HOẶC TIẾP TỤC VỚI</span>
+      </div>
+
+      <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
+        <div class="auth-field">
+          <label>EMAIL</label>
+          <input type="email" id="login-email" placeholder="email@example.com" required />
+        </div>
+        <div class="auth-field">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <label>MẬT KHẨU</label>
+            <a href="#" class="auth-link-sm">Quên mật khẩu?</a>
+          </div>
+          <input type="password" id="login-password" placeholder="••••••••" required />
+        </div>
+        <div id="login-error" class="auth-error"></div>
+        <button type="submit" class="btn-auth-submit">KHÁM PHÁ NGAY</button>
+      </form>
+
+      <p class="auth-switch">
+        Chưa có tài khoản? <a href="#" onclick="switchForm('register-form-wrapper', event)">Tạo tài khoản</a>
+      </p>
     </div>
 
-    <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
-      <div class="auth-field">
-        <label>EMAIL</label>
-        <input type="email" id="login-email" placeholder="email@example.com" required />
-      </div>
-      <div class="auth-field">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <label>MẬT KHẨU</label>
-          <a href="#" class="auth-link-sm">Quên mật khẩu?</a>
-        </div>
-        <input type="password" id="login-password" placeholder="••••••••" required />
-      </div>
-      <div id="login-error" class="auth-error"></div>
-      <button type="submit" class="btn-auth-submit">KHÁM PHÁ NGAY</button>
-    </form>
+    <!-- ================= LUỒNG ĐĂNG KÝ ================= -->
+    <div class="auth-container auth-card hidden" id="register-form-wrapper">
+      <div class="auth-logo">🔥 Làng Nghề</div>
+      <div class="auth-subtitle">KHÁM PHÁ DI SẢN</div>
 
-    <p class="auth-switch">
-      Chưa có tài khoản? <a href="register.html">Tạo tài khoản</a>
-    </p>
+      <h2 class="auth-title">Tạo tài khoản</h2>
+      <p class="auth-desc">Tham gia cộng đồng bảo tồn làng nghề</p>
+
+      <button class="btn-google" onclick="googleRegister()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2a10.34 10.34 0 0 0-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92A8.78 8.78 0 0 0 17.64 9.2z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26a5.4 5.4 0 0 1-8.04-2.84H1.04v2.34A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M4 10.71a5.36 5.36 0 0 1 0-3.42V4.95H1.04A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04L4 10.72z"/><path fill="#EA4335" d="M9 3.58a4.86 4.86 0 0 1 3.44 1.35l2.58-2.59A8.65 8.65 0 0 0 9 0 9 9 0 0 0 1.04 4.96L4 7.3A5.36 5.36 0 0 1 9 3.58z"/></svg>
+        Đăng ký với Google
+      </button>
+
+      <div class="auth-divider"><span>HOẶC ĐĂNG KÝ VỚI EMAIL</span></div>
+
+      <form class="auth-form" onsubmit="handleRegister(event)">
+        <div class="auth-field">
+          <label>TÊN HIỂN THỊ</label>
+          <input type="text" id="reg-name" placeholder="Nguyễn Văn A" required maxlength="30" />
+        </div>
+        <div class="auth-field">
+          <label>EMAIL</label>
+          <input type="email" id="reg-email" placeholder="email@example.com" required />
+        </div>
+        <div class="auth-field">
+          <label>MẬT KHẨU</label>
+          <input type="password" id="reg-password" placeholder="Tối thiểu 6 ký tự" required minlength="6" />
+        </div>
+        <div class="auth-field">
+          <label>XÁC NHẬN MẬT KHẨU</label>
+          <input type="password" id="reg-password-confirm" placeholder="Nhập lại mật khẩu" required />
+        </div>
+        <div id="reg-error" class="auth-error"></div>
+        <button type="submit" class="btn-auth-submit">TẠO TÀI KHOẢN</button>
+      </form>
+
+      <p class="auth-switch">
+        Đã có tài khoản? <a href="#" onclick="switchForm('login-form-wrapper', event)">Đăng nhập</a>
+      </p>
+    </div>
+
+    <!-- OTP Form -->
+    <div class="auth-container auth-card hidden" id="otp-form-wrapper">
+      <div class="auth-logo">Làng Nghề</div>
+      <div class="auth-subtitle">XÁC MINH EMAIL</div>
+      <h1 class="auth-title">Nhập mã OTP</h1>
+      <p class="auth-desc" style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-bottom:24px; text-align:left;">
+        Chúng tôi vừa gửi mã xác thực 6 số tới email của bạn. Vui lòng kiểm tra hộp thư.
+      </p>
+      
+      <form class="auth-form" id="otp-form" onsubmit="handleVerifyOtp(event)">
+        <div class="auth-field">
+          <label>MÃ OTP 6 SỐ</label>
+          <input type="text" id="otp-code" placeholder="123456" required maxlength="6" pattern="[0-9]{6}" style="text-align: center; letter-spacing: 10px; font-size: 1.2rem; font-weight: bold; padding: 12px;" />
+        </div>
+        <div id="otp-error" class="auth-error"></div>
+        <button type="submit" class="btn-auth-submit">XÁC NHẬN</button>
+      </form>
+      <p class="auth-switch">
+        Nhập sai email? <a href="#" onclick="switchForm('register-form-wrapper', event)">Quay lại Đăng ký</a>
+      </p>
+    </div>
+
   </div>
 </div>
 
@@ -59,14 +152,62 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     App.renderNavbar('login');
+    
+    // Xử lý đăng nhập Google trả về token trên URL
+    if (window.location.hash.includes('token=')) {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const token = hashParams.get('token');
+      const name = hashParams.get('name');
+      if (token) {
+        localStorage.setItem('accessToken', token);
+        localStorage.setItem('langNghe_auth', JSON.stringify({ displayName: name || 'Người dùng Google' }));
+        window.location.hash = ''; // Xóa hash trên URL
+        window.location.href = 'lobby.html';
+        return;
+      }
+    }
+
     if (App.isLoggedIn()) App.navigate('lobby.html');
+    
+    // Check URL to determine which form to show first
+    if (window.location.search.includes('mode=register')) {
+      performSwitch('register-form-wrapper');
+    }
   });
 
-  function handleLogin(e) {
+  // HÀM CHUYỂN ĐỔI FORM VỚI VIEW TRANSITION API
+  function switchForm(targetId, e) {
+    if (e) e.preventDefault();
+    
+    // Nếu trình duyệt hỗ trợ View Transitions API
+    if (document.startViewTransition) {
+      document.startViewTransition(() => performSwitch(targetId));
+    } else {
+      performSwitch(targetId); // Fallback cho trình duyệt cũ
+    }
+  }
+
+  function performSwitch(targetId) {
+    document.querySelectorAll('.auth-card').forEach(card => card.classList.add('hidden'));
+    document.getElementById(targetId).classList.remove('hidden');
+  }
+
+  // CÁC HÀM XỬ LÝ AUTH LOGIC
+  let tempRegData = null; // Lưu tạm dữ liệu đăng ký
+
+  async function handleLogin(e) {
     e.preventDefault();
+    const btn = document.querySelector('#login-form .btn-auth-submit');
+    btn.textContent = 'ĐANG XỬ LÝ...';
+    btn.disabled = true;
+
     const email = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
-    const result = App.login(email, password);
+    const result = await App.login(email, password);
+    
+    btn.disabled = false;
+    btn.textContent = 'ĐĂNG NHẬP';
+
     if (result.success) {
       App.navigate('lobby.html');
     } else {
@@ -74,10 +215,59 @@
     }
   }
 
-  function googleLogin() {
-    App.loginWithGoogle();
-    App.navigate('lobby.html');
+  async function handleRegister(e) {
+    e.preventDefault();
+    const btn = document.querySelector('#register-form-wrapper .btn-auth-submit');
+    btn.textContent = 'ĐANG XỬ LÝ...';
+    btn.disabled = true;
+
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const pw = document.getElementById('reg-password').value;
+    const pw2 = document.getElementById('reg-password-confirm').value;
+    
+    if (pw !== pw2) { 
+      document.getElementById('reg-error').textContent = 'Mật khẩu không khớp'; 
+      btn.disabled = false; btn.textContent = 'TẠO TÀI KHOẢN';
+      return; 
+    }
+    
+    tempRegData = { email, pw, name };
+    const result = await App.register(email, pw, name);
+    
+    btn.disabled = false;
+    btn.textContent = 'TẠO TÀI KHOẢN';
+
+    if (result.success && result.requireOtp) {
+      switchForm('otp-form-wrapper', e);
+    } else { 
+      document.getElementById('reg-error').textContent = result.error; 
+    }
   }
+
+  async function handleVerifyOtp(e) {
+    e.preventDefault();
+    const btn = document.querySelector('#otp-form-wrapper .btn-auth-submit');
+    btn.textContent = 'ĐANG XỬ LÝ...';
+    btn.disabled = true;
+
+    const otp = document.getElementById('otp-code').value.trim();
+    
+    const result = await App.verifyOtp(tempRegData.email, tempRegData.pw, tempRegData.name, otp);
+    
+    btn.disabled = false;
+    btn.textContent = 'XÁC NHẬN';
+
+    if (result.success) {
+      alert('Tạo tài khoản thành công! Bạn có thể đăng nhập ngay.');
+      switchForm('login-form-wrapper');
+    } else {
+      document.getElementById('otp-error').textContent = result.error;
+    }
+  }
+
+  function googleLogin() { App.loginWithGoogle(); }
+  function googleRegister() { App.loginWithGoogle(); }
 </script>
 </body>
 </html>

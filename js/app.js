@@ -31,60 +31,62 @@ const App = (() => {
     localStorage.setItem('langNghe_users', JSON.stringify(users));
   }
 
-  function register(email, password, displayName) {
-    const users = getUsers();
-    if (users.find(u => u.email === email)) return { success: false, error: 'Email đã tồn tại' };
-    const user = {
-      id: 'u_' + Date.now(),
-      email,
-      password: btoa(password),
-      displayName: displayName || email.split('@')[0],
-      avatar: null,
-      createdAt: new Date().toISOString(),
-      badges: [],
-      gamesPlayed: 0,
-      totalScore: 0,
-      bestScore: 0,
-      dailyStreak: 0,
-      lastPlayDate: null,
-      villagesDiscovered: [],
-      purchaseHistory: []
-    };
-    users.push(user);
-    saveUsers(users);
-    setCurrentUser(user);
-    return { success: true, user };
+  async function register(email, password, displayName) {
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: displayName || email.split('@')[0], email, password })
+      });
+      const data = await res.json();
+      return data; // Chứa requireOtp nếu thành công
+    } catch (e) {
+      return { success: false, error: 'Lỗi kết nối tới Server' };
+    }
   }
 
-  function login(email, password) {
-    const users = getUsers();
-    const user = users.find(u => u.email === email && u.password === btoa(password));
-    if (!user) return { success: false, error: 'Email hoặc mật khẩu không đúng' };
-    setCurrentUser(user);
-    return { success: true, user };
+  async function verifyOtp(email, password, displayName, otp) {
+    try {
+      const res = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, name: displayName, otp })
+      });
+      const data = await res.json();
+      return data;
+    } catch (e) {
+      return { success: false, error: 'Lỗi kết nối tới Server' };
+    }
   }
 
-  function loginWithGoogle() {
-    const mockUser = {
-      id: 'u_google_' + Date.now(),
-      email: 'user@gmail.com',
-      displayName: 'Người dùng Google',
-      avatar: null,
-      createdAt: new Date().toISOString(),
-      badges: [],
-      gamesPlayed: 0,
-      totalScore: 0,
-      bestScore: 0,
-      dailyStreak: 0,
-      lastPlayDate: null,
-      villagesDiscovered: [],
-      purchaseHistory: []
-    };
-    const users = getUsers();
-    users.push(mockUser);
-    saveUsers(users);
-    setCurrentUser(mockUser);
-    return { success: true, user: mockUser };
+  async function login(email, password) {
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem('accessToken', data.accessToken);
+        setCurrentUser(data.user);
+      }
+      return data;
+    } catch (e) {
+      return { success: false, error: 'Lỗi kết nối tới Server' };
+    }
+  }
+
+  async function loginWithGoogle() {
+    try {
+      const res = await fetch('/api/auth/google/url');
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (e) {
+      console.error('Lỗi khi gọi Google Login URL', e);
+    }
   }
 
   function setCurrentUser(user) {
@@ -100,8 +102,12 @@ const App = (() => {
     return !!getCurrentUser();
   }
 
-  function logout() {
+  async function logout() {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch(e) {}
     localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem('accessToken');
     window.location.href = 'index.html';
   }
 
@@ -249,7 +255,7 @@ const App = (() => {
     getState, setState, clearGame, navigate, formatScore,
     getHighScore, updateHighScore, addToLeaderboard, getLeaderboard,
     launchConfetti, playSound,
-    register, login, loginWithGoogle, logout, getCurrentUser, isLoggedIn, updateUser,
+    register, verifyOtp, login, loginWithGoogle, logout, getCurrentUser, isLoggedIn, updateUser,
     updateDailyStreak, checkBadges, BADGE_INFO,
     renderNavbar
   };

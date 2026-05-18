@@ -82,7 +82,7 @@
 
 /* Override existing auth page backgrounds */
 .auth-page {
-  background: var(--ink);
+  background: var(--cream);
   background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 80%);
 }
 .btn-google{width:100%;padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:8px;background:transparent;color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s}
