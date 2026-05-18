@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Quản lý người dùng</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a1a; color: #fff; padding: 20px; }
+    h1 { color: #d4af37; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #2a2a2a; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #444; }
+    th { background: #d4af37; color: #000; font-weight: bold; }
+    tr:hover { background: #333; }
+    .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+    .badge.google { background: #4285F4; color: white; }
+    .badge.local { background: #0F9D58; color: white; }
+  </style>
+</head>
+<body>
+
+  <h1>🛡️ Hệ thống Quản trị Làng Nghề</h1>
+  <p>Tổng số tài khoản: <strong id="total-count">0</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tên hiển thị</th>
+        <th>Email</th>
+        <th>Phương thức</th>
+        <th>Ngày đăng ký</th>
+      </tr>
+    </thead>
+    <tbody id="user-table-body">
+      <tr><td colspan="5" style="text-align: center;">Đang tải dữ liệu...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    async function loadUsers() {
+      try {
+        const res = await fetch('/api/admin/users');
+        const result = await res.json();
+        
+        if (result.success) {
+          document.getElementById('total-count').textContent = result.count;
+          const tbody = document.getElementById('user-table-body');
+          tbody.innerHTML = '';
+          
+          result.data.forEach(user => {
+            const tr = document.createElement('tr');
+            
+            const typeBadge = user.provider === 'google' 
+              ? '<span class="badge google">Google Auth</span>' 
+              : '<span class="badge local">Email/Password</span>';
+
+            const date = new Date(user.created_at).toLocaleString('vi-VN');
+
+            tr.innerHTML = `
+              <td><small style="color:#aaa">${user.id}</small></td>
+              <td><strong>${user.name}</strong></td>
+              <td>${user.email}</td>
+              <td>${typeBadge}</td>
+              <td>${date}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (err) {
+        document.getElementById('user-table-body').innerHTML = '<tr><td colspan="5" style="color:red;text-align:center;">Lỗi kết nối Server</td></tr>';
+      }
+    }
+
+    loadUsers();
+  </script>
+
+</body>
+</html>
