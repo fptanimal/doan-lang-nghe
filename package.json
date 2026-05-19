@@ -1,0 +1,11 @@
+{
+  "name": "doan-lang-nghe-root",
+  "version": "1.0.0",
+  "description": "Root package redirect for Glitch hosting",
+  "main": "backend/server.js",
+  "scripts": {
+    "postinstall": "cd backend && npm install",
+    "start": "cd backend && node server.js"
+  },
+  "dependencies": {}
+}

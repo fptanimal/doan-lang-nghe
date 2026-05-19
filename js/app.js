@@ -3,6 +3,23 @@
 // ============================================================
 
 const App = (() => {
+  // Cấu hình URL Backend Render của bạn ở đây khi deploy lên Git/Vercel
+  const RENDER_BACKEND_URL = 'https://doan-lang-nghe-backend.onrender.com';
+
+  // Tự động phát hiện local hay production để chuyển hướng API
+  const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '[::1]')
+    ? '' 
+    : RENDER_BACKEND_URL;
+
+  // Ghi đè (Monkeypatch) hàm fetch toàn cục để tự động gắn API_BASE_URL
+  const originalFetch = window.fetch;
+  window.fetch = function (url, options) {
+    if (typeof url === 'string' && url.startsWith('/api/')) {
+      url = API_BASE_URL + url;
+    }
+    return originalFetch(url, options);
+  };
+
   const STORAGE_KEY = 'langNghe_v2';
   const AUTH_KEY = 'langNghe_auth';
 
