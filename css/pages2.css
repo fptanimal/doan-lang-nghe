@@ -1,14 +1,15 @@
 /* ── Lobby Page ── */
 .lobby-page{padding-top:80px}
 .lobby-hero-section{padding:0 24px;max-width:900px;margin:0 auto 32px}
-.lobby-hero-card{position:relative;border-radius:24px;overflow:hidden;min-height:320px}
-.lobby-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(3px) brightness(.6);transform:scale(1.05)}
-.lobby-hero-overlay{position:relative;z-index:1;padding:40px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center;min-height:320px}
+.lobby-hero-card{position:relative;border-radius:24px;overflow:hidden;min-height:320px;border:1px solid var(--cream-dark);box-shadow:0 10px 30px rgba(0,0,0,0.05)}
+.lobby-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(2px) brightness(.8);transform:scale(1.05)}
+.lobby-hero-img::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.4);z-index:1}
+.lobby-hero-overlay{position:relative;z-index:2;padding:40px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center;min-height:320px}
 .daily-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:999px;background:rgba(232,184,75,.15);border:1px solid var(--gold);font-size:.75rem;font-weight:700;color:var(--gold);letter-spacing:.05em;margin-bottom:16px}
 .lobby-hero-title{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:#fff;margin-bottom:8px}
-.lobby-hero-sub{font-size:1rem;color:rgba(255,255,255,.7);margin-bottom:16px}
-.lobby-streak{font-size:.9rem;color:var(--gold);font-weight:600;margin-bottom:24px}
-.lobby-play-btn{padding:18px 56px;font-size:1.15rem}
+.lobby-hero-sub{font-size:1.05rem;color:rgba(255,255,255,.9);margin-bottom:16px;letter-spacing:0.5px}
+.lobby-streak{font-size:.95rem;color:var(--gold-light);font-weight:600;margin-bottom:24px}
+.lobby-play-btn{padding:14px 40px;font-size:1.1rem;border-radius:var(--radius-sm)}
 .lobby-stats{display:flex;gap:16px;justify-content:center;padding:0 24px;max-width:600px;margin:0 auto 32px;flex-wrap:wrap}
 .lobby-stat-card{flex:1;min-width:140px;background:var(--white);border-radius:16px;padding:20px 16px;text-align:center;box-shadow:var(--shadow-sm);border:1.5px solid var(--cream-dark)}
 .lobby-stat-icon{font-size:1.5rem;margin-bottom:8px}
@@ -114,30 +115,31 @@
   inset: 0;
   background-size: cover;
   background-position: center;
-  filter: blur(40px) brightness(0.3);
+  filter: blur(20px) brightness(0.9);
   z-index: 0;
   transition: background-image 0.5s ease-in-out;
 }
 .game-page.premium-layout {
-  background: rgba(10, 10, 10, 0.4);
+  background: rgba(253, 251, 247, 0.85); /* Cream glass */
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
   margin-top: 40px;
 }
 .premium-layout .game-image-container {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 .premium-layout .clue-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 .premium-layout .option-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--ink);
 }
 /* ── HeritageGuessr Fullscreen Layout ── */
 .hg-fullscreen {
@@ -152,30 +154,38 @@
   inset: 0;
   background-size: cover;
   background-position: center;
-  background-color: #111; /* Fallback if no image */
+  background-color: var(--cream);
   z-index: 0;
   transition: background-image 0.5s ease-in-out;
+}
+
+.hg-dynamic-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(253, 251, 247, 0.7); /* Light overlay to make UI readable */
+  backdrop-filter: blur(8px);
 }
 
 .hg-top-left-panel {
   position: absolute;
   top: 24px;
   left: 24px;
-  background: rgba(20, 15, 10, 0.85); /* Warmer dark brown */
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--gold); /* Gold border */
+  border: 1px solid rgba(0,0,0,0.05);
   border-radius: 12px;
   padding: 16px 24px;
   z-index: 10;
   min-width: 250px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  color: var(--ink);
 }
 
 .hg-rank-title {
   font-size: 0.65rem;
   text-transform: uppercase;
-  color: var(--terracotta); /* Traditional red/brown */
+  color: var(--terracotta);
   letter-spacing: 2px;
   font-weight: 800;
   margin-bottom: 4px;
@@ -186,7 +196,7 @@
   font-size: 1.5rem;
   font-weight: 800;
   margin-bottom: 12px;
-  color: var(--cream);
+  color: var(--ink);
 }
 
 .hg-progress-bar {
@@ -198,7 +208,7 @@
 .hg-progress-dash {
   flex: 1;
   height: 4px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.08);
   border-radius: 2px;
 }
 
@@ -209,8 +219,9 @@
 .hg-score-row {
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  color: var(--gray);
+  font-weight: 500;
 }
 
 .hg-score-value {
@@ -232,19 +243,19 @@
 
 .hg-input-bar {
   display: flex;
-  background: rgba(20, 15, 10, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(232, 184, 75, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
   padding: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .hg-input-field {
   flex: 1;
   background: transparent;
   border: none;
-  color: #ffffff;
+  color: var(--ink);
   font-family: var(--font-display);
   font-size: 1.2rem;
   padding: 0 16px;
@@ -252,59 +263,61 @@
 }
 
 .hg-input-field::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--gray);
   font-family: var(--font-body);
   font-size: 1rem;
 }
 
 .hg-guess-btn {
-  background: linear-gradient(135deg, #8C3B20, #612311); /* Deep Terracotta/Red */
-  color: var(--cream);
-  border: 1px solid var(--gold);
+  background: var(--terracotta);
+  color: white;
+  border: none;
   border-radius: 8px;
   padding: 12px 32px;
   font-weight: 700;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   cursor: pointer;
   transition: 0.2s;
   letter-spacing: 1px;
 }
 
 .hg-guess-btn:hover {
-  background: linear-gradient(135deg, #A8492A, #7A2D17);
-  box-shadow: 0 0 15px rgba(232, 184, 75, 0.4);
+  background: var(--terracotta-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(192, 83, 58, 0.3);
 }
 
 .hg-exit-btn {
   position: absolute;
   top: 24px;
-  right: 140px; /* Next to VR button */
+  right: 140px;
   z-index: 10;
-  background: rgba(20, 15, 10, 0.85);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--terracotta);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   padding: 8px 16px;
   border-radius: 8px;
   font-weight: 700;
+  font-family: var(--font-body);
   font-size: 0.9rem;
   cursor: pointer;
   backdrop-filter: blur(5px);
   transition: 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .hg-exit-btn:hover {
-  background: rgba(20, 15, 10, 1);
-  border-color: var(--gold);
-  color: var(--gold);
+  background: white;
+  border-color: var(--terracotta);
 }
 
 .hg-mascot-panel {
   position: absolute;
   bottom: 24px;
   right: 24px;
-  background: rgba(20, 15, 10, 0.85); /* Warmer background */
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--gold);
+  border: 1px solid rgba(0,0,0,0.05);
   border-radius: 16px;
   width: 280px;
   padding: 20px;
@@ -312,7 +325,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .hg-mascot-header {
@@ -321,7 +334,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
-  border-bottom: 1px solid rgba(232, 184, 75, 0.3); /* Gold line */
+  border-bottom: 1px solid rgba(0,0,0,0.05);
   padding-bottom: 8px;
 }
 
@@ -329,27 +342,27 @@
   font-size: 0.8rem;
   font-family: var(--font-display);
   font-weight: 800;
-  color: var(--gold);
+  color: var(--terracotta);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .hg-hint-btn {
-  background: rgba(232, 184, 75, 0.1);
-  border: 1px solid rgba(232, 184, 75, 0.4);
-  color: var(--cream);
+  background: rgba(192, 83, 58, 0.1);
+  border: 1px solid rgba(192, 83, 58, 0.2);
+  color: var(--terracotta);
   border-radius: 6px;
   padding: 6px 12px;
   font-size: 0.75rem;
+  font-weight: 600;
   font-family: var(--font-body);
   cursor: pointer;
   transition: 0.2s;
 }
 
 .hg-hint-btn:hover {
-  background: rgba(232, 184, 75, 0.2);
-  color: var(--gold);
+  background: rgba(192, 83, 58, 0.2);
 }
 
 .hg-vr-btn-top {

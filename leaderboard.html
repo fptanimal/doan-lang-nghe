@@ -82,7 +82,7 @@
     podium.innerHTML = '';
 
     if (board.length === 0) {
-      list.innerHTML = `<div class="lb-empty"><div class="lb-empty-icon">🔥</div><p>Chưa có ai chơi! Bạn hãy là người đầu tiên!</p></div>`;
+      list.innerHTML = `<div class="lb-empty" style="text-align: center; padding: 40px 20px;"><div class="lb-empty-icon" style="font-size:3rem; margin-bottom:12px;">🏆</div><p style="color:var(--gray); font-size:1rem; line-height: 1.6;">Bảng xếp hạng đang trống!<br>Hãy là người đầu tiên ghi danh trên bảng vàng.</p></div>`;
       return;
     }
 

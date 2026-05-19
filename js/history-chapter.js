@@ -75,6 +75,7 @@ const HistoryChapter = (() => {
       btn.className = 'option-btn';
       btn.textContent = optText;
       btn.onclick = () => selectOption(index, btn);
+      setTimeout(() => btn.classList.add('visible'), index * 100);
       optionsGrid.appendChild(btn);
     });
   }
