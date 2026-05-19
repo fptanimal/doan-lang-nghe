@@ -8,10 +8,11 @@ const { encryptAES, hashBlindIndex } = require('../utils/crypto');
 const { sendOtpEmail } = require('../utils/mailer');
 
 const router = express.Router();
+const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 const googleClient = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
-  'http://localhost:8080/api/auth/google/callback'
+  BASE_URL + '/api/auth/google/callback'
 );
 
 // -- SCHEMAS --
@@ -238,7 +239,7 @@ router.get('/google/callback', async (req, res) => {
     });
 
     // Truyền Access Token về Frontend qua URL Hash để JS frontend bắt lấy
-    res.redirect(`/lobby.html#token=${accessToken}&name=${encodeURIComponent(user.name)}`);
+    res.redirect(`/login.html#token=${accessToken}&name=${encodeURIComponent(user.name)}`);
 
   } catch (error) {
     console.error('Google Auth Error:', error);

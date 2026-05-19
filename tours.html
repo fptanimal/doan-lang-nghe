@@ -11,21 +11,24 @@
   <style>
     .tours-header {
       text-align: center;
-      padding: 60px 20px 40px;
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('images/Làng nghề mây tre đan.jpg') center/cover;
-      color: white;
+      padding: 80px 20px 60px;
+      background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.95)), url('images/Làng nghề mây tre đan.jpg') center/cover;
+      color: var(--ink);
+      border-bottom: 1px solid var(--cream-dark);
     }
     .tours-title {
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-family: var(--font-display);
-      color: var(--gold);
+      color: var(--terracotta);
       margin-bottom: 16px;
+      font-weight: 800;
     }
     .tours-desc {
-      font-size: 1.1rem;
-      max-width: 600px;
+      font-size: 1.15rem;
+      max-width: 650px;
       margin: 0 auto;
-      color: rgba(255,255,255,0.9);
+      color: var(--gray);
+      line-height: 1.6;
     }
     .tours-grid {
       display: grid;
@@ -34,20 +37,19 @@
       padding: 40px 0;
     }
     .tour-card {
-      background: var(--cream);
+      background: var(--white);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border: 1px solid var(--cream-dark);
+      transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
       flex-direction: column;
     }
     .tour-card:hover {
       transform: translateY(-5px);
-    }
-    .dark-theme .tour-card {
-      background: #1A1512;
-      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 15px 40px rgba(192, 83, 58, 0.1);
+      border-color: rgba(192, 83, 58, 0.3);
     }
     .tour-img {
       width: 100%;
@@ -78,9 +80,9 @@
       font-size: 1.25rem;
       font-weight: 700;
       margin-bottom: 8px;
-      color: var(--brown);
+      color: var(--ink);
+      font-family: var(--font-display);
     }
-    .dark-theme .tour-name { color: var(--gold); }
     .tour-village {
       font-size: 0.9rem;
       color: var(--terracotta);
@@ -90,10 +92,10 @@
       display: flex;
       justify-content: space-between;
       font-size: 0.85rem;
-      color: #666;
+      color: var(--gray);
       margin-bottom: 16px;
+      font-weight: 500;
     }
-    .dark-theme .tour-meta { color: #aaa; }
     .tour-meta-item {
       display: flex;
       align-items: center;
@@ -111,9 +113,8 @@
       align-items: center;
       margin-top: auto;
       padding-top: 16px;
-      border-top: 1px solid rgba(0,0,0,0.1);
+      border-top: 1px solid rgba(0,0,0,0.05);
     }
-    .dark-theme .tour-footer { border-color: rgba(255,255,255,0.1); }
     .tour-price {
       font-size: 1.2rem;
       font-weight: bold;
@@ -136,17 +137,15 @@
       animation: fadeIn 0.3s ease-out;
     }
     .booking-box {
-      background: var(--cream);
+      background: var(--white);
       width: 100%;
       max-width: 500px;
       border-radius: 16px;
       padding: 32px;
       position: relative;
-    }
-    .dark-theme .booking-box {
-      background: #1A1512;
-      color: white;
-      border: 1px solid var(--gold);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      border: 1px solid var(--cream-dark);
+      color: var(--ink);
     }
     .close-modal {
       position: absolute;
@@ -170,19 +169,21 @@
     .form-input {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--cream-dark);
       border-radius: 8px;
       font-family: inherit;
-      background: white;
+      background: var(--white);
+      color: var(--ink);
+      transition: 0.2s;
     }
-    .dark-theme .form-input {
-      background: #2a221d;
-      border-color: rgba(255,255,255,0.2);
-      color: white;
+    .form-input:focus {
+      border-color: var(--terracotta);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(192, 83, 58, 0.1);
     }
   </style>
 </head>
-<body class="dark-theme">
+<body class="light-theme">
 
 <div id="main-navbar"></div>
 
@@ -197,7 +198,7 @@
   <div class="container" style="margin-top: 40px;">
     <!-- Filter -->
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
-      <h2 style="font-family:var(--font-display); color:var(--gold);">Danh sách Tour</h2>
+      <h2 style="font-family:var(--font-display); color:var(--terracotta);">Danh sách Tour</h2>
       <select id="village-filter" class="form-input" style="width:auto; min-width:200px;" onchange="filterTours()">
         <option value="all">Tất cả làng nghề</option>
         <!-- Lấp đầy bằng JS -->
@@ -215,7 +216,7 @@
 <div class="booking-modal" id="booking-modal">
   <div class="booking-box">
     <button class="close-modal" onclick="closeModal()">✕</button>
-    <h3 style="font-family:var(--font-display); color:var(--gold); margin-bottom:8px; font-size:1.8rem;" id="modal-tour-name">Tên Tour</h3>
+    <h3 style="font-family:var(--font-display); color:var(--terracotta); margin-bottom:8px; font-size:1.8rem;" id="modal-tour-name">Tên Tour</h3>
     <p style="color:var(--terracotta); margin-bottom:24px; font-weight:bold;" id="modal-tour-price">0đ</p>
     
     <form id="booking-form" onsubmit="submitBooking(event)">

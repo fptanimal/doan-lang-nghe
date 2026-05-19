@@ -2,29 +2,29 @@
    MAIN.CSS — Làng Nghề — Heritage Modern Aesthetic
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,700;0,800;1,600&display=swap');
 
 /* ── Variables ── */
 :root {
-  --terracotta: #A8492A;
-  --terracotta-dark: #612311;
-  --terracotta-light: #C05A3A;
-  --gold: #D4AF37;
-  --gold-dark: #B5952F;
-  --gold-light: #E8CA65;
-  --green: #2D6A4F;
-  --green-light: #40a070;
-  --cream: #140E0A;      /* Background is now extremely dark brown/black */
-  --cream-dark: #2A1F18; /* Darker border/pattern color */
-  --brown: #3C2A1E;      /* Secondary dark */
+  --terracotta: #B94528;
+  --terracotta-dark: #8C3119;
+  --terracotta-light: #D45D3B;
+  --gold: #C29B27;
+  --gold-dark: #A17F1D;
+  --gold-light: #DEB841;
+  --green: #377E5C;
+  --green-light: #4CA87F;
+  --cream: #FDFBF7;      /* Warm traditional cream background */
+  --cream-dark: #F2EBE1; /* Borders and subtle backgrounds */
+  --brown: #3C2A1E;      
   --brown-light: #5A3F2C;
-  --ink: #E8D3B9;        /* Text color is now cream/gold */
-  --white: #1C140E;      /* Cards background is now dark */
-  --gray: #A69B90;
-  --gray-light: #4A3E36;
+  --ink: #2A1F18;        /* Dark text color */
+  --white: #FFFFFF;      /* Clean white for cards */
+  --gray: #6B5C51;       /* Warm gray for secondary text */
+  --gray-light: #E8E2DA;
 
   --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Be Vietnam Pro', sans-serif;
+  --font-body: 'Lora', 'Times New Roman', serif;
 
   --shadow-sm: 0 2px 8px rgba(90,50,30,0.12);
   --shadow-md: 0 6px 20px rgba(90,50,30,0.18);
@@ -32,8 +32,8 @@
   --shadow-xl: 0 20px 60px rgba(90,50,30,0.28);
 
   --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-xl: 32px;
   --radius-full: 999px;
 
@@ -53,6 +53,17 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+}
+
+/* Subtle paper texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
 }
 
 /* ── Background Pattern ── */
@@ -89,8 +100,13 @@ body {
 }
 
 /* ── Typography ── */
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
-h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h1, h2, h3 { 
+  font-family: var(--font-display); 
+  line-height: 1.2; 
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -1px; }
 h2 { font-size: clamp(1.5rem, 3.5vw, 2.5rem); }
 h3 { font-size: clamp(1.1rem, 2.5vw, 1.6rem); }
 p { line-height: 1.7; }
@@ -101,9 +117,9 @@ p { line-height: 1.7; }
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 32px;
+  padding: 14px 28px;
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm); /* Sharper borders like a traditional stamp */
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;

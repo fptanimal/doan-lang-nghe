@@ -78,16 +78,16 @@
   </div>
 
   <!-- Result Area (Hidden by default, shown over background) -->
-  <div id="result-area" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:rgba(20, 15, 10, 0.95); backdrop-filter:blur(10px); padding:32px; border-radius:16px; border:1px solid var(--gold); z-index:50; color:white; text-align:center; max-width:600px; width:90%; box-shadow:0 20px 50px rgba(0,0,0,0.8); max-height:90vh; overflow-y:auto;">
-    <h2 id="reveal-name" style="font-family:var(--font-display); font-size:2.5rem; color:var(--gold); margin-bottom:8px;">Tên Làng</h2>
-    <div id="reveal-location" style="color:var(--cream); font-size:1.1rem; margin-bottom:16px;">📍 Vị trí</div>
+  <div id="result-area" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:rgba(255, 255, 255, 0.95); backdrop-filter:blur(20px); padding:32px; border-radius:16px; border:1px solid rgba(0,0,0,0.08); z-index:50; color:var(--ink); text-align:center; max-width:600px; width:90%; box-shadow:0 20px 50px rgba(0,0,0,0.15); max-height:90vh; overflow-y:auto;">
+    <h2 id="reveal-name" style="font-family:var(--font-display); font-size:2.5rem; color:var(--terracotta); margin-bottom:8px;">Tên Làng</h2>
+    <div id="reveal-location" style="color:var(--gray); font-size:1.1rem; margin-bottom:16px;">📍 Vị trí</div>
     
-    <div id="reveal-video-container" style="display:none; width:100%; border-radius:12px; overflow:hidden; aspect-ratio:16/9; margin-bottom:16px; background:#000;">
+    <div id="reveal-video-container" style="display:none; width:100%; border-radius:12px; overflow:hidden; aspect-ratio:16/9; margin-bottom:16px; background:#000; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
       <iframe id="reveal-video" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width:100%; height:100%;"></iframe>
     </div>
 
-    <p id="reveal-desc" style="line-height:1.6; color:rgba(255,255,255,0.9); margin-bottom:16px; font-size:0.95rem;"></p>
-    <div id="reveal-fact" style="background:rgba(232, 184, 75, 0.1); padding:12px; border-radius:12px; font-size:0.85rem; color:var(--gold); margin-bottom:24px; border:1px solid rgba(232, 184, 75, 0.3);">💡 Fact</div>
+    <p id="reveal-desc" style="line-height:1.6; color:var(--gray); margin-bottom:16px; font-size:0.95rem;"></p>
+    <div id="reveal-fact" style="background:rgba(232, 184, 75, 0.15); padding:12px; border-radius:12px; font-size:0.85rem; color:var(--gold-dark); margin-bottom:24px; border:1px solid rgba(232, 184, 75, 0.3);">💡 Fact</div>
     
     <div id="game-marketplace-suggest" style="display:none; margin-bottom:24px;">
       <h4 style="color:var(--terracotta); margin-bottom:12px; font-size:0.9rem; text-transform:uppercase;">🛒 Sản phẩm làng nghề</h4>

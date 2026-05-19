@@ -21,7 +21,7 @@ const VILLAGES = [
       "Câu ca dao: 'Ước gì anh lấy được nàng / Để anh mua gạch... xây nhà'",
       "Sản phẩm chính của làng là gốm sứ tinh xảo"
     ],
-    video: "https://www.youtube.com/embed/ljR0F5J_vPM?playsinline=1&rel=0",
+    video: "https://www.youtube-nocookie.com/embed/o6B9e6NlGbE?playsinline=1&rel=0",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778986920879!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0dwOWlnNmdF!2m2!1d20.97889063302469!2d105.916034568623!3f80!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -31,8 +31,8 @@ const VILLAGES = [
       { id: "p1_4", name: "Đôi lọ lộc bình đắp nổi phú quý mãn đường", artisan: "Nghệ nhân Bát Tràng", price: 15000000, image: "https://gomsubattrang.com/Images/SanPham/BBZ_lo-luc-binh-dap-noi-cao-cap-bat-trang-de-tai-phu-quy-man-duong.jpg", desc: "Đôi lọ lộc bình đắp nổi cao cấp Bát Tràng đề tài phú quý mãn đường." },
     ],
     tours: [
-      { id: "t1_1", name: "Trải nghiệm làm thợ gốm Bát Tràng", duration: "Nửa ngày", price: 350000, image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&q=80&w=800", desc: "Tự tay vuốt nặn, tô tượng và nung gốm mang về làm kỷ niệm. Bao gồm vé tham quan bảo tàng gốm." },
-      { id: "t1_2", name: "Tour văn hóa Làng Gốm & Ẩm thực", duration: "1 Ngày", price: 850000, image: "https://images.unsplash.com/photo-1595181702787-8d234ba4430e?auto=format&fit=crop&q=80&w=800", desc: "Khám phá ngõ ngách làng cổ, thăm xưởng nghệ nhân nổi tiếng và thưởng thức mâm cỗ truyền thống Bát Tràng." }
+      { id: "t1_1", name: "Trải nghiệm làm thợ gốm Bát Tràng", duration: "Nửa ngày", price: 350000, image: "images/tour_battrang_1_1779167493060.png", desc: "Tự tay vuốt nặn, tô tượng và nung gốm mang về làm kỷ niệm. Bao gồm vé tham quan bảo tàng gốm." },
+      { id: "t1_2", name: "Tour văn hóa Làng Gốm & Ẩm thực", duration: "1 Ngày", price: 850000, image: "images/tour_battrang_2_1779167515003.png", desc: "Khám phá ngõ ngách làng cổ, thăm xưởng nghệ nhân nổi tiếng và thưởng thức mâm cỗ truyền thống Bát Tràng." }
     ],
     historyQuestions: [
       { q: "Làng gốm Bát Tràng được hình thành vào khoảng thời gian nào?", options: ["Thời Lý", "Thời Trần", "Thời Hậu Lê", "Thời Nguyễn"], answer: 0 },
@@ -64,7 +64,7 @@ const VILLAGES = [
       "Có bộ phim điện ảnh nổi tiếng mang tên 'Áo lụa...'",
       "Đặc sản của làng là lụa tơ tằm mềm mại"
     ],
-    video: "https://www.youtube.com/embed/ubxDksPw_lg?playsinline=1&rel=0",
+    video: "https://www.youtube-nocookie.com/embed/1uLOa8oDBP0?playsinline=1&rel=0",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987290766!6m8!1m7!1sJuwEgQFlEqxzsA2QSH4tTw!2m2!1d20.97938475928094!2d105.7734039812194!3f339.86737!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -74,7 +74,7 @@ const VILLAGES = [
       { id: "p2_4", name: "Vải lụa Satin tơ tằm (1m)", artisan: "Làng lụa Vạn Phúc", price: 400000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/z67783118455700b591033e5ada2693d20920a13e8012f-1762050368.jpg.webp", desc: "Vải lụa satin bóng mượt, chuyên may áo dài cao cấp." }
     ],
     tours: [
-      { id: "t2_1", name: "Hành trình tơ lụa ngàn năm", duration: "Nửa ngày", price: 250000, image: "https://images.unsplash.com/photo-1605658607384-269e802a8069?auto=format&fit=crop&q=80&w=800", desc: "Tìm hiểu quy trình trồng dâu, nuôi tằm, ươm tơ, dệt lụa. Mặc thử trang phục áo dài lụa truyền thống." }
+      { id: "t2_1", name: "Hành trình tơ lụa ngàn năm", duration: "Nửa ngày", price: 250000, image: "images/tour_vanphuc_1779167555678.png", desc: "Tìm hiểu quy trình trồng dâu, nuôi tằm, ươm tơ, dệt lụa. Mặc thử trang phục áo dài lụa truyền thống." }
     ],
     historyQuestions: [
       { q: "Làng lụa Vạn Phúc nằm bên bờ con sông nào?", options: ["Sông Hồng", "Sông Đáy", "Sông Nhuệ", "Sông Tô Lịch"], answer: 2 },
@@ -106,7 +106,7 @@ const VILLAGES = [
       "Nằm tại một huyện ven biển của tỉnh Thanh Hóa",
       "Gắn liền với sự tích Từ Thức gặp tiên"
     ],
-    video: "https://www.youtube.com/embed/ubxDksPw_lg?playsinline=1&rel=0",
+    video: "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D2034993820751003&show_text=false",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1715915220261!6m8!1m7!1sDUwiOS_2gT7DHpV4y0sX9A!2m2!1d20.0069578!2d106.0003452!3f12.95!4f10!5f75" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -116,7 +116,7 @@ const VILLAGES = [
       { id: "p3_4", name: "Chiếu cói Nga Sơn 140 x 190 cm", artisan: "Không", price: 550000, image: "https://chieucoi.com.vn/wp-content/uploads/2017/06/160-300x300.jpg", desc: "Chiếu cói trắng, sợi nhỏ dệt khít, dùng rất mát vào mùa hè." }
     ],
     tours: [
-      { id: "t3_1", name: "Khám phá xứ Cói & Động Từ Thức", duration: "1 Ngày", price: 650000, image: "https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&q=80&w=800", desc: "Tham gia thu hoạch cói, học cách dệt chiếu truyền thống và tham quan động Từ Thức huyền bí." }
+      { id: "t3_1", name: "Khám phá xứ Cói & Động Từ Thức", duration: "1 Ngày", price: 650000, image: "images/tour_ngason_1779167572482.png", desc: "Tham gia thu hoạch cói, học cách dệt chiếu truyền thống và tham quan động Từ Thức huyền bí." }
     ],
     historyQuestions: [
       { q: "Nga Sơn là một huyện ven biển thuộc tỉnh nào?", options: ["Ninh Bình", "Nghệ An", "Thanh Hóa", "Nam Định"], answer: 2 },
@@ -148,7 +148,7 @@ const VILLAGES = [
       "Đặc trưng là gốm đất nung màu đỏ gạch, không tráng men",
       "Có tên là gốm Thanh ..."
     ],
-    video: "https://www.youtube.com/embed/ljR0F5J_vPM?playsinline=1&rel=0", // Placeholder video
+    video: "https://www.youtube-nocookie.com/embed/Hg-D8n2QdJQ?playsinline=1&rel=0",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987488279!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRGp0UE9hNHdF!2m2!1d15.87717948614401!2d108.2992130416365!3f359.88742!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -157,7 +157,7 @@ const VILLAGES = [
       { id: "p4_3", name: "Bộ trà gốm mộc đỏ", artisan: "Nghệ nhân Làng Thanh Hà", price: 350000, image: "https://images.unsplash.com/photo-1595181702787-8d234ba4430e?auto=format&fit=crop&q=80&w=800", desc: "Bộ ấm trà làm từ đất sét sông Thu Bồn nung đỏ tự nhiên." }
     ],
     tours: [
-      { id: "t4_1", name: "Vuốt gốm Thanh Hà & Phố cổ", duration: "Nửa ngày", price: 300000, image: "https://images.unsplash.com/photo-1596701198642-f8c5c7d0d0ce?auto=format&fit=crop&q=80&w=800", desc: "Dạo chơi công viên đất nung Thanh Hà, tự tay làm tò he con giáp và dạo phố cổ Hội An." }
+      { id: "t4_1", name: "Vuốt gốm Thanh Hà & Phố cổ", duration: "Nửa ngày", price: 300000, image: "images/tour_thanhha_1779167591598.png", desc: "Dạo chơi công viên đất nung Thanh Hà, tự tay làm tò he con giáp và dạo phố cổ Hội An." }
     ],
     historyQuestions: [
       { q: "Làng gốm Thanh Hà nằm bên bờ con sông nào?", options: ["Sông Hương", "Sông Hàn", "Sông Thu Bồn", "Sông Trà Khúc"], answer: 2 },
@@ -189,7 +189,7 @@ const VILLAGES = [
       "Nguyên liệu làm ra sản phẩm thường là khối đá cẩm thạch",
       "Có tên là Non..."
     ],
-    video: "https://www.youtube.com/embed/vz0-NhjVTgI?playsinline=1&rel=0",
+    video: "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F4114791715450442&show_text=false",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987653616!6m8!1m7!1sr2fnjB3nOkoLO1IF85ANcw!2m2!1d16.00212397610592!2d108.2633006239604!3f34.24348!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -199,7 +199,7 @@ const VILLAGES = [
       { id: "p5_4", name: "Cặp Thiềm Thừ (Cóc ngậm tiền) phong thủy", artisan: "Làng đá Non Nước", price: 4500000, image: "https://images.unsplash.com/photo-1602431766548-c2b3e8e2003c?auto=format&fit=crop&q=80&w=800", desc: "Cóc ba chân chiêu tài lộc từ đá ngọc bích tự nhiên." }
     ],
     tours: [
-      { id: "t5_1", name: "Hành hương Ngũ Hành Sơn & Làng Đá", duration: "1 Ngày", price: 450000, image: "https://images.unsplash.com/photo-1605335805562-b9123c52e697?auto=format&fit=crop&q=80&w=800", desc: "Leo núi Ngũ Hành Sơn thăm chùa chiền hang động, sau đó tham quan xưởng chế tác đá Non Nước." }
+      { id: "t5_1", name: "Hành hương Ngũ Hành Sơn & Làng Đá", duration: "1 Ngày", price: 450000, image: "images/tour_nonnuoc_1779167714965.png", desc: "Leo núi Ngũ Hành Sơn thăm chùa chiền hang động, sau đó tham quan xưởng chế tác đá Non Nước." }
     ],
     historyQuestions: [
       { q: "Làng đá Non Nước nằm dưới chân ngọn núi nổi tiếng nào?", options: ["Núi Bà Đen", "Núi Ngũ Hành Sơn", "Núi Sơn Trà", "Núi Yên Tử"], answer: 1 },
@@ -231,7 +231,7 @@ const VILLAGES = [
       "Sản phẩm rất gần gũi với đời sống nông thôn Việt Nam như rổ, rá...",
       "Có tên là làng nghề Mây tre đan..."
     ],
-    video: "https://www.youtube.com/embed/MW-88Rn9A_0?playsinline=1&rel=0",
+    video: "https://www.youtube-nocookie.com/embed/FBmeBeAIFLQ?playsinline=1&rel=0",
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778986920879!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0dwOWlnNmdF!2m2!1d20.97889063302469!2d105.916034568623!3f80!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
@@ -241,7 +241,7 @@ const VILLAGES = [
       { id: "p6_4", name: "Chụp đèn mây tre đan thả trần", artisan: "Xưởng mây Phú Vinh", price: 350000, image: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=800", desc: "Chụp đèn trang trí nội thất phong cách rustic tự nhiên." }
     ],
     tours: [
-      { id: "t6_1", name: "Workshop đan mây tre cùng nghệ nhân", duration: "Nửa ngày", price: 400000, image: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=800", desc: "Tham quan làng nghề Phú Vinh thanh bình, học cách đan một giỏ mây nhỏ đem về." }
+      { id: "t6_1", name: "Workshop đan mây tre cùng nghệ nhân", duration: "Nửa ngày", price: 400000, image: "images/tour_ngason_1779167572482.png", desc: "Tham quan làng nghề Phú Vinh thanh bình, học cách đan một giỏ mây nhỏ đem về." }
     ],
     historyQuestions: [
       { q: "Làng nghề mây tre đan Phú Vinh thuộc huyện nào của Hà Nội?", options: ["Đông Anh", "Chương Mỹ", "Thường Tín", "Thanh Oai"], answer: 1 },

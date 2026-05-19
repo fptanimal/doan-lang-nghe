@@ -222,11 +222,11 @@ const App = (() => {
     const nav = document.getElementById('main-navbar');
     if (!nav) return;
     const isHome = activePage === 'home';
-    nav.className = 'main-navbar' + (isHome ? ' navbar-dark' : '');
+    nav.className = 'main-navbar';
     nav.innerHTML = `
       <div class="navbar-inner">
         <a href="index.html" class="navbar-logo">
-          <span class="navbar-logo-icon">🔥</span>
+          <span class="navbar-logo-icon">🏮</span>
           <span class="navbar-logo-text">Làng Nghề</span>
         </a>
         <nav class="navbar-links">
@@ -238,12 +238,16 @@ const App = (() => {
         </nav>
         <div class="navbar-actions">
           ${user ? `
+            <a href="checkout.html" class="navbar-cart-link" style="position:relative; margin-right:16px; font-size:1.3rem; text-decoration:none; color:inherit;">
+              🛒
+              <span id="cart-badge" style="position:absolute;top:-6px;right:-10px;background:var(--terracotta,#c0533a);color:#fff;font-size:0.65rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;">0</span>
+            </a>
             <a href="profile.html" class="navbar-user">
               <span class="navbar-avatar">${(user.displayName||'?').charAt(0).toUpperCase()}</span>
               <span class="navbar-username">${user.displayName}</span>
             </a>
           ` : `
-            <a href="login.html" class="btn btn-sm ${isHome ? 'btn-outline-light' : 'btn-primary'}" style="padding:8px 20px;font-size:0.85rem;">Đăng nhập</a>
+            <a href="login.html" class="btn btn-primary btn-sm" style="padding:8px 20px;font-size:0.85rem;">Đăng nhập</a>
           `}
         </div>
         <button class="navbar-toggle" onclick="document.querySelector('.navbar-links').classList.toggle('open')">☰</button>

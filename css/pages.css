@@ -1,30 +1,24 @@
 /* ── Navbar ── */
 .main-navbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:16px 32px;transition:.3s}
-.main-navbar.scrolled{background:rgba(26,15,8,.95);backdrop-filter:blur(12px)}
-.navbar-dark{background:transparent}.navbar-dark.scrolled{background:rgba(10,10,10,.95)}
-.main-navbar:not(.navbar-dark){background:var(--cream);border-bottom:1px solid var(--cream-dark)}
+.main-navbar.scrolled{background:rgba(253,251,247,.95);backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,0.05)}
+.main-navbar{background:var(--cream);border-bottom:1px solid var(--cream-dark)}
 .navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .navbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--terracotta)}
-.navbar-dark .navbar-logo{color:var(--gold)}
 .navbar-logo-icon{font-size:1.4rem}
 .navbar-links{display:flex;gap:24px}
 .navbar-links a{text-decoration:none;font-size:.9rem;font-weight:600;color:var(--gray);transition:.2s;padding:6px 0;border-bottom:2px solid transparent}
 .navbar-links a:hover,.navbar-links a.active{color:var(--terracotta);border-bottom-color:var(--terracotta)}
-.navbar-dark .navbar-links a{color:rgba(255,255,255,.6)}
-.navbar-dark .navbar-links a:hover,.navbar-dark .navbar-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
 .navbar-actions{display:flex;align-items:center;gap:12px}
 .navbar-user{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink)}
-.navbar-dark .navbar-user{color:#fff}
 .navbar-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--terracotta),var(--gold));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
 .navbar-username{font-weight:600;font-size:.9rem}
 .navbar-toggle{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink)}
-.navbar-dark .navbar-toggle{color:#fff}
-.btn-outline-light{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4)}
-.btn-outline-light:hover{background:rgba(255,255,255,.1)}
-@media(max-width:768px){.navbar-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--cream);flex-direction:column;padding:16px 24px;box-shadow:var(--shadow-md)}.navbar-dark .navbar-links{background:#111}.navbar-links.open{display:flex}.navbar-toggle{display:block}.main-navbar{padding:12px 20px}}
+.btn-outline-light{background:transparent;color:var(--ink);border:1.5px solid rgba(0,0,0,.2)}
+.btn-outline-light:hover{background:rgba(0,0,0,.05)}
+@media(max-width:768px){.navbar-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--cream);flex-direction:column;padding:16px 24px;box-shadow:var(--shadow-md)}.navbar-links.open{display:flex}.navbar-toggle{display:block}.main-navbar{padding:12px 20px}}
 
-/* ── Dark Theme ── */
-.dark-theme{background:#0a0a0a;color:#e0e0e0}
+/* ── Light Theme Base ── */
+.dark-theme{background:var(--cream);color:var(--ink)}
 
 /* ── Hero Landing ── */
 .hero-landing{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
@@ -47,14 +41,14 @@
 .auth-logo{font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--gold);margin-bottom:4px}
 .auth-subtitle{font-size:.7rem;letter-spacing:.15em;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:32px}
 .auth-title{font-family:var(--font-body);font-size:1.4rem;font-weight:700;color:#fff;text-align:left;margin-bottom:4px}
-/* ── Dark Theme Heritage Cards ── */
+/* ── Light Theme Heritage Cards ── */
 .heritage-card, .stat-card, .village-card, .product-card, .profile-card, .result-card,
 .lobby-stat-card, .marketplace-card, .leaderboard-card, .lobby-hero-card, .mp-game-banner, .score-display {
-  background: rgba(20, 15, 10, 0.85) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  border: 1px solid var(--gold) !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-  color: var(--cream) !important;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+  color: var(--ink) !important;
   border-radius: var(--radius-md) !important;
   transition: var(--transition);
 }
@@ -62,28 +56,29 @@
 .heritage-card:hover, .stat-card:hover, .village-card:hover, .product-card:hover,
 .lobby-stat-card:hover, .marketplace-card:hover, .mp-game-banner:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+  border-color: var(--terracotta) !important;
 }
 
 /* Ensure text inside these cards is readable */
 .stat-card .stat-value, .village-card h4, .product-card h4, .profile-card h3,
 .lobby-stat-val, .lobby-hero-title {
-  color: var(--gold) !important;
+  color: var(--terracotta) !important;
 }
 
 .stat-card .stat-label, .village-card p, .product-card p, .profile-card p,
 .lobby-stat-lbl, .lobby-hero-sub {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: var(--gray) !important;
 }
 
 .product-card .product-price {
-  color: var(--terracotta-light) !important;
+  color: var(--terracotta) !important;
 }
 
 /* Override existing auth page backgrounds */
 .auth-page {
   background: var(--cream);
-  background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 80%);
+  background-image: radial-gradient(circle at 50% 50%, rgba(192, 83, 58, 0.05) 0%, transparent 80%);
 }
 .btn-google{width:100%;padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:8px;background:transparent;color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s}
 .btn-google:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.3)}
@@ -106,74 +101,74 @@
 
 /* ── Sections (Homepage) ── */
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
-.section-featured,.section-howtoplay,.section-stats,.section-marketplace-preview{padding:80px 0}
-.dark-theme .section-featured,.dark-theme .section-howtoplay{background:#111}
-.dark-theme .section-stats{background:#0a0a0a}
-.dark-theme .section-marketplace-preview{background:#111}
-.section-header{text-align:center;margin-bottom:48px}
+.section-featured,.section-howtoplay,.section-stats,.section-marketplace-preview{padding:100px 0}
+.dark-theme .section-featured,.dark-theme .section-howtoplay{background:var(--cream)}
+.dark-theme .section-stats{background:var(--cream-dark)}
+.dark-theme .section-marketplace-preview{background:var(--cream)}
+.section-header{text-align:center;margin-bottom:64px}
 .section-tag{display:inline-block;padding:4px 14px;border-radius:999px;font-size:.75rem;font-weight:700;letter-spacing:.08em;margin-bottom:12px}
-.dark-theme .section-tag{background:rgba(232,184,75,.1);color:var(--gold)}
+.dark-theme .section-tag{background:rgba(192,83,58,.1);color:var(--terracotta)}
 .section-title{font-family:var(--font-display);font-size:clamp(1.6rem,3.5vw,2.5rem);margin-bottom:8px}
-.dark-theme .section-title{color:#fff}
-.section-desc{color:rgba(255,255,255,.5);font-size:.95rem}
+.dark-theme .section-title{color:var(--ink)}
+.section-desc{color:var(--gray);font-size:.95rem}
 
 /* Villages Scroll */
 .villages-scroll{display:flex;gap:20px;overflow-x:auto;padding:0 24px 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
 .villages-scroll::-webkit-scrollbar{height:6px}
 .villages-scroll::-webkit-scrollbar-thumb{background:var(--terracotta);border-radius:3px}
-.village-card{min-width:260px;border-radius:20px;overflow:hidden;cursor:pointer;transition:.3s;scroll-snap-align:start;animation:slideInUp .5s ease-out both}
-.dark-theme .village-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08)}
-.village-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.village-card{min-width:260px;border-radius:var(--radius-md);overflow:hidden;cursor:pointer;transition:.3s;scroll-snap-align:start;animation:slideInUp .5s ease-out both}
+.dark-theme .village-card{background:#fff;border:1px solid var(--cream-dark)}
+.village-card:hover{transform:translateY(-6px);border-color:var(--terracotta)}
 .village-card-img{height:180px;background-size:cover;background-position:center}
 .village-card-body{padding:16px 20px}
 .village-card-name{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:4px}
-.dark-theme .village-card-name{color:#fff}
+.dark-theme .village-card-name{color:var(--ink)}
 .village-card-loc{font-size:.8rem;color:var(--gray);margin-bottom:8px}
 .village-card-tag{font-size:.7rem;padding:3px 10px;border-radius:999px;background:rgba(192,83,58,.1);color:var(--terracotta);font-weight:600}
 
 /* How To Play */
 .howto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
-.howto-card{padding:32px 24px;border-radius:20px;text-align:center;transition:.3s;position:relative}
-.dark-theme .howto-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.06)}
-.howto-card:hover{transform:translateY(-4px)}
+.howto-card{padding:40px 24px;border-radius:var(--radius-md);text-align:center;transition:.3s;position:relative}
+.dark-theme .howto-card{background:#fff;border:1px solid var(--cream-dark)}
+.howto-card:hover{transform:translateY(-4px);border-color:var(--terracotta)}
 .howto-num{position:absolute;top:16px;right:20px;font-family:var(--font-display);font-size:2rem;font-weight:800;opacity:.08}
-.dark-theme .howto-num{color:#fff}
+.dark-theme .howto-num{color:var(--terracotta)}
 .howto-icon{font-size:2.5rem;margin-bottom:16px}
 .howto-card h3{font-family:var(--font-body);font-size:1rem;font-weight:700;margin-bottom:8px}
-.dark-theme .howto-card h3{color:#fff}
+.dark-theme .howto-card h3{color:var(--ink)}
 .howto-card p{font-size:.85rem;color:var(--gray);line-height:1.5}
 
 /* Stats */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.stat-card{text-align:center;padding:32px 16px;border-radius:16px}
-.dark-theme .stat-card{border:1px solid rgba(255,255,255,.08)}
-.stat-card-value{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--gold)}
+.stat-card{text-align:center;padding:32px 16px;border-radius:var(--radius-md)}
+.dark-theme .stat-card{border:1px solid var(--cream-dark);background:#fff}
+.stat-card-value{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--terracotta)}
 .stat-card-label{font-size:.8rem;color:var(--gray);margin-top:4px}
 @media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
 
 /* Products Preview */
 .products-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
-.product-preview-card{border-radius:16px;overflow:hidden;cursor:pointer;transition:.3s;animation:slideInUp .5s ease-out both}
-.dark-theme .product-preview-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08)}
-.product-preview-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.product-preview-card{border-radius:var(--radius-md);overflow:hidden;cursor:pointer;transition:.3s;animation:slideInUp .5s ease-out both}
+.dark-theme .product-preview-card{background:#fff;border:1px solid var(--cream-dark)}
+.product-preview-card:hover{transform:translateY(-4px);border-color:var(--terracotta)}
 .product-preview-img{height:200px;background-size:cover;background-position:center}
 .product-preview-body{padding:16px 20px}
 .product-preview-body h4{font-size:.95rem;font-weight:700;margin-bottom:4px}
-.dark-theme .product-preview-body h4{color:#fff}
+.dark-theme .product-preview-body h4{color:var(--ink)}
 .product-preview-artisan{font-size:.78rem;color:var(--gray)}
 .product-preview-village{font-size:.75rem;color:var(--gray);margin-top:4px}
 .product-preview-price{font-family:var(--font-display);font-size:1.1rem;font-weight:800;color:var(--terracotta);margin-top:8px}
 
 /* Footer */
-.site-footer{padding:60px 0 24px;border-top:1px solid rgba(255,255,255,.08)}
-.dark-theme .site-footer{background:#0a0a0a;color:rgba(255,255,255,.5)}
+.site-footer{padding:60px 0 24px;border-top:1px solid rgba(0,0,0,.08)}
+.dark-theme .site-footer{background:var(--cream);color:var(--gray)}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--gold);margin-bottom:8px}
+.footer-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--terracotta);margin-bottom:8px}
 .footer-brand p{font-size:.85rem;line-height:1.6}
 .footer-links{display:flex;flex-direction:column;gap:8px}
 .footer-links h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
-.dark-theme .footer-links h4{color:rgba(255,255,255,.7)}
-.footer-links a{text-decoration:none;font-size:.85rem;color:rgba(255,255,255,.4);transition:.2s}
-.footer-links a:hover{color:var(--gold)}
+.dark-theme .footer-links h4{color:var(--ink)}
+.footer-links a{text-decoration:none;font-size:.85rem;color:var(--gray);transition:.2s}
+.footer-links a:hover{color:var(--terracotta)}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:20px;text-align:center;font-size:.8rem}
 @media(max-width:768px){.footer-grid{grid-template-columns:1fr}}
