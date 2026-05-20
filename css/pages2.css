@@ -163,8 +163,9 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(253, 251, 247, 0.7); /* Light overlay to make UI readable */
-  backdrop-filter: blur(8px);
+  background: transparent;
+  backdrop-filter: none;
+  pointer-events: none;
 }
 
 .hg-top-left-panel {
