@@ -208,6 +208,9 @@ const Game = (() => {
     renderQuestion();
   };
 
+  window.useHint = useHint;
+  window.skipQuestion = skipQuestion;
+
   function showResultArea(village, isCorrect) {
     const nextBtn = document.getElementById('next-btn');
     const skipBtn = document.getElementById('skip-btn');

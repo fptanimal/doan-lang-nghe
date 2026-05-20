@@ -201,7 +201,12 @@
 
     // Nếu 403 (không có quyền admin)
     if (res.status === 403) {
-      alert('Bạn không có quyền truy cập Admin Panel.');
+      const errData = await res.json().catch(() => ({}));
+      const currentUser = localStorage.getItem('langNghe_auth');
+      alert(`Bạn không có quyền truy cập Admin Panel.\n\n` +
+            `- API URL: ${url}\n` +
+            `- Tài khoản: ${currentUser || 'Chưa đăng nhập'}\n` +
+            `- Lỗi từ Server: ${errData.error || 'Không có quyền (403)'}`);
       window.location.href = 'index.html';
       return null;
     }
@@ -385,7 +390,12 @@
         return;
       }
     } else if (testRes.status === 403) {
-      alert('Tài khoản của bạn không có quyền Admin.');
+      const errData = await testRes.json().catch(() => ({}));
+      const currentUser = localStorage.getItem('langNghe_auth');
+      alert(`Tài khoản của bạn không có quyền Admin.\n\n` +
+            `- API URL: /api/admin/dashboard\n` +
+            `- Tài khoản: ${currentUser || 'Chưa đăng nhập'}\n` +
+            `- Lỗi từ Server: ${errData.error || 'Không có quyền (403)'}`);
       window.location.href = 'index.html';
       return;
     }

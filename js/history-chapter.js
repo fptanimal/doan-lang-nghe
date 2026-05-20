@@ -129,6 +129,8 @@ const HistoryChapter = (() => {
     }
   }
 
+  window.nextQuestion = nextQuestion;
+
   return {
     init,
     nextQuestion

@@ -101,10 +101,10 @@ async function connectDb() {
   // Xóa các OTP hết hạn tự động mỗi khi khởi động
   await db.run('DELETE FROM otps WHERE expires_at < CURRENT_TIMESTAMP');
 
-  // Tự động set admin theo ADMIN_EMAIL trong .env
+  // Tự động set admin theo ADMIN_EMAIL trong .env (đảm bảo chữ thường và không có khoảng trắng thừa)
   if (process.env.ADMIN_EMAIL) {
     const { hashBlindIndex } = require('./utils/crypto');
-    const adminEmailHash = hashBlindIndex(process.env.ADMIN_EMAIL);
+    const adminEmailHash = hashBlindIndex(process.env.ADMIN_EMAIL.toLowerCase().trim());
     await db.run('UPDATE users SET role = ? WHERE email_hash = ?', ['admin', adminEmailHash]);
   }
 
