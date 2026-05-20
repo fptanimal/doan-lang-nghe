@@ -3,11 +3,11 @@
 // ============================================================
 
 const App = (() => {
-  // Cấu hình URL Backend Render của bạn ở đây khi deploy lên Git/Vercel
-  const RENDER_BACKEND_URL = 'https://doan-lang-nghe-backend.onrender.com';
+  // Cấu hình URL Backend Hugging Face của bạn ở đây khi deploy lên Git/Vercel
+  const RENDER_BACKEND_URL = 'https://lamnguyendang-bandolangapi.hf.space';
 
   // Tự động phát hiện local hay production để chuyển hướng API
-  const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '[::1]')
+  const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '[::1]' || location.hostname.endsWith('hf.space'))
     ? '' 
     : RENDER_BACKEND_URL;
 

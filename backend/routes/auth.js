@@ -111,9 +111,14 @@ router.post('/verify-otp', async (req, res) => {
     const password_hash = await bcrypt.hash(password, 12);
     const id = 'u_' + Date.now();
     
+    let role = 'customer';
+    if (process.env.ADMIN_EMAIL && email.toLowerCase() === process.env.ADMIN_EMAIL.toLowerCase()) {
+      role = 'admin';
+    }
+    
     await db.run(
-      'INSERT INTO users (id, name, email_hash, email_encrypted, password_hash) VALUES (?, ?, ?, ?, ?)',
-      [id, name, email_hash, email_encrypted, password_hash]
+      'INSERT INTO users (id, name, email_hash, email_encrypted, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)',
+      [id, name, email_hash, email_encrypted, password_hash, role]
     );
     
     res.json({ success: true, message: 'Xác thực và tạo tài khoản thành công!' });
@@ -142,6 +147,12 @@ router.post('/login', async (req, res) => {
 
   // user.email lúc này không còn tồn tại dạng plaintext, truyền thẳng email khách hàng vừa nhập vào token
   user.email = email; 
+
+  if (process.env.ADMIN_EMAIL && email.toLowerCase() === process.env.ADMIN_EMAIL.toLowerCase() && user.role !== 'admin') {
+    await db.run('UPDATE users SET role = ? WHERE id = ?', ['admin', user.id]);
+    user.role = 'admin';
+  }
+
   const accessToken = generateTokens(user, res);
   res.json({ success: true, message: 'Đăng nhập thành công', accessToken, user: { id: user.id, name: user.name, email: user.email } });
 });
@@ -208,14 +219,23 @@ router.get('/google/callback', async (req, res) => {
       // Đăng ký tự động
       const id = 'u_gg_' + Date.now();
       const email_encrypted = encryptAES(data.email);
+      
+      let role = 'customer';
+      if (process.env.ADMIN_EMAIL && data.email.toLowerCase() === process.env.ADMIN_EMAIL.toLowerCase()) {
+        role = 'admin';
+      }
 
       await db.run(
-        'INSERT INTO users (id, name, email_hash, email_encrypted, provider) VALUES (?, ?, ?, ?, ?)',
-        [id, data.name, email_hash, email_encrypted, 'google']
+        'INSERT INTO users (id, name, email_hash, email_encrypted, provider, role) VALUES (?, ?, ?, ?, ?, ?)',
+        [id, data.name, email_hash, email_encrypted, 'google', role]
       );
-      user = { id, name: data.name, email: data.email };
+      user = { id, name: data.name, email: data.email, role };
     } else {
       user.email = data.email;
+      if (process.env.ADMIN_EMAIL && data.email.toLowerCase() === process.env.ADMIN_EMAIL.toLowerCase() && user.role !== 'admin') {
+        await db.run('UPDATE users SET role = ? WHERE id = ?', ['admin', user.id]);
+        user.role = 'admin';
+      }
     }
 
     // Tạo JWT
