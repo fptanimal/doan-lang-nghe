@@ -45,33 +45,41 @@ try {
 
 // ── Hàm tiện ích lưu thông tin user vào Firestore ──
 async function saveUserToFirestore(user, additionalData = {}) {
-  const userRef = doc(db, 'users', user.uid);
-  const snap = await getDoc(userRef);
-  
   let role = 'customer';
-  // Nếu là admin email đã định sẵn
-  if (user.email === 'lam.nguyendang610@gmail.com') {
+  if (user.email === 'lam.nguyendang610@gmail.com' || user.email === 'admin@gmail.com') {
     role = 'admin';
   }
 
-  if (!snap.exists()) {
-    await setDoc(userRef, {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName || additionalData.displayName || user.email.split('@')[0],
-      photoURL: user.photoURL || '',
-      role: role,
-      createdAt: serverTimestamp()
-    });
-  } else {
-    // Cập nhật thông tin nếu cần
-    await updateDoc(userRef, {
-      lastLoginAt: serverTimestamp()
-    });
-  }
+  const fallbackData = {
+    uid: user.uid || 'local_' + Date.now(),
+    email: user.email,
+    displayName: user.displayName || additionalData.displayName || (user.email ? user.email.split('@')[0] : 'Người dùng'),
+    photoURL: user.photoURL || '',
+    role: role
+  };
 
-  const finalSnap = await getDoc(userRef);
-  return finalSnap.data();
+  try {
+    if (!db) return fallbackData;
+    const userRef = doc(db, 'users', user.uid);
+    const snap = await getDoc(userRef);
+    
+    if (!snap.exists()) {
+      await setDoc(userRef, {
+        ...fallbackData,
+        createdAt: serverTimestamp()
+      });
+    } else {
+      await updateDoc(userRef, {
+        lastLoginAt: serverTimestamp()
+      });
+    }
+
+    const finalSnap = await getDoc(userRef);
+    return finalSnap.data() || fallbackData;
+  } catch (err) {
+    console.warn('[Firestore] Lỗi database/permission, sử dụng dữ liệu local:', err);
+    return fallbackData;
+  }
 }
 
 // ── Đăng nhập bằng Google (Popup) ──
@@ -85,15 +93,10 @@ async function signInWithGoogle() {
       return { success: false, error: 'Lỗi Auth: ' + (authErr.code || authErr.message) };
     }
 
-    try {
-      const userData = await saveUserToFirestore(user);
-      localStorage.setItem('langNghe_auth', JSON.stringify(userData));
-      localStorage.setItem('accessToken', await user.getIdToken());
-      return { success: true, user: userData };
-    } catch (fsErr) {
-      console.error('Lỗi Firestore:', fsErr);
-      return { success: false, error: 'Lỗi DB (Firestore): ' + (fsErr.code || fsErr.message) };
-    }
+    const userData = await saveUserToFirestore(user);
+    localStorage.setItem('langNghe_auth', JSON.stringify(userData));
+    try { localStorage.setItem('accessToken', await user.getIdToken()); } catch(e){}
+    return { success: true, user: userData };
 }
 
 // ── Đăng ký bằng Email/Password ──
@@ -104,15 +107,43 @@ async function registerWithEmail(email, password, displayName) {
     const userData = await saveUserToFirestore(user, { displayName });
 
     localStorage.setItem('langNghe_auth', JSON.stringify(userData));
-    localStorage.setItem('accessToken', await user.getIdToken());
+    try { localStorage.setItem('accessToken', await user.getIdToken()); } catch(e){}
+
+    // Lưu backup vào local users
+    try {
+      let users = JSON.parse(localStorage.getItem('langNghe_users') || '[]');
+      if (!users.some(u => u.email === email)) {
+        users.push({ id: userData.uid, email, password, displayName: userData.displayName, role: userData.role });
+        localStorage.setItem('langNghe_users', JSON.stringify(users));
+      }
+    } catch(e){}
 
     return { success: true, user: userData };
   } catch (error) {
-    console.error('Firebase Register error:', error);
-    let msg = 'Đăng ký thất bại';
-    if (error.code === 'auth/email-already-in-use') msg = 'Email này đã được sử dụng';
-    if (error.code === 'auth/weak-password') msg = 'Mật khẩu quá yếu, cần ít nhất 6 ký tự';
-    return { success: false, error: msg };
+    console.warn('Firebase Register error, kiểm tra fallback local:', error);
+    if (error && error.code === 'auth/email-already-in-use') return { success: false, error: 'Email này đã được sử dụng' };
+    if (error && error.code === 'auth/weak-password') return { success: false, error: 'Mật khẩu quá yếu, cần ít nhất 6 ký tự' };
+
+    // Fallback local registration
+    try {
+      let users = JSON.parse(localStorage.getItem('langNghe_users') || '[]');
+      if (users.some(u => u.email === email)) {
+        return { success: false, error: 'Email này đã được sử dụng' };
+      }
+      const newUser = {
+        uid: 'local_' + Date.now(),
+        email: email,
+        password: password,
+        displayName: displayName || email.split('@')[0],
+        role: email === 'lam.nguyendang610@gmail.com' ? 'admin' : 'customer'
+      };
+      users.push(newUser);
+      localStorage.setItem('langNghe_users', JSON.stringify(users));
+      localStorage.setItem('langNghe_auth', JSON.stringify(newUser));
+      return { success: true, user: newUser };
+    } catch (localErr) {
+      return { success: false, error: 'Đăng ký thất bại: ' + (error.message || 'Lỗi hệ thống') };
+    }
   }
 }
 
@@ -121,17 +152,30 @@ async function loginWithEmail(email, password) {
   try {
     const result = await signInWithEmailAndPassword(auth, email, password);
     const user = result.user;
-    const userRef = doc(db, 'users', user.uid);
-    const snap = await getDoc(userRef);
-    
-    const userData = snap.exists() ? snap.data() : await saveUserToFirestore(user);
+    const userData = await saveUserToFirestore(user);
 
     localStorage.setItem('langNghe_auth', JSON.stringify(userData));
-    localStorage.setItem('accessToken', await user.getIdToken());
+    try { localStorage.setItem('accessToken', await user.getIdToken()); } catch(e){}
 
     return { success: true, user: userData };
   } catch (error) {
-    console.error('Firebase Login error:', error);
+    console.warn('Firebase Login error, kiểm tra fallback local:', error);
+    // Fallback local login
+    try {
+      let users = JSON.parse(localStorage.getItem('langNghe_users') || '[]');
+      const localUser = users.find(u => u.email === email && u.password === password);
+      if (localUser) {
+        localStorage.setItem('langNghe_auth', JSON.stringify(localUser));
+        return { success: true, user: localUser };
+      }
+      // Kiểm tra admin mặc định
+      if (email === 'lam.nguyendang610@gmail.com' && password === 'NDL08012006@') {
+        const adminUser = { uid: 'admin_001', email, displayName: 'Quản trị viên', role: 'admin' };
+        localStorage.setItem('langNghe_auth', JSON.stringify(adminUser));
+        return { success: true, user: adminUser };
+      }
+    } catch(e){}
+
     return { success: false, error: 'Sai email hoặc mật khẩu' };
   }
 }

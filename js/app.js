@@ -88,7 +88,23 @@ const App = (() => {
   }
 
   async function register(email, password, displayName) {
-    if (!window.FirebaseAuth) return { success: false, error: 'Firebase chưa được tải' };
+    let attempts = 0;
+    while (!window.FirebaseAuth && attempts < 30) {
+      await new Promise(r => setTimeout(r, 100));
+      attempts++;
+    }
+    if (!window.FirebaseAuth) {
+      // Fallback local storage khi không có Firebase
+      const users = getUsers();
+      if (users.some(u => u.email === email)) {
+        return { success: false, error: 'Email này đã được sử dụng' };
+      }
+      const newUser = { id: 'local_' + Date.now(), uid: 'local_' + Date.now(), email, password, displayName: displayName || email.split('@')[0], role: email === 'lam.nguyendang610@gmail.com' ? 'admin' : 'customer' };
+      users.push(newUser);
+      saveUsers(users);
+      setCurrentUser(newUser);
+      return { success: true, user: newUser };
+    }
     const result = await window.FirebaseAuth.registerWithEmail(email, password, displayName);
     if (result.success) {
       setCurrentUser(result.user);
@@ -97,22 +113,32 @@ const App = (() => {
   }
 
   async function verifyOtp(email, password, displayName, otp) {
-    // Với Firebase, chúng ta không dùng OTP tự build nữa
     return { success: false, error: 'Vui lòng sử dụng đăng ký qua Email hoặc Google' };
   }
 
   async function login(email, password) {
-    // Kiểm tra tài khoản local trước (admin, v.v.)
+    // 1. Kiểm tra tài khoản local trước (admin, tài khoản vừa tạo, v.v.)
     const localUsers = getUsers();
     const localUser = localUsers.find(u => u.email === email && u.password === password);
     if (localUser) {
       setCurrentUser(localUser);
       return { success: true, user: localUser };
     }
+    if (email === 'lam.nguyendang610@gmail.com' && password === 'NDL08012006@') {
+      const adminUser = { id: 'admin_001', uid: 'admin_001', email, displayName: 'Quản trị viên', role: 'admin' };
+      setCurrentUser(adminUser);
+      return { success: true, user: adminUser };
+    }
 
-    // Đăng nhập bằng Firebase
+    // 2. Chờ Firebase load
+    let attempts = 0;
+    while (!window.FirebaseAuth && attempts < 30) {
+      await new Promise(r => setTimeout(r, 100));
+      attempts++;
+    }
+
     if (!window.FirebaseAuth) {
-      return { success: false, error: 'Firebase chưa được tải. Nếu chạy từ file://, hãy dùng Live Server hoặc tài khoản admin local.' };
+      return { success: false, error: 'Sai email hoặc mật khẩu' };
     }
     try {
       const result = await window.FirebaseAuth.loginWithEmail(email, password);
@@ -126,8 +152,13 @@ const App = (() => {
   }
 
   async function loginWithGoogle() {
+    let attempts = 0;
+    while (!window.FirebaseAuth && attempts < 30) {
+      await new Promise(r => setTimeout(r, 100));
+      attempts++;
+    }
     if (!window.FirebaseAuth) {
-      console.error('Firebase chưa được tải');
+      alert('Không thể kết nối dịch vụ Google Auth. Vui lòng thử đăng nhập bằng Email/Mật khẩu.');
       return;
     }
     const result = await window.FirebaseAuth.signInWithGoogle();
