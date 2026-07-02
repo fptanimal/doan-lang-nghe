@@ -89,27 +89,17 @@ async function signInWithGoogle() {
       result = await signInWithPopup(auth, provider);
       user = result.user;
     } catch (authErr) {
-      console.warn('Google Auth popup bị chặn hoặc domain Vercel chưa được thêm vào Firebase Console Authorized Domains:', authErr);
+      console.error('Lỗi Firebase Google Auth:', authErr);
       if (authErr && authErr.code === 'auth/popup-closed-by-user') {
         return { success: false, error: 'Bạn đã đóng cửa sổ đăng nhập Google.' };
       }
-      // Tự động fallback local Google login khi domain trên Vercel chưa add vào Google Auth
-      const googleUser = {
-        uid: 'google_' + Date.now(),
-        email: 'khach.google@gmail.com',
-        displayName: 'Khách Google',
-        photoURL: 'https://ui-avatars.com/api/?name=Google+User&background=4285F4&color=fff',
-        role: 'customer'
-      };
-      localStorage.setItem('langNghe_auth', JSON.stringify(googleUser));
-      try {
-        let users = JSON.parse(localStorage.getItem('langNghe_users') || '[]');
-        if (!users.some(u => u.email === googleUser.email)) {
-          users.push(googleUser);
-          localStorage.setItem('langNghe_users', JSON.stringify(users));
-        }
-      } catch(e){}
-      return { success: true, user: googleUser };
+      if (authErr && (authErr.code === 'auth/unauthorized-domain' || (authErr.message && authErr.message.includes('unauthorized-domain')))) {
+        return { 
+          success: false, 
+          error: `⚠️ LỖI BẢO MẬT FIREBASE: Tên miền hiện tại (${window.location.hostname}) chưa được thêm vào danh sách cho phép của Google Firebase.\n\n👉 Để đăng nhập Google thật bằng tài khoản Firebase của bạn, hãy làm 3 bước sau:\n1. Vào trang quản trị https://console.firebase.google.com/ (Dự án: ban-do-lang)\n2. Chọn Authentication ➔ Settings (Cài đặt) ➔ Authorized Domains\n3. Bấm "Add domain" và dán tên miền này vào: ${window.location.hostname}\n\nSau khi thêm xong, tính năng đăng nhập Google thật sẽ hoạt động 100%!` 
+        };
+      }
+      return { success: false, error: 'Lỗi đăng nhập Google từ máy chủ Firebase: ' + (authErr.code || authErr.message) };
     }
 
     const userData = await saveUserToFirestore(user);
