@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/pages.css" />
   <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/upgrade.css" />
   <style>
     body { background: #0d0b09; color: #e8e0d6; }
     .checkout-wrapper { max-width: 1100px; margin: 0 auto; padding: 120px 24px 60px; }
@@ -72,6 +73,7 @@
   </div>
 </div>
 
+<script type="module" src="js/firebase-auth.js"></script>
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
 <script src="js/cart.js"></script>
@@ -210,51 +212,86 @@
     btn.disabled = true;
     btn.textContent = 'Đang xử lý...';
 
-    const token = localStorage.getItem('accessToken');
-    
-    try {
-      const res = await fetch('/api/orders/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          name: document.getElementById('f-name').value,
-          phone: document.getElementById('f-phone').value,
-          address: document.getElementById('f-address').value,
-          note: document.getElementById('f-note').value
-        })
-      });
-
-      const data = await res.json();
+    // Simulate network delay and save to Firestore
+    setTimeout(async () => {
+      const orderId = 'ORD-' + Date.now();
+      const user = App.getCurrentUser();
       
-      if (data.success) {
-        if (typeof App !== 'undefined' && App.launchConfetti) App.launchConfetti();
-        Cart.updateBadge(0);
+      const order = {
+        id: orderId,
+        userId: user ? user.uid : 'guest',
+        customerName: document.getElementById('f-name').value,
+        phone: document.getElementById('f-phone').value,
+        address: document.getElementById('f-address').value,
+        note: document.getElementById('f-note').value,
+        total: cartTotal,
+        items: cartData,
+        status: 'pending', // pending, shipping, completed, cancelled
+        createdAt: new Date().toISOString()
+      };
+      
+      // Lưu vào localStorage cho Admin (fallback & realtime sync)
+      try {
+        const localOrders = JSON.parse(localStorage.getItem('admin_orders') || '[]');
+        localOrders.unshift(order);
+        localStorage.setItem('admin_orders', JSON.stringify(localOrders));
         
-        document.getElementById('checkout-content').innerHTML = `
-          <div class="checkout-success">
-            <p style="font-size:4rem; margin-bottom:16px;">🎉</p>
-            <h2>Đặt hàng thành công!</h2>
-            <p>Cảm ơn bạn đã mua sắm tại Làng Nghề.<br>Chúng tôi sẽ liên hệ bạn sớm nhất để xác nhận đơn hàng.</p>
-            <div class="success-order-id">Mã đơn: ${data.orderId}</div>
-            <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:16px;">
-              <a href="marketplace.html" class="btn btn-primary" style="padding:12px 32px;">Tiếp tục mua sắm</a>
-              <a href="profile.html" class="btn btn-outline-light" style="padding:12px 32px;">Xem đơn hàng</a>
-            </div>
-          </div>
-        `;
-      } else {
-        btn.disabled = false;
-        btn.textContent = 'Đặt hàng — ' + formatPrice(cartTotal);
-        Cart.showToast('❌ ' + data.error, true);
+        // Tạo thông báo cho Admin & Khách
+        const notif = {
+          id: 'NOTIF-' + Date.now(),
+          userId: user ? user.uid : 'guest',
+          order_id: orderId,
+          title: '📦 Đơn hàng mới: ' + orderId,
+          message: `Khách hàng ${order.customerName} đã đặt đơn hàng trị giá ${formatPrice(cartTotal)}.`,
+          is_read: false,
+          createdAt: new Date().toISOString()
+        };
+        const localNotifs = JSON.parse(localStorage.getItem('user_notifications') || '[]');
+        localNotifs.unshift(notif);
+        localStorage.setItem('user_notifications', JSON.stringify(localNotifs));
+      } catch (e) {
+        console.error('Error saving order to localStorage', e);
       }
-    } catch (err) {
-      btn.disabled = false;
-      btn.textContent = 'Đặt hàng — ' + formatPrice(cartTotal);
-      Cart.showToast('❌ Lỗi kết nối server', true);
-    }
+
+      if (window.FirebaseAuth) {
+        try {
+          const { db, firestore } = window.FirebaseAuth;
+          await firestore.setDoc(firestore.doc(db, 'orders', orderId), order);
+          // Lưu thêm notification vào Firestore
+          const notifId = 'NOTIF-' + Date.now();
+          await firestore.setDoc(firestore.doc(db, 'notifications', notifId), {
+            id: notifId,
+            userId: user ? user.uid : 'guest',
+            order_id: orderId,
+            title: '📦 Đơn hàng mới: ' + orderId,
+            message: `Khách hàng ${order.customerName} đã đặt đơn hàng trị giá ${formatPrice(cartTotal)}.`,
+            is_read: false,
+            createdAt: new Date().toISOString()
+          });
+        } catch (e) {
+          console.error('Error saving order to Firestore', e);
+        }
+      }
+      
+      // Clear Cart
+      Cart.clearCart();
+      Cart.updateBadge(0);
+      
+      if (typeof App !== 'undefined' && App.launchConfetti) App.launchConfetti();
+      
+      document.getElementById('checkout-content').innerHTML = `
+        <div class="checkout-success">
+          <p style="font-size:4rem; margin-bottom:16px;">🎉</p>
+          <h2>Đặt hàng thành công!</h2>
+          <p>Cảm ơn bạn đã mua sắm tại Làng Nghề.<br>Chúng tôi sẽ liên hệ bạn sớm nhất để xác nhận đơn hàng.</p>
+          <div class="success-order-id">Mã đơn: ${orderId}</div>
+          <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:16px;">
+            <a href="marketplace.html" class="btn btn-primary" style="padding:12px 32px;">Tiếp tục mua sắm</a>
+            <a href="order-tracking.html?id=${orderId}" class="btn btn-outline-light" style="padding:12px 32px;">Theo dõi đơn hàng</a>
+          </div>
+        </div>
+      `;
+    }, 800);
   }
 </script>
 </body>

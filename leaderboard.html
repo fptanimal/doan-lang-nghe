@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -8,51 +8,79 @@
   <link rel="stylesheet" href="css/pages.css" />
   <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/upgrade.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 <div class="bg-pattern"></div>
 <div id="main-navbar"></div>
 
-<div class="page-wrapper leaderboard-page" style="padding-top:100px;">
+<div class="page-wrapper leaderboard-page" style="padding-top:100px; max-width:1400px; margin:0 auto;">
 
-  <!-- Header -->
-  <div class="leaderboard-header">
-    <div style="font-size:3rem;margin-bottom:8px">🏆</div>
-    <h1 class="leaderboard-title">Bảng Xếp Hạng</h1>
-    <p style="color:var(--gray);font-size:0.95rem">Những người bảo vệ ngọn lửa văn hóa xuất sắc nhất</p>
-  </div>
+  <div class="lb-dashboard-grid" style="display:grid; grid-template-columns:1fr; gap:32px; padding:0 24px;">
+    
+    <!-- Left Panel -->
+    <div class="lb-left-panel" style="display:flex; flex-direction:column; gap:32px;">
+      <!-- Header -->
+      <div class="leaderboard-header" style="text-align:left; background:rgba(255,255,255,0.85); backdrop-filter:blur(16px); padding:40px; border-radius:24px; border:1px solid rgba(255,255,255,0.8); box-shadow:0 12px 32px rgba(0,0,0,0.05);">
+        <div style="color:var(--terracotta); margin-bottom:16px;"><i data-lucide="bar-chart-2" style="width:48px;height:48px;"></i></div>
+        <h1 class="leaderboard-title" style="font-size:3rem;">Bảng Xếp Hạng</h1>
+        <p style="color:var(--gray);font-size:1.1rem; line-height:1.6; max-width:400px;">Những người bảo vệ ngọn lửa văn hóa xuất sắc nhất.</p>
+        
+        <div style="display:flex;gap:12px;margin-top:32px;">
+          <button class="btn btn-primary" onclick="App.navigate('lobby.html')"><i data-lucide="play" style="width:18px;height:18px;margin-right:8px;fill:currentColor;"></i> Chơi ngay</button>
+          <button class="btn btn-ghost" onclick="clearLeaderboard()"><i data-lucide="trash-2" style="width:18px;height:18px;margin-right:8px;"></i> Xoá dữ liệu</button>
+        </div>
+      </div>
 
-  <!-- Tabs -->
-  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:24px;">
-    <button class="mp-filter active" onclick="switchTab(this,'all')">Mọi thời đại</button>
-    <button class="mp-filter" onclick="switchTab(this,'today')">Hôm nay</button>
-  </div>
-
-  <!-- Top 3 podium -->
-  <div id="podium" style="display:flex;align-items:flex-end;justify-content:center;gap:12px;margin-bottom:32px;animation:slideInDown 0.6s ease-out;"></div>
-
-  <!-- Full list -->
-  <div class="leaderboard-list" id="leaderboard-list"></div>
-
-  <!-- My position -->
-  <div id="my-position" style="display:none;position:sticky;bottom:0;background:var(--cream);padding:16px;border-top:2px solid var(--gold);text-align:center;font-size:0.9rem;font-weight:600;color:var(--brown);border-radius:12px 12px 0 0;box-shadow:0 -4px 16px rgba(0,0,0,0.08);margin-top:16px;"></div>
-
-  <!-- My record -->
-  <div id="my-record" style="display:none;margin-top:24px;padding-top:24px;border-top:1.5px dashed var(--cream-dark);">
-    <h3 style="text-align:center;color:var(--brown);margin-bottom:16px;font-size:1rem;">📊 Kỷ lục của bạn</h3>
-    <div class="card" style="text-align:center;">
-      <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--terracotta)" id="my-high-score">0</div>
-      <div style="font-size:0.8rem;color:var(--gray);margin-top:4px">Điểm cao nhất</div>
+      <!-- My Record -->
+      <div id="my-record" style="display:none; background:rgba(255,255,255,0.85); backdrop-filter:blur(16px); padding:32px; border-radius:24px; border:1px solid rgba(255,255,255,0.8); box-shadow:0 12px 32px rgba(0,0,0,0.05);">
+        <h3 style="color:var(--brown);margin-bottom:24px;font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i data-lucide="award"></i> Kỷ lục của bạn</h3>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display);font-size:3rem;font-weight:800;color:var(--terracotta)" id="my-high-score">0</div>
+          <div style="font-size:0.9rem;color:var(--gray);margin-top:4px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Điểm cao nhất</div>
+        </div>
+      </div>
+      
+      <!-- Top 3 podium -->
+      <div id="podium" style="display:flex;align-items:flex-end;justify-content:center;gap:16px;animation:slideInDown 0.6s ease-out; margin-top:auto;"></div>
     </div>
-  </div>
 
-  <!-- CTA -->
-  <div style="display:flex;gap:12px;justify-content:center;margin-top:32px;animation:slideInUp 0.6s 0.4s ease-out both;">
-    <button class="btn btn-primary" onclick="App.navigate('lobby.html')">🎮 Chơi ngay</button>
-    <button class="btn btn-ghost btn-sm" onclick="clearLeaderboard()">🗑️ Xoá dữ liệu</button>
-  </div>
+    <!-- Right Panel -->
+    <div class="lb-right-panel" style="background:rgba(255,255,255,0.85); backdrop-filter:blur(16px); padding:32px; border-radius:24px; border:1px solid rgba(255,255,255,0.8); box-shadow:0 12px 32px rgba(0,0,0,0.05); display:flex; flex-direction:column; min-height:600px;">
+      <!-- Tabs -->
+      <div style="display:flex;gap:12px;margin-bottom:32px;border-bottom:1px solid var(--cream-dark);padding-bottom:16px;">
+        <button class="mp-filter active" onclick="switchTab(this,'all')" style="border-radius:8px; padding:10px 24px; font-size:0.95rem;">Mọi thời đại</button>
+        <button class="mp-filter" onclick="switchTab(this,'today')" style="border-radius:8px; padding:10px 24px; font-size:0.95rem;">Hôm nay</button>
+      </div>
 
+      <!-- Full list -->
+      <div class="leaderboard-list" id="leaderboard-list" style="flex-grow:1; overflow-y:auto; padding-right:16px;"></div>
+
+      <!-- My position -->
+      <div id="my-position" style="display:none;background:rgba(232,184,75,0.15);padding:20px;text-align:center;font-size:0.95rem;font-weight:600;color:var(--brown);border-radius:12px;margin-top:24px; border:1px solid var(--gold);"></div>
+    </div>
+    
+  </div>
 </div>
+<style>
+  @media (min-width: 1024px) {
+    .lb-dashboard-grid {
+      grid-template-columns: 400px 1fr !important;
+    }
+  }
+  .lb-item {
+    padding: 16px 20px !important;
+    border-radius: 16px !important;
+    margin-bottom: 12px !important;
+    background: white;
+    border: 1px solid var(--cream-dark);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+</style>
 
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
@@ -61,6 +89,7 @@
     App.renderNavbar('leaderboard');
     renderLeaderboard('all');
     renderMyRecord();
+    lucide.createIcons();
   });
 
   function switchTab(btn, mode) {
@@ -82,28 +111,32 @@
     podium.innerHTML = '';
 
     if (board.length === 0) {
-      list.innerHTML = `<div class="lb-empty" style="text-align: center; padding: 40px 20px;"><div class="lb-empty-icon" style="font-size:3rem; margin-bottom:12px;">🏆</div><p style="color:var(--gray); font-size:1rem; line-height: 1.6;">Bảng xếp hạng đang trống!<br>Hãy là người đầu tiên ghi danh trên bảng vàng.</p></div>`;
+      list.innerHTML = `<div class="lb-empty" style="text-align: center; padding: 80px 40px;">
+        <div style="color:var(--cream-dark); margin-bottom:24px; display:flex; justify-content:center;"><i data-lucide="database" style="width:64px;height:64px;"></i></div>
+        <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--terracotta); margin-bottom: 12px;">Chưa có dữ liệu</h3>
+        <p style="color:var(--gray); font-size:1.05rem; line-height: 1.6;">Hãy là người đầu tiên ghi danh trên bảng vàng.<br>Tham gia thử thách ngay hôm nay!</p>
+      </div>`;
       return;
     }
 
     // Podium
     const podiumOrder = [1, 0, 2];
     const podiumHeights = [120, 160, 90];
-    const podiumEmojis = ['🥈', '🥇', '🥉'];
+    const podiumLabels = ['Hạng 2', 'Hạng 1', 'Hạng 3'];
     podiumOrder.forEach((idx, pos) => {
       const player = board[idx];
       if (!player) return;
       const div = document.createElement('div');
       div.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;animation:slideInUp 0.5s ' + (0.1+pos*0.1) + 's ease-out both;';
       div.innerHTML = `
-        <div style="font-size:2rem">${podiumEmojis[pos]}</div>
-        <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--terracotta),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;color:white;font-family:var(--font-display);box-shadow:var(--shadow-md);">
+        <div style="font-size:0.75rem; font-weight:700; color:var(--gray); text-transform:uppercase;">${podiumLabels[pos]}</div>
+        <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--terracotta),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:white;font-family:var(--font-display);box-shadow:var(--shadow-md); border:3px solid white;">
           ${(player.name || '?').charAt(0).toUpperCase()}
         </div>
-        <div style="font-weight:700;font-size:0.85rem;color:var(--ink);text-align:center;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${player.name}</div>
-        <div style="background:${pos===1?'var(--gold)':pos===0?'var(--gray-light)':'#c87533'};height:${podiumHeights[pos]}px;width:70px;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;box-shadow:var(--shadow-sm);">
-          <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:800;color:white;">${App.formatScore(player.score)}</div>
-          <div style="font-size:0.65rem;color:rgba(255,255,255,0.8)">${player.correct||0}/${player.total||5} đúng</div>
+        <div style="font-weight:700;font-size:0.9rem;color:var(--ink);text-align:center;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${player.name}</div>
+        <div style="background:${pos===1?'var(--gold)':pos===0?'#e2e8f0':'#d97706'};height:${podiumHeights[pos]}px;width:80px;border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;box-shadow:var(--shadow-sm);">
+          <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:${pos===0?'var(--ink)':'white'};">${App.formatScore(player.score)}</div>
+          <div style="font-size:0.7rem;color:${pos===0?'var(--gray)':'rgba(255,255,255,0.8)'};font-weight:600;">${player.correct||0}/${player.total||5} đúng</div>
         </div>
       `;
       podium.appendChild(div);
@@ -119,18 +152,21 @@
       el.style.animationDelay = `${0.05 + i * 0.06}s`;
       if (isMe) el.style.background = 'rgba(232,184,75,0.08)';
       if (isMe) el.style.borderColor = 'var(--gold)';
-      const medals = ['🥇','🥈','🥉'];
       el.innerHTML = `
-        <div class="lb-rank">${medals[i] || (i + 1)}</div>
-        <div class="lb-avatar">${(player.name || '?').charAt(0).toUpperCase()}</div>
-        <div class="lb-info">
-          <div class="lb-name">${player.name || 'Ẩn danh'}${isMe ? ' (Bạn)' : ''}</div>
-          <div class="lb-detail">✅ ${player.correct || 0}/${player.total || 5} · 📅 ${player.date || ''}</div>
+        <div class="lb-rank" style="font-weight:800; font-family:var(--font-display); color:var(--gray); width:30px; text-align:center;">#${i + 1}</div>
+        <div class="lb-avatar" style="width:40px;height:40px;border-radius:50%;background:var(--cream-dark);display:flex;align-items:center;justify-content:center;font-weight:700;">${(player.name || '?').charAt(0).toUpperCase()}</div>
+        <div class="lb-info" style="flex-grow:1;">
+          <div class="lb-name" style="font-weight:700; color:var(--ink); font-size:1rem;">${player.name || 'Ẩn danh'}${isMe ? ' <span style="color:var(--terracotta);font-size:0.8rem;background:rgba(192,83,58,0.1);padding:2px 8px;border-radius:4px;margin-left:8px;">Bạn</span>' : ''}</div>
+          <div class="lb-detail" style="font-size:0.8rem; color:var(--gray); margin-top:4px; display:flex; gap:12px;">
+            <span style="display:flex;align-items:center;gap:4px;"><i data-lucide="check-circle" style="width:12px;height:12px;"></i> ${player.correct || 0}/${player.total || 5}</span>
+            <span style="display:flex;align-items:center;gap:4px;"><i data-lucide="calendar" style="width:12px;height:12px;"></i> ${player.date || ''}</span>
+          </div>
         </div>
-        <div class="lb-score">${App.formatScore(player.score)}</div>
+        <div class="lb-score" style="font-family:var(--font-display); font-size:1.2rem; font-weight:800; color:var(--terracotta);">${App.formatScore(player.score)}</div>
       `;
       list.appendChild(el);
     });
+    lucide.createIcons();
 
     // My position
     const myIdx = board.findIndex(p => p.name === userName);

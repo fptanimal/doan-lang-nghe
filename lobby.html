@@ -6,75 +6,158 @@
   <title>Làng Nghề — Sảnh chơi</title>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/pages.css" />
-  <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/lobby-new.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-<div class="bg-pattern"></div>
+<body class="lobby-light">
+
 <div id="main-navbar"></div>
 
-<div class="page-wrapper lobby-page">
-  <!-- Hero: Daily Challenge -->
-  <section class="lobby-hero-section">
-    <div class="lobby-hero-card">
-      <div class="lobby-hero-img" id="daily-hero-img"></div>
-      <div class="lobby-hero-overlay">
-        <div class="daily-badge">🔥 Thử thách hàng ngày — <span id="daily-date"></span></div>
-        <h1 class="lobby-hero-title">Đoán Làng Nghề</h1>
-        <p class="lobby-hero-sub">Bạn biết bao nhiêu làng nghề Việt Nam?</p>
-        <div class="lobby-streak" id="lobby-streak">🔥 Chuỗi 0 ngày liên tiếp</div>
-        <button class="btn btn-primary btn-lg lobby-play-btn" onclick="startGame()">▶ BẮT ĐẦU CHƠI</button>
+<div class="lobby-container scroll-reveal">
+  
+  <!-- Left Column: Hero & Features -->
+  <div class="lobby-left">
+    
+    <div class="lb-hero">
+      <div class="lb-hero-bg" id="daily-hero-img" style="background-image: url('images/lang-gom-bat-trang-1.jpg');"></div>
+      <div class="lb-hero-overlay"></div>
+      
+      <div class="lb-hero-content">
+        <div class="lb-daily-badge">
+          <i data-lucide="calendar"></i> Thử thách hàng ngày — <span id="daily-date">1 tháng 7, 2026</span>
+        </div>
+        
+        <h2 class="lb-hero-greeting">Chào mừng trở lại,</h2>
+        <h1 class="lb-hero-title">Đoán Làng Nghề</h1>
+        <p class="lb-hero-sub">Cùng khám phá và gìn giữ tinh hoa làng nghề Việt Nam.</p>
+        
+        <div class="lb-hero-streak" id="lobby-streak">
+          <i data-lucide="trending-up"></i> Chuỗi 0 ngày
+        </div>
+        
+        <button class="lb-play-btn" onclick="startGame()">
+          <i data-lucide="play" style="fill:currentColor;"></i> BẮT ĐẦU CHƠI
+        </button>
+
+        <div class="lb-level-box">
+          <div class="lb-level-icon">
+            <i data-lucide="award"></i>
+          </div>
+          <div class="lb-level-info">
+            <p class="lb-level-name">Cấp độ hiện tại</p>
+            <p class="lb-level-val">Người mới</p>
+          </div>
+          <div style="flex:1;">
+            <p class="lb-level-xp">120 / 500 XP</p>
+            <div class="lb-progress-bar">
+              <div class="lb-progress-fill"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- Stats -->
-  <section class="lobby-stats">
-    <div class="lobby-stat-card">
-      <div class="lobby-stat-icon">🏆</div>
-      <div class="lobby-stat-val" id="stat-high-score">0</div>
-      <div class="lobby-stat-lbl">Điểm cao nhất</div>
+    <div class="lb-features">
+      <div class="lb-feature-card">
+        <div class="lb-feature-icon"><i data-lucide="amphora" style="color:var(--lb-accent)"></i></div>
+        <div class="lb-feature-text">
+          <h4>Làng nghề Việt Nam</h4>
+          <p>Khám phá & tìm hiểu</p>
+        </div>
+      </div>
+      <div class="lb-feature-card">
+        <div class="lb-feature-icon"><i data-lucide="trophy" style="color:#d4a373"></i></div>
+        <div class="lb-feature-text">
+          <h4>Thử thách mỗi ngày</h4>
+          <p>Rèn luyện & nhận thưởng</p>
+        </div>
+      </div>
+      <div class="lb-feature-card">
+        <div class="lb-feature-icon"><i data-lucide="monitor" style="color:var(--lb-text-main)"></i></div>
+        <div class="lb-feature-text">
+          <h4>Trải nghiệm 360°</h4>
+          <p>Tham quan chân thực</p>
+        </div>
+      </div>
+      <div class="lb-feature-card">
+        <div class="lb-feature-icon"><i data-lucide="gift" style="color:var(--lb-accent)"></i></div>
+        <div class="lb-feature-text">
+          <h4>Phần thưởng hấp dẫn</h4>
+          <p>Nhận xu & quà giá trị</p>
+        </div>
+      </div>
     </div>
-    <div class="lobby-stat-card">
-      <div class="lobby-stat-icon">✅</div>
-      <div class="lobby-stat-val" id="stat-games">0</div>
-      <div class="lobby-stat-lbl">Trò chơi</div>
-    </div>
-    <div class="lobby-stat-card">
-      <div class="lobby-stat-icon">📅</div>
-      <div class="lobby-stat-val" id="stat-streak">0</div>
-      <div class="lobby-stat-lbl">Chuỗi ngày</div>
-    </div>
-  </section>
 
-  <!-- Featured Villages -->
-  <section class="lobby-villages-section">
-    <h2 class="lobby-section-title">🏮 Khám phá làng nghề</h2>
-    <div class="lobby-villages-scroll" id="lobby-villages">
-      <!-- Filled by JS -->
-    </div>
-  </section>
+  </div>
 
-  <!-- Quick Links -->
-  <section class="lobby-quick-links">
-    <a href="marketplace.html" class="lobby-quick-card">
-      <span class="lobby-quick-icon">🛒</span>
-      <span>Marketplace</span>
-    </a>
-    <a href="leaderboard.html" class="lobby-quick-card">
-      <span class="lobby-quick-icon">🏆</span>
-      <span>Xếp hạng</span>
-    </a>
-    <a href="profile.html" class="lobby-quick-card">
-      <span class="lobby-quick-icon">👤</span>
-      <span>Hồ sơ</span>
-    </a>
-  </section>
+  <!-- Right Column: Dashboard -->
+  <div class="lb-dashboard">
+    <div class="lb-dash-header">
+      <h3 class="lb-dash-title">Tổng quan nhanh</h3>
+      <p class="lb-dash-welcome">Xin chào, <strong id="user-name-display">Lâm Nguyễn Đăng</strong> 👋</p>
+      <div class="lb-dash-deco"></div>
+    </div>
+
+    <div class="lb-stats-grid">
+      <div class="lb-stat-box">
+        <div class="lb-stat-icon"><i data-lucide="medal" style="color:#c45b37;width:28px;height:28px;"></i></div>
+        <h4 class="lb-stat-val" id="stat-high-score">0</h4>
+        <p class="lb-stat-lbl">Điểm cao nhất</p>
+      </div>
+      <div class="lb-stat-box">
+        <div class="lb-stat-icon"><i data-lucide="check-circle-2" style="color:#5a7d65;width:28px;height:28px;"></i></div>
+        <h4 class="lb-stat-val" id="stat-games">0</h4>
+        <p class="lb-stat-lbl">Trò chơi đã chơi</p>
+      </div>
+      <div class="lb-stat-box">
+        <div class="lb-stat-icon"><i data-lucide="calendar" style="color:#d4a373;width:28px;height:28px;"></i></div>
+        <h4 class="lb-stat-val" id="stat-streak">0</h4>
+        <p class="lb-stat-lbl">Chuỗi ngày</p>
+      </div>
+    </div>
+
+    <div class="lb-links-list">
+      <a href="marketplace.html" class="lb-link-item">
+        <div class="lb-link-icon"><i data-lucide="shopping-bag"></i></div>
+        <div class="lb-link-text">
+          <h4>Marketplace</h4>
+          <p>Khám phá sản phẩm làng nghề</p>
+        </div>
+        <i data-lucide="chevron-right" class="lb-link-arrow"></i>
+      </a>
+      <a href="leaderboard.html" class="lb-link-item">
+        <div class="lb-link-icon"><i data-lucide="bar-chart-2"></i></div>
+        <div class="lb-link-text">
+          <h4>Xếp hạng</h4>
+          <p>Xem bảng xếp hạng người chơi</p>
+        </div>
+        <i data-lucide="chevron-right" class="lb-link-arrow"></i>
+      </a>
+      <a href="profile.html" class="lb-link-item">
+        <div class="lb-link-icon"><i data-lucide="user"></i></div>
+        <div class="lb-link-text">
+          <h4>Hồ sơ</h4>
+          <p>Quản lý thông tin cá nhân</p>
+        </div>
+        <i data-lucide="chevron-right" class="lb-link-arrow"></i>
+      </a>
+      <a href="#" class="lb-link-item">
+        <div class="lb-link-icon"><i data-lucide="settings"></i></div>
+        <div class="lb-link-text">
+          <h4>Cài đặt</h4>
+          <p>Tùy chỉnh trải nghiệm</p>
+        </div>
+        <i data-lucide="chevron-right" class="lb-link-arrow"></i>
+      </a>
+    </div>
+
+  </div>
+
 </div>
 
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
-<script src="js/mascot.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     App.renderNavbar('lobby');
@@ -94,28 +177,17 @@
       document.getElementById('stat-high-score').textContent = user.bestScore || 0;
       document.getElementById('stat-games').textContent = user.gamesPlayed || 0;
       document.getElementById('stat-streak').textContent = user.dailyStreak || 0;
-      document.getElementById('lobby-streak').textContent = `🔥 Chuỗi ${user.dailyStreak || 0} ngày liên tiếp`;
+      document.getElementById('lobby-streak').innerHTML = `<i data-lucide="trending-up" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> Chuỗi ${user.dailyStreak || 0} ngày`;
+      if(user.displayName) {
+        document.getElementById('user-name-display').textContent = user.displayName;
+      }
     } else {
       const state = App.getState();
       document.getElementById('stat-high-score').textContent = state.highScore || 0;
+      document.getElementById('user-name-display').textContent = "Khách";
     }
 
-    // Villages scroll
-    const villagesContainer = document.getElementById('lobby-villages');
-    VILLAGES.forEach((v, i) => {
-      const card = document.createElement('div');
-      card.className = 'lobby-village-card';
-      card.style.animationDelay = `${i * 0.08}s`;
-      card.innerHTML = `
-        <div class="lobby-village-img" style="background-image:url('${v.thumbnail}')"></div>
-        <div class="lobby-village-info">
-          <div class="lobby-village-name">${v.name}</div>
-          <div class="lobby-village-loc">📍 ${v.location}</div>
-        </div>
-      `;
-      card.addEventListener('click', () => startGame());
-      villagesContainer.appendChild(card);
-    });
+    lucide.createIcons();
   });
 
   function startGame() {

@@ -129,8 +129,6 @@ const HistoryChapter = (() => {
     }
   }
 
-  window.nextQuestion = nextQuestion;
-
   return {
     init,
     nextQuestion
@@ -138,5 +136,6 @@ const HistoryChapter = (() => {
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
+  window.nextQuestion = HistoryChapter.nextQuestion;
   HistoryChapter.init();
 });

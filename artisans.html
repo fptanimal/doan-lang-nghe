@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Làng Nghề — Gặp gỡ Nghệ nhân</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/pages2.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/upgrade.css" />
+  <link rel="stylesheet" href="css/home-redesign.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme" style="background-color: #0d0a09; color: var(--rd-text-light);">
+
+<div id="main-navbar"></div>
+
+<div class="page-wrapper" style="padding-top: 100px;">
+  <!-- GẶP GỠ NGHỆ NHÂN -->
+  <section style="max-width:1100px; margin:0 auto; padding:0 24px 80px;">
+    <div style="text-align:center; margin-bottom:48px;">
+      <p style="color:var(--gold); text-transform:uppercase; letter-spacing:3px; font-size:0.85rem; margin-bottom:8px;">Gặp gỡ</p>
+      <h1 style="font-family:var(--font-display); font-size:clamp(2rem,5vw,3.2rem); color:var(--cream); margin:0;">Nghệ nhân</h1>
+      <p style="color:rgba(255,255,255,0.6); max-width:600px; margin:16px auto 0; line-height:1.7;">Những nghệ nhân giỏi, lành nghề hàng đầu đất nước đang giữ gìn và phát triển các làng nghề truyền thống Việt Nam, tận tay tạo ra từng kiệt tác thủ công mỹ nghệ.</p>
+    </div>
+
+    <!-- Artisan Cards -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:32px; margin-bottom:48px;" id="artisan-grid">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align:center; background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.2); border-radius:24px; padding:48px 32px;">
+      <h2 style="font-family:var(--font-display); color:var(--gold); font-size:1.5rem; margin:0 0 12px;">Bạn là nghệ nhân?</h2>
+      <p style="color:rgba(255,255,255,0.6); margin:0 0 24px;">Tham gia BandoLang để kết nối với thế giới và giới thiệu sản phẩm thủ công của bạn.</p>
+      <a href="login.html" style="display:inline-block; background:var(--gold); color:#1a1a1a; padding:14px 36px; border-radius:12px; text-decoration:none; font-weight:700; font-size:0.95rem;">Đăng ký ngay</a>
+    </div>
+  </section>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  App.renderNavbar('artisans');
+
+  const artisans = [
+    { name: "Trần Thọ Lan", village: "Làng Gốm Bát Tràng", experience: "30 năm", photo: "images/lang-gom-bat-trang-1.jpg", desc: "Nghệ nhân ưu tú với hơn 30 năm giữ lửa nghề gốm Bát Tràng, nổi tiếng với kỹ thuật men rạn cổ truyền." },
+    { name: "Lê Văn Hùng", village: "Mây tre đan Phú Vinh", experience: "25 năm", photo: "images/Làng nghề mây tre đan.jpg", desc: "Một trong những nghệ nhân bậc thầy về kỹ thuật đan mây tre, sản phẩm xuất khẩu đi nhiều nước." },
+    { name: "Phạm Thị Hoa", village: "Lụa Vạn Phúc", experience: "20 năm", photo: "images/Lụa vạn phúc.jpg", desc: "Nghệ nhân nữ tài hoa chuyên dệt lụa vân cao cấp, giữ gìn nét đẹp lụa tơ tằm Hà Đông." },
+    { name: "Võ Đình Dũng", village: "Đá mỹ nghệ Non Nước", experience: "35 năm", photo: "images/tuong-da-lang-my-nghe-non-nuoc.png", desc: "Bậc thầy điêu khắc đá cẩm thạch với các tác phẩm tượng Phật tinh xảo nổi tiếng trong và ngoài nước." }
+  ];
+
+  const grid = document.getElementById('artisan-grid');
+  artisans.forEach((a, i) => {
+    const card = document.createElement('div');
+    card.style.cssText = 'background:rgba(20,15,10,0.5); border:1px solid rgba(232,184,75,0.15); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; transition:transform 0.3s, box-shadow 0.3s; cursor:pointer;';
+    card.onmouseenter = () => { card.style.transform='translateY(-4px)'; card.style.boxShadow='0 12px 40px rgba(232,184,75,0.15)'; };
+    card.onmouseleave = () => { card.style.transform=''; card.style.boxShadow=''; };
+    card.innerHTML = `
+      <div style="height:220px; background:url('${a.photo}') center/cover; position:relative;">
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:16px 20px; background:linear-gradient(transparent, rgba(0,0,0,0.8));">
+          <h3 style="color:var(--cream); font-family:var(--font-display); font-size:1.3rem; margin:0;">${a.name}</h3>
+          <p style="color:var(--gold); font-size:0.8rem; margin:4px 0 0;">${a.village} — ${a.experience}</p>
+        </div>
+      </div>
+      <div style="padding:20px;">
+        <p style="color:rgba(255,255,255,0.65); line-height:1.6; font-size:0.9rem; margin:0;">${a.desc}</p>
+        <a href="artisan-video.html" style="display:inline-block; margin-top:16px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem;">Kết nối →</a>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  lucide.createIcons();
+});
+</script>
+</body>
+</html>

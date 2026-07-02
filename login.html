@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="css/pages.css" />
   <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/upgrade.css" />
+  <!-- Firebase Auth Module (ES Module) -->
+  <script type="module" src="js/firebase-auth.js"></script>
   <style>
     /* 🌟 View Transition API CSS 🌟 */
     .auth-wrapper {
@@ -29,6 +32,7 @@
     @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
     @keyframes scale-down { from { transform: scale(1); } to { transform: scale(0.95); } }
     @keyframes scale-up { from { transform: scale(0.95); } to { transform: scale(1); } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     
     .hidden { display: none !important; }
     .auth-card { width: 100%; }
@@ -45,7 +49,7 @@
     
     <!-- ================= LUỒNG ĐĂNG NHẬP ================= -->
     <div class="auth-container auth-card" id="login-form-wrapper">
-      <div class="auth-logo">🏮 Làng Nghề</div>
+      <div class="auth-logo">Làng Nghề</div>
       <div class="auth-subtitle">KHÁM PHÁ DI SẢN</div>
 
       <h2 class="auth-title">Đăng nhập</h2>
@@ -59,6 +63,8 @@
       <div class="auth-divider">
         <span>HOẶC TIẾP TỤC VỚI</span>
       </div>
+
+
 
       <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
         <div class="auth-field">
@@ -83,7 +89,7 @@
 
     <!-- ================= LUỒNG ĐĂNG KÝ ================= -->
     <div class="auth-container auth-card hidden" id="register-form-wrapper">
-      <div class="auth-logo">🏮 Làng Nghề</div>
+      <div class="auth-logo">Làng Nghề</div>
       <div class="auth-subtitle">KHÁM PHÁ DI SẢN</div>
 
       <h2 class="auth-title">Tạo tài khoản</h2>
@@ -95,6 +101,8 @@
       </button>
 
       <div class="auth-divider"><span>HOẶC ĐĂNG KÝ VỚI EMAIL</span></div>
+
+
 
       <form class="auth-form" onsubmit="handleRegister(event)">
         <div class="auth-field">
@@ -122,27 +130,7 @@
       </p>
     </div>
 
-    <!-- OTP Form -->
-    <div class="auth-container auth-card hidden" id="otp-form-wrapper">
-      <div class="auth-logo">Làng Nghề</div>
-      <div class="auth-subtitle">XÁC MINH EMAIL</div>
-      <h1 class="auth-title">Nhập mã OTP</h1>
-      <p class="auth-desc" style="font-size:0.85rem; color:var(--gray); margin-bottom:24px; text-align:left;">
-        Chúng tôi vừa gửi mã xác thực 6 số tới email của bạn. Vui lòng kiểm tra hộp thư.
-      </p>
-      
-      <form class="auth-form" id="otp-form" onsubmit="handleVerifyOtp(event)">
-        <div class="auth-field">
-          <label>MÃ OTP 6 SỐ</label>
-          <input type="text" id="otp-code" placeholder="123456" required maxlength="6" pattern="[0-9]{6}" style="text-align: center; letter-spacing: 10px; font-size: 1.2rem; font-weight: bold; padding: 12px;" />
-        </div>
-        <div id="otp-error" class="auth-error"></div>
-        <button type="submit" class="btn-auth-submit">XÁC NHẬN</button>
-      </form>
-      <p class="auth-switch">
-        Nhập sai email? <a href="#" onclick="switchForm('register-form-wrapper', event)">Quay lại Đăng ký</a>
-      </p>
-    </div>
+    <!-- OTP Form (Removed for Firebase) -->
 
   </div>
 </div>
@@ -153,20 +141,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     App.renderNavbar('login');
     
-    // Xử lý đăng nhập Google trả về token trên URL
-    if (window.location.hash.includes('token=')) {
-      const hashParams = new URLSearchParams(window.location.hash.substring(1));
-      const token = hashParams.get('token');
-      const name = hashParams.get('name');
-      if (token) {
-        localStorage.setItem('accessToken', token);
-        localStorage.setItem('langNghe_auth', JSON.stringify({ displayName: name || 'Người dùng Google' }));
-        window.location.hash = ''; // Xóa hash trên URL
-        window.location.href = 'lobby.html';
-        return;
-      }
-    }
-
     if (App.isLoggedIn()) App.navigate('lobby.html');
     
     // Check URL to determine which form to show first
@@ -209,7 +183,12 @@
     btn.textContent = 'ĐĂNG NHẬP';
 
     if (result.success) {
-      App.navigate('lobby.html');
+      // Nếu là admin thì vào trang quản trị, user thường thì vào lobby
+      if (result.user && result.user.role === 'admin') {
+        App.navigate('admin.html');
+      } else {
+        App.navigate('lobby.html');
+      }
     } else {
       document.getElementById('login-error').textContent = result.error;
     }
@@ -238,36 +217,54 @@
     btn.disabled = false;
     btn.textContent = 'TẠO TÀI KHOẢN';
 
-    if (result.success && result.requireOtp) {
-      switchForm('otp-form-wrapper', e);
+    if (result.success) {
+      App.navigate('lobby.html');
     } else { 
       document.getElementById('reg-error').textContent = result.error; 
     }
   }
 
-  async function handleVerifyOtp(e) {
-    e.preventDefault();
-    const btn = document.querySelector('#otp-form-wrapper .btn-auth-submit');
-    btn.textContent = 'ĐANG XỬ LÝ...';
-    btn.disabled = true;
+  // ── Đăng nhập Google THẬT qua Firebase ──
+  async function googleLogin() {
+    // Kiểm tra nếu đang chạy từ file:// thì Firebase popup không hoạt động
+    if (window.location.protocol === 'file:') {
+      alert('\u0110ăng nhập Google cần chạy web từ server (http/https).\n\nBạn có thể dùng \"Live Server\" trong VS Code hoặc chạy lệnh:\nnpx serve .\n\nHoặc sử dụng Email/Mật khẩu để đăng nhập.');
+      return;
+    }
 
-    const otp = document.getElementById('otp-code').value.trim();
-    
-    const result = await App.verifyOtp(tempRegData.email, tempRegData.pw, tempRegData.name, otp);
-    
-    btn.disabled = false;
-    btn.textContent = 'XÁC NHẬN';
+    const btns = document.querySelectorAll('.btn-google');
+    btns.forEach(b => { b.disabled = true; b.style.opacity = '0.7'; });
+    btns[0].innerHTML = `
+      <svg style="animation: spin 1s linear infinite; width:18px; height:18px;" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#ccc" stroke-width="3"/><path d="M12 2a10 10 0 0 1 10 10" stroke="#4285F4" stroke-width="3" stroke-linecap="round"/></svg>
+      Đang kết nối Google...
+    `;
+
+    // Chờ FirebaseAuth module load xong
+    let attempts = 0;
+    while (!window.FirebaseAuth && attempts < 30) {
+      await new Promise(r => setTimeout(r, 200));
+      attempts++;
+    }
+
+    if (!window.FirebaseAuth) {
+      alert('Không thể kết nối Firebase. Vui lòng kiểm tra kết nối mạng và thử lại.');
+      btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
+      location.reload();
+      return;
+    }
+
+    const result = await window.FirebaseAuth.signInWithGoogle();
 
     if (result.success) {
-      alert('Tạo tài khoản thành công! Bạn có thể đăng nhập ngay.');
-      switchForm('login-form-wrapper');
+      window.location.href = 'lobby.html';
     } else {
-      document.getElementById('otp-error').textContent = result.error;
+      alert(result.error);
+      btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
+      location.reload();
     }
   }
 
-  function googleLogin() { App.loginWithGoogle(); }
-  function googleRegister() { App.loginWithGoogle(); }
+  function googleRegister() { googleLogin(); }
 </script>
 </body>
 </html>

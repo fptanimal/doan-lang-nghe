@@ -3,222 +3,388 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Làng Nghề — Khám phá di sản Việt Nam</title>
+  <title>BandoLang — Kết nối tinh hoa, lan tỏa văn hóa</title>
   <meta name="description" content="Nền tảng số bảo tồn và phát triển làng nghề Việt Nam. Chơi game đoán làng nghề, khám phá VR 360° và mua sản phẩm thủ công." />
+  
+  <!-- Existing CSS Links -->
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/pages.css" />
-  <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  
+  <!-- New Redesign CSS -->
+  <link rel="stylesheet" href="css/home-redesign.css" />
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="dark-theme">
-
-<!-- CURTAIN ANIMATION -->
-<div class="curtain-container" id="page-curtain">
-  <div class="curtain-panel"></div>
-  <div class="curtain-panel right"></div>
-</div>
+<body class="redesign-active">
 
 <div id="main-navbar"></div>
 
 <!-- HERO SECTION -->
-<section class="hero-landing" id="hero-landing" style="position:relative; overflow:hidden;">
-  <div class="hero-bg-overlay" style="z-index:1;"></div>
-  <div class="hero-slider-bg" style="background-image:url('images/lang-gom-bat-trang-1.jpg')"></div>
-  <div class="hero-slider-bg" style="background-image:url('images/Lụa vạn phúc.jpg')"></div>
-  <div class="hero-slider-bg" style="background-image:url('images/Chiếu cói Nga sơn.jpg')"></div>
-  <div class="hero-slider-bg" style="background-image:url('images/Gốm thanh hà.jpg')"></div>
-  <div class="hero-slider-bg" style="background-image:url('images/Làng nghề mây tre đan.jpg')"></div>
-  <div class="hero-landing-content" style="position:relative; z-index:2;">
-    <div class="vr-badge">
-      <span class="vr-dot"></span>
-      VR EXPERIENCE ENABLED
+<section class="rd-hero">
+  <div class="rd-hero-bg"></div>
+  <div class="rd-hero-overlay"></div>
+  
+  <!-- Animated Lanterns - RIGHT side -->
+  <div class="rd-lantern l1"></div>
+  <div class="rd-lantern l2"></div>
+  <div class="rd-lantern l3"></div>
+  <div class="rd-lantern l4"></div>
+
+  <div class="rd-container" style="position:relative; z-index:2; display:flex; align-items:center; min-height:90vh; padding-top:80px; padding-left:3rem; max-width:100%;">
+    <!-- LEFT: Text Content -->
+    <div class="rd-hero-content">
+      <p style="font-family:'Noto Serif',serif; font-style:italic; font-size:1.6rem; color:var(--rd-accent-gold); margin:0 0 -10px 4px; opacity:0.9;">Tinh hoa</p>
+      <h1 style="font-family:'Noto Serif',serif; font-size:clamp(4rem,10vw,8rem); font-weight:900; color:#fff; line-height:1; margin:0; text-shadow: 2px 4px 20px rgba(0,0,0,0.5);">
+        Làng Nghề
+      </h1>
+      <p style="font-family:'Noto Serif',serif; font-size:clamp(2.5rem,6vw,5rem); font-weight:800; color:var(--rd-accent-gold); letter-spacing:0.15em; margin:0 0 1.5rem 4px; text-shadow: 2px 4px 20px rgba(0,0,0,0.4);">VIỆT NAM</p>
+      
+      <div style="width:50px; height:3px; background:var(--rd-accent-gold); margin:0 0 1.5rem 0; border-radius:2px;"></div>
+      
+      <p style="font-size:1.05rem; line-height:1.8; color:rgba(255,255,255,0.9); max-width:480px; margin-bottom:2.5rem;">
+        Khám phá, mua sắm và trải nghiệm di sản văn hóa ngàn năm — kết nối bạn với nghệ nhân tài hoa trên khắp đất nước.
+      </p>
+      
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="lobby.html" class="rd-btn" style="background:var(--rd-accent-gold); color:#1a1208; border:none; padding:0.9rem 2rem; font-size:1rem; border-radius:6px; font-weight:700;">Khám phá ngay</a>
+        <a href="#vr-section" class="rd-btn" style="background:rgba(255,255,255,0.12); color:#fff; border:1px solid rgba(255,255,255,0.3); padding:0.9rem 2rem; font-size:1rem; border-radius:6px; backdrop-filter:blur(4px);">Trải nghiệm VR</a>
+      </div>
     </div>
-    <h1 class="hero-landing-title">
-      Khám phá<br/>
-      <span class="hero-highlight">Làng Nghề</span><br/>
-      Việt Nam.
-    </h1>
-    <p class="hero-landing-desc">
-      Bước vào hành trình văn hóa ngàn năm. Thử thách trực giác của bạn qua hàng nghìn năm lịch sử, 
-      từ gốm Bát Tràng đến lụa Vạn Phúc.
-    </p>
-    <div class="hero-landing-cta">
-      <a href="lobby.html" class="btn btn-primary btn-lg" id="btn-start-guessing">Bắt đầu chơi <span>⟶</span></a>
-      <a href="#how-to-play" class="btn btn-outline-light" id="btn-learn-how">Cách chơi <span>❓</span></a>
+  </div>
+
+  <!-- VR Preview Card - bottom right -->
+  <div style="position:absolute; bottom:40px; right:40px; z-index:3; background:rgba(0,0,0,0.6); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.15); border-radius:16px; overflow:hidden; width:220px; box-shadow:0 8px 32px rgba(0,0,0,0.4);">
+    <img src="images/vr_headset_cultural.png" alt="VR Preview" style="width:100%; height:130px; object-fit:cover; display:block;" />
+    <div style="padding:10px 14px;">
+      <div style="font-size:0.7rem; color:var(--rd-accent-gold); font-weight:700; letter-spacing:1px; margin-bottom:4px;">VR 360° IMMERSIVE</div>
+      <div style="font-size:0.85rem; color:#fff; font-weight:600;">Khám phá Làng Nghề</div>
     </div>
   </div>
 </section>
 
-<!-- FEATURED VILLAGES -->
-<section class="section-featured" id="featured-villages">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">🏮 Nổi bật</span>
-      <h2 class="section-title">Làng Nghề Nổi Bật</h2>
-      <p class="section-desc">Khám phá những làng nghề truyền thống lâu đời nhất Việt Nam</p>
-    </div>
-    <div class="villages-scroll" id="villages-scroll">
-      <!-- Filled by JS -->
+<!-- STATS BAR -->
+<div class="rd-stats">
+  <div class="rd-stat-item">
+    <div class="rd-stat-num">100</div>
+    <div class="rd-stat-label">Làng nghề</div>
+  </div>
+  <div class="rd-stat-item">
+    <div class="rd-stat-num">250</div>
+    <div class="rd-stat-label">Nghệ nhân</div>
+  </div>
+  <div class="rd-stat-item">
+    <div class="rd-stat-num">50K+</div>
+    <div class="rd-stat-label">Người dùng</div>
+  </div>
+</div>
+
+<!-- LÀNG NGHỀ NỔI BẬT -->
+<section class="rd-section light">
+  <div class="rd-container" style="text-align: center;">
+    <h2 class="rd-heading">Làng Nghề <span style="color: var(--rd-accent-gold); font-family: 'Dancing Script', cursive; font-size: 3.5rem;">Nổi bật</span></h2>
+    <p class="rd-subtitle" style="margin: 0 auto 2rem;">Hành trình khám phá những làng nghề truyền thống lâu đời nhất Việt Nam</p>
+    
+    <div class="rd-bento-grid">
+      <!-- Cột Trái -->
+      <div class="rd-bento-col-left">
+        <!-- Gốm Bát Tràng -->
+        <div class="rd-bento-card bento-bat-trang" onclick="openVillageModal('bat_trang')">
+          <div class="bento-overlay"></div>
+          <div class="bento-content">
+            <span class="bento-badge">NỔI BẬT</span>
+            <h3 class="bento-title">Gốm Bát Tràng</h3>
+            <p class="bento-desc">Hơn 700 năm lịch sử làm gốm sứ truyền thống</p>
+            <div class="bento-loc"><i data-lucide="map-pin"></i> Gia Lâm, Hà Nội</div>
+          </div>
+        </div>
+        <!-- Nón lá Chuông -->
+        <div class="rd-bento-card bento-non-la" onclick="openVillageModal('non_la')">
+          <div class="bento-content">
+            <h3 class="bento-title">Nón lá Chuông</h3>
+            <div class="bento-loc"><i data-lucide="map-pin"></i> Thanh Oai, Hà Nội</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột Phải -->
+      <div class="rd-bento-col-right">
+        <!-- Lụa Vạn Phúc -->
+        <div class="rd-bento-card bento-van-phuc" onclick="openVillageModal('van_phuc')">
+          <div class="bento-content">
+            <h3 class="bento-title">Lụa Vạn Phúc</h3>
+            <div class="bento-loc"><i data-lucide="map-pin"></i> Hà Đông, Hà Nội</div>
+          </div>
+        </div>
+        <!-- Mây tre đan Phú Vinh -->
+        <div class="rd-bento-card bento-phu-vinh" onclick="openVillageModal('phu_vinh')">
+          <div class="bento-content">
+            <h3 class="bento-title">Mây tre đan Phú Vinh</h3>
+            <div class="bento-loc"><i data-lucide="map-pin"></i> Chương Mỹ, Hà Nội</div>
+          </div>
+        </div>
+        <!-- Sơn mài Hạ Thái -->
+        <div class="rd-bento-card bento-ha-thai" onclick="openVillageModal('ha_thai')">
+          <div class="bento-content">
+            <h3 class="bento-title">Sơn mài Hạ Thái</h3>
+            <div class="bento-loc"><i data-lucide="map-pin"></i> Thường Tín, HN</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- HOW TO PLAY -->
-<section class="section-howtoplay" id="how-to-play">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">🎯 Hướng dẫn</span>
-      <h2 class="section-title">Cách Chơi</h2>
+<!-- SÀN THƯƠNG MẠI LÀNG NGHỀ -->
+<section class="rd-section dark">
+  <div class="rd-container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <div style="color: var(--rd-text-muted); font-size: 0.9rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Marketplace</div>
+        <h2 class="rd-heading" style="margin-bottom: 0;">Sàn thương mại<br/>Làng Nghề</h2>
+        <p class="rd-subtitle" style="margin-bottom: 0; margin-top: 10px;">Sở hữu những tuyệt tác thủ công chính hãng từ bàn tay nghệ nhân Việt Nam</p>
+      </div>
+      <div class="rd-filters">
+        <button class="rd-filter-btn active">Tất cả</button>
+        <button class="rd-filter-btn">Gốm sứ</button>
+        <button class="rd-filter-btn">Lụa tơ</button>
+        <button class="rd-filter-btn">Mây tre</button>
+        <button class="rd-filter-btn">Sơn mài</button>
+      </div>
     </div>
-    <div class="howto-grid">
-      <div class="howto-card">
-        <div class="howto-num">01</div>
-        <div class="howto-icon">🔎</div>
-        <h3>Xem gợi ý</h3>
-        <p>Đọc các manh mối về sản phẩm và quy trình sản xuất của làng nghề</p>
+    
+    <div class="rd-products-grid" id="products-preview">
+      <!-- Generated by JS -->
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="marketplace.html" class="rd-btn rd-btn-outline" style="border-radius: 8px;">Xem toàn bộ sản phẩm</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- TẠI SAO CHỌN BANDOLANG -->
+<section class="rd-section light">
+  <div class="rd-container" style="text-align:center;">
+    <h2 class="rd-heading">Tại sao chọn <span style="color:var(--rd-accent-red); font-family:'Dancing Script',cursive; font-size:3rem;">BandoLang</span></h2>
+    <p class="rd-subtitle" style="margin:0 auto 3rem;">Nền tảng số tiên phong trong bảo tồn và phát triển làng nghề truyền thống Việt Nam</p>
+    
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:2rem; text-align:left;">
+      <div style="background:#fff; padding:2rem; border-radius:16px; border:1px solid rgba(0,0,0,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.04); transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="width:48px; height:48px; background:rgba(161,59,36,0.1); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; color:var(--rd-accent-red); font-size:1.4rem; font-weight:700;">VR</div>
+        <h4 style="margin:0 0 0.5rem; color:var(--rd-text-dark); font-size:1.1rem;">Trải nghiệm VR 360°</h4>
+        <p style="color:#666; font-size:0.9rem; line-height:1.7; margin:0;">Tham quan làng nghề ngay tại nhà với công nghệ thực tế ảo 360 độ sống động.</p>
       </div>
-      <div class="howto-card">
-        <div class="howto-num">02</div>
-        <div class="howto-icon">📜</div>
-        <h3>Đoán tên</h3>
-        <p>Chọn đáp án đúng từ 4 lựa chọn. Càng ít gợi ý, càng nhiều điểm!</p>
+      <div style="background:#fff; padding:2rem; border-radius:16px; border:1px solid rgba(0,0,0,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.04); transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="width:48px; height:48px; background:rgba(220,179,116,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; color:var(--rd-accent-gold); font-size:1.2rem; font-weight:700;">100+</div>
+        <h4 style="margin:0 0 0.5rem; color:var(--rd-text-dark); font-size:1.1rem;">Làng nghề trên cả nước</h4>
+        <p style="color:#666; font-size:0.9rem; line-height:1.7; margin:0;">Cơ sở dữ liệu phong phú về các làng nghề truyền thống từ Bắc vào Nam.</p>
       </div>
-      <div class="howto-card">
-        <div class="howto-num">03</div>
-        <div class="howto-icon">🏮</div>
-        <h3>Học hỏi</h3>
-        <p>Khám phá thông tin thú vị về mỗi làng nghề sau khi trả lời</p>
+      <div style="background:#fff; padding:2rem; border-radius:16px; border:1px solid rgba(0,0,0,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.04); transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="width:48px; height:48px; background:rgba(161,59,36,0.1); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; color:var(--rd-accent-red); font-size:1.2rem; font-weight:700;">Game</div>
+        <h4 style="margin:0 0 0.5rem; color:var(--rd-text-dark); font-size:1.1rem;">Chơi mà học</h4>
+        <p style="color:#666; font-size:0.9rem; line-height:1.7; margin:0;">Trò chơi đoán hình giúp bạn tìm hiểu về di sản văn hóa một cách thú vị.</p>
       </div>
-      <div class="howto-card">
-        <div class="howto-num">04</div>
-        <div class="howto-icon">🧺</div>
-        <h3>Khám phá sản phẩm</h3>
-        <p>Xem và mua sản phẩm thủ công trực tiếp từ nghệ nhân</p>
+      <div style="background:#fff; padding:2rem; border-radius:16px; border:1px solid rgba(0,0,0,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.04); transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="width:48px; height:48px; background:rgba(220,179,116,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; color:var(--rd-accent-gold); font-size:1.2rem; font-weight:700;">Shop</div>
+        <h4 style="margin:0 0 0.5rem; color:var(--rd-text-dark); font-size:1.1rem;">Mua hàng chính hãng</h4>
+        <p style="color:#666; font-size:0.9rem; line-height:1.7; margin:0;">Sàn thương mại kết nối trực tiếp với nghệ nhân, đảm bảo chất lượng.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<section class="section-stats">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-card-value">10+</div>
-        <div class="stat-card-label">Làng nghề</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-value">20+</div>
-        <div class="stat-card-label">Sản phẩm</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-value">VR</div>
-        <div class="stat-card-label">360° Experience</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-value">∞</div>
-        <div class="stat-card-label">Kiến thức</div>
-      </div>
-    </div>
+<!-- FOOTER / CTA -->
+<section class="rd-cta-section">
+  <div class="rd-cta-overlay"></div>
+  <div class="rd-cta-content rd-container">
+    <h2 class="rd-cta-title" style="color: #fff;">100+ Làng nghề,<br/>một nền tảng</h2>
+    <p class="rd-subtitle" style="margin: 0 auto 2rem; color: #ccc;">Từ Bắc chí Nam — BandoLang kết nối bạn với tinh hoa văn hóa Việt Nam</p>
+    <a href="lobby.html" class="rd-btn rd-btn-primary">Khám phá bản đồ</a>
   </div>
 </section>
 
-<!-- MARKETPLACE PREVIEW -->
-<section class="section-marketplace-preview">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">🛒 Marketplace</span>
-      <h2 class="section-title">Mang Làng Nghề Về Nhà</h2>
-      <p class="section-desc">Sản phẩm thủ công chính hãng từ nghệ nhân</p>
-    </div>
-    <div class="products-preview-grid" id="products-preview">
-      <!-- Filled by JS -->
-    </div>
-    <div style="text-align:center;margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="marketplace.html" class="btn btn-primary">Khám phá Marketplace ⟶</a>
-      <a href="tours.html" class="btn btn-secondary">🚐 Đặt Tour Khám Phá</a>
-      <a href="artisan-video.html" class="btn btn-secondary">🎥 Video Nghệ Nhân</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo">🔥 Làng Nghề</div>
-        <p>Nền tảng số bảo tồn & phát triển làng nghề Việt Nam</p>
+<footer class="rd-footer">
+  <div class="rd-container">
+    <div class="rd-footer-grid">
+      <div>
+        <div class="rd-footer-brand">BandoLang</div>
+        <p style="font-size: 0.9rem; margin-bottom: 1.5rem; line-height:1.7;">Nền tảng số bảo tồn và phát triển làng nghề Việt Nam. Kết nối nghệ nhân, người tiêu dùng và cộng đồng yêu văn hóa truyền thống.</p>
+        
+        <div style="display: flex; gap: 10px;">
+          <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:var(--rd-text-muted); text-decoration:none; font-size:0.85rem; font-weight:600; transition:background 0.2s;" onmouseover="this.style.background='rgba(220,179,116,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">Fb</a>
+          <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:var(--rd-text-muted); text-decoration:none; font-size:0.85rem; font-weight:600; transition:background 0.2s;" onmouseover="this.style.background='rgba(220,179,116,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">Ig</a>
+          <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:var(--rd-text-muted); text-decoration:none; font-size:0.85rem; font-weight:600; transition:background 0.2s;" onmouseover="this.style.background='rgba(220,179,116,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">Yt</a>
+        </div>
       </div>
-      <div class="footer-links">
+      
+      <div>
         <h4>Khám phá</h4>
-        <a href="lobby.html">Chơi game</a>
-        <a href="tours.html">Đặt Tour</a>
+        <a href="lobby.html">Làng nghề nổi bật</a>
         <a href="marketplace.html">Marketplace</a>
-        <a href="leaderboard.html">Bảng xếp hạng</a>
+        <a href="vr360.html">Trải nghiệm VR 360</a>
+        <a href="lobby.html">Chơi game</a>
+        <a href="tours.html">Đặt tour tham quan</a>
+        <a href="artisans.html">Nghệ nhân</a>
       </div>
-      <div class="footer-links">
-        <h4>Tài khoản</h4>
-        <a href="login.html">Đăng nhập</a>
-        <a href="register.html">Đăng ký</a>
-        <a href="profile.html">Hồ sơ</a>
+      
+      <div>
+        <h4>Hỗ trợ</h4>
+        <a href="#">Câu hỏi thường gặp</a>
+        <a href="#">Chính sách đổi trả</a>
+        <a href="#">Hướng dẫn mua hàng</a>
+        <a href="#">Liên hệ hợp tác</a>
+        <a href="#">Điều khoản sử dụng</a>
+      </div>
+      
+      <div>
+        <h4>Nhận tin mới</h4>
+        <p style="font-size: 0.85rem; margin-bottom: 1rem; line-height:1.6;">Đăng ký nhận thông tin về làng nghề, sản phẩm mới và ưu đãi độc quyền.</p>
+        <div class="rd-newsletter">
+          <input type="email" placeholder="Email của bạn" class="rd-input" />
+          <button class="rd-btn rd-btn-primary" style="padding: 0.8rem; border-radius: 8px;">Đăng ký</button>
+        </div>
+        <p style="font-size:0.75rem; color:rgba(255,255,255,0.3); margin-top:0.8rem;">Chúng tôi tôn trọng quyền riêng tư của bạn.</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2026 Làng Nghề. Bảo tồn di sản, phát triển tương lai.</p>
+    
+    <div class="rd-footer-bottom">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <span>© 2026 BandoLang. Bảo tồn di sản, phát triển tương lai.</span>
+        <div style="display:flex; gap:1.5rem; font-size:0.85rem;">
+          <a href="#" style="color:var(--rd-text-muted); text-decoration:none;">Chính sách bảo mật</a>
+          <a href="#" style="color:var(--rd-text-muted); text-decoration:none;">Điều khoản</a>
+          <a href="#" style="color:var(--rd-text-muted); text-decoration:none;">Sitemap</a>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
 
+<!-- VILLAGE HISTORY MODAL (Kept for existing JS functionality) -->
+<div class="history-modal-overlay" id="history-modal" onclick="if(event.target===this) closeVillageModal()">
+  <div class="history-modal-box">
+    <button class="history-close-btn" onclick="closeVillageModal()">✕</button>
+    <div class="history-hero" id="history-hero" style="background-image:url('images/lang-gom-bat-trang-1.jpg')"></div>
+    <div class="history-content">
+      <h2 class="history-title" id="history-title">Gốm Bát Tràng</h2>
+      <div class="history-meta">
+        <div class="history-meta-tag"><i data-lucide="map-pin" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> <span id="history-location">Gia Lâm, Hà Nội</span></div>
+        <div class="history-meta-tag"><i data-lucide="clock" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> <span id="history-established">Thế kỷ 15</span></div>
+      </div>
+      
+      <div class="history-body">
+        <div>
+          <div class="history-fact" id="history-fact">
+            Gạch Bát Tràng từng được dùng để xây dựng Kinh thành Thăng Long.
+          </div>
+          <div class="history-desc" id="history-desc">
+            Làng gốm có lịch sử hơn 500 năm, nổi tiếng với các sản phẩm gốm sứ tinh xảo, đậm đà bản sắc dân tộc.
+          </div>
+          <div class="history-actions">
+            <a href="lobby.html" class="btn btn-primary">Chơi game khám phá</a>
+            <a href="marketplace.html" class="btn btn-secondary">Xem sản phẩm</a>
+          </div>
+        </div>
+        
+        <div class="history-sidebar">
+          <h4>Sản phẩm tiêu biểu</h4>
+          <div class="history-products-mini" id="history-products-mini">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/firebase-auth.js"></script>
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     App.renderNavbar('home');
 
-    // Featured villages
-    const scroll = document.getElementById('villages-scroll');
-    VILLAGES.slice(0, 6).forEach((v, i) => {
-      const card = document.createElement('div');
-      card.className = 'village-card';
-      card.style.animationDelay = `${i * 0.1}s`;
-      card.innerHTML = `
-        <div class="village-card-img" style="background-image:url('${v.thumbnail}')"></div>
-        <div class="village-card-body">
-          <h3 class="village-card-name">${v.name}</h3>
-          <p class="village-card-loc">📍 ${v.location}</p>
-          <span class="village-card-tag">${v.established}</span>
-        </div>
-      `;
-      card.addEventListener('click', () => App.navigate('lobby.html'));
-      scroll.appendChild(card);
-    });
+    // MOCKUP FORMAT FOR FEATURED VILLAGES
+    // Replaced with static bento grid in HTML
 
-    // Products preview
+    // MOCKUP FORMAT FOR MARKETPLACE PRODUCTS
     const productsGrid = document.getElementById('products-preview');
     const allProducts = getAllProducts().slice(0, 4);
     allProducts.forEach((p, i) => {
       const card = document.createElement('div');
-      card.className = 'product-preview-card';
-      card.style.animationDelay = `${i * 0.1}s`;
+      card.className = 'rd-product-card';
+      
+      const isDiscount = i % 2 === 0;
+      const oldPrice = isDiscount ? p.price * 1.2 : null;
+      
       card.innerHTML = `
-        <div class="product-preview-img" style="background-image:url('${p.image}')"></div>
-        <div class="product-preview-body">
-          <h4>${p.name}</h4>
-          <p class="product-preview-artisan">${p.artisan}</p>
-          <p class="product-preview-village">📍 ${p.villageName}</p>
-          <div class="product-preview-price">${formatPrice(p.price)}</div>
+        <div class="rd-product-img-wrap">
+          <img src="${p.image}" class="rd-product-img" alt="${p.name}" />
+          ${i === 0 ? '<div class="rd-product-badge">ĐỘC QUYỀN</div>' : ''}
+          ${i === 1 ? '<div class="rd-product-badge" style="background:var(--rd-accent-gold); color:#1a1208;">MỚI VỀ</div>' : ''}
+          ${i === 2 ? '<div class="rd-product-badge" style="background:#facc15; color:#713f12;">BÁN CHẠY</div>' : ''}
+        </div>
+        <div class="rd-product-body">
+          <div class="rd-product-village">${p.villageName}</div>
+          <div class="rd-product-name">${p.name}</div>
+          <div style="color: #666; font-size: 0.8rem; margin-bottom: 10px;">★★★★★ (128)</div>
+          <div class="rd-product-price">
+            ${formatPrice(p.price)}
+            ${oldPrice ? `<span class="rd-product-price-old">${formatPrice(oldPrice)}</span>` : ''}
+          </div>
+          <button class="rd-add-cart" onclick="event.stopPropagation(); App.navigate('marketplace.html')">Thêm vào giỏ</button>
         </div>
       `;
       card.addEventListener('click', () => App.navigate('marketplace.html'));
       productsGrid.appendChild(card);
     });
 
-    // Open curtain animation
-    setTimeout(() => {
-      document.getElementById('page-curtain').classList.add('open');
-    }, 100);
+    initModals();
+    lucide.createIcons();
   });
+
+  // Keep existing modal logic intact
+  function openVillageModal(id) {
+    const v = getVillageById(id);
+    if (!v) return;
+
+    document.getElementById('history-hero').style.backgroundImage = `url('${v.thumbnail}')`;
+    document.getElementById('history-title').textContent = v.name;
+    document.getElementById('history-location').textContent = v.location;
+    document.getElementById('history-established').textContent = v.established;
+    document.getElementById('history-fact').textContent = (v.funFact || "Nhiều điều thú vị đang chờ bạn khám phá!");
+    document.getElementById('history-desc').textContent = v.description;
+
+    const productsMini = document.getElementById('history-products-mini');
+    productsMini.innerHTML = '';
+    const prods = (v.products || []).slice(0, 3);
+    if (prods.length > 0) {
+      prods.forEach(p => {
+        productsMini.innerHTML += `
+          <div class="history-product-item" onclick="App.navigate('marketplace.html')">
+            <div class="history-product-img" style="background-image:url('${p.image}')"></div>
+            <div class="history-product-info">
+              <h5>${p.name}</h5>
+              <span>${formatPrice(p.price)}</span>
+            </div>
+          </div>
+        `;
+      });
+    } else {
+      productsMini.innerHTML = '<p style="font-size:0.85rem; color:#888;">Đang cập nhật sản phẩm...</p>';
+    }
+
+    document.getElementById('history-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVillageModal() {
+    document.getElementById('history-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 </script>
 </body>
 </html>

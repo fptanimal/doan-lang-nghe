@@ -8,49 +8,45 @@
   <link rel="stylesheet" href="css/pages.css" />
   <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/upgrade.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     .tours-header {
       text-align: center;
-      padding: 80px 20px 60px;
-      background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.95)), url('images/Làng nghề mây tre đan.jpg') center/cover;
-      color: var(--ink);
-      border-bottom: 1px solid var(--cream-dark);
+      padding: 180px 20px 100px;
+      background: linear-gradient(180deg, rgba(11,8,7,0.7) 0%, rgba(11,8,7,0.4) 50%, rgba(11,8,7,1) 100%), url('images/tours_hero_bg.png') center/cover;
+      color: white;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: relative;
     }
     .tours-title {
-      font-size: 3rem;
+      font-size: clamp(3rem, 6vw, 4.5rem);
       font-family: var(--font-display);
-      color: var(--terracotta);
-      margin-bottom: 16px;
+      color: var(--gold-light);
+      margin-bottom: 20px;
       font-weight: 800;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
     }
     .tours-desc {
-      font-size: 1.15rem;
-      max-width: 650px;
+      font-size: 1.25rem;
+      max-width: 700px;
       margin: 0 auto;
-      color: var(--gray);
-      line-height: 1.6;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.8;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
     .tours-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 32px;
       padding: 40px 0;
     }
+    
     .tour-card {
-      background: var(--white);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      border: 1px solid var(--cream-dark);
-      transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
       flex-direction: column;
     }
-    .tour-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(192, 83, 58, 0.1);
-      border-color: rgba(192, 83, 58, 0.3);
-    }
+    
     .tour-img {
       width: 100%;
       aspect-ratio: 16/9;
@@ -60,50 +56,59 @@
     }
     .tour-badge {
       position: absolute;
-      top: 12px;
-      left: 12px;
-      background: var(--terracotta);
-      color: white;
-      padding: 4px 12px;
+      top: 16px;
+      left: 16px;
+      background: rgba(11, 8, 7, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--gold-light);
+      padding: 6px 16px;
       border-radius: 20px;
       font-size: 0.8rem;
       font-weight: bold;
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .tour-body {
-      padding: 20px;
+      padding: 24px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
     }
     .tour-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--ink);
       font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      font-weight: 700;
     }
     .tour-village {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--terracotta);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .tour-meta {
       display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: var(--gray);
+      gap: 20px;
       margin-bottom: 16px;
-      font-weight: 500;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .tour-meta-item {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
     .tour-desc {
-      font-size: 0.95rem;
-      line-height: 1.5;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
       margin-bottom: 24px;
       flex-grow: 1;
     }
@@ -112,13 +117,13 @@
       justify-content: space-between;
       align-items: center;
       margin-top: auto;
-      padding-top: 16px;
-      border-top: 1px solid rgba(0,0,0,0.05);
+      padding-top: 20px;
     }
     .tour-price {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: bold;
       color: var(--terracotta);
+      text-shadow: 0 0 15px rgba(192, 83, 58, 0.3);
     }
     
     /* Booking Modal */
@@ -126,7 +131,8 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(11,8,7,0.85);
+      backdrop-filter: blur(10px);
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -137,70 +143,84 @@
       animation: fadeIn 0.3s ease-out;
     }
     .booking-box {
-      background: var(--white);
+      background: rgba(25, 18, 15, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       width: 100%;
-      max-width: 500px;
-      border-radius: 16px;
-      padding: 32px;
+      max-width: 550px;
+      border-radius: 24px;
+      padding: 40px;
       position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-      border: 1px solid var(--cream-dark);
-      color: var(--ink);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+      color: #f2eee8;
     }
     .close-modal {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
       cursor: pointer;
-      color: inherit;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    .close-modal:hover {
+      background: rgba(192, 83, 58, 0.8);
+      border-color: var(--terracotta);
     }
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .form-label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
     }
     .form-input {
       width: 100%;
-      padding: 12px;
-      border: 1px solid var(--cream-dark);
-      border-radius: 8px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
       font-family: inherit;
-      background: var(--white);
-      color: var(--ink);
-      transition: 0.2s;
+      background: rgba(0,0,0,0.2);
+      color: #fff;
+      font-size: 1rem;
+      transition: 0.3s;
     }
     .form-input:focus {
       border-color: var(--terracotta);
       outline: none;
-      box-shadow: 0 0 0 3px rgba(192, 83, 58, 0.1);
+      background: rgba(0,0,0,0.4);
+      box-shadow: 0 0 0 4px rgba(192, 83, 58, 0.15);
     }
   </style>
 </head>
-<body class="light-theme">
+<body class="dark-theme">
 
 <div id="main-navbar"></div>
 
-<div class="page-wrapper">
+<div class="page-wrapper" style="padding-top: 0;">
   <div class="tours-header">
-    <div class="container">
-      <h1 class="tours-title">Hành Trình Khám Phá Làng Nghề</h1>
-      <p class="tours-desc">Đến tận nơi, cảm nhận bằng mọi giác quan và tự tay làm nên những sản phẩm truyền thống cùng các nghệ nhân.</p>
+    <div class="container" style="position: relative; z-index: 2;">
+      <h1 class="tours-title text-glow">Hành Trình Khám Phá</h1>
+      <p class="tours-desc">Đến tận nơi, cảm nhận bằng mọi giác quan và tự tay làm nên những sản phẩm truyền thống cùng các nghệ nhân bậc thầy.</p>
     </div>
   </div>
 
-  <div class="container" style="margin-top: 40px;">
+  <div class="container" style="margin-top: 40px; max-width: 1400px; padding: 0 40px;">
     <!-- Filter -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
-      <h2 style="font-family:var(--font-display); color:var(--terracotta);">Danh sách Tour</h2>
-      <select id="village-filter" class="form-input" style="width:auto; min-width:200px;" onchange="filterTours()">
-        <option value="all">Tất cả làng nghề</option>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; flex-wrap:wrap; gap:16px;">
+      <h2 style="font-family:var(--font-display); font-size:2.5rem; color:var(--gold-light);" class="text-glow">Danh sách Tour Cao Cấp</h2>
+      <select id="village-filter" class="form-input" style="width:auto; min-width:280px; font-weight:600; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);" onchange="filterTours()">
+        <option value="all" style="color: black;">Tất cả hành trình</option>
         <!-- Lấp đầy bằng JS -->
       </select>
     </div>
@@ -209,6 +229,100 @@
     <div class="tours-grid" id="tours-grid">
       <!-- Lấp đầy bằng JS -->
     </div>
+
+    <!-- Experience Journey Section -->
+    <div class="journey-experience-box scroll-reveal glass-panel" style="margin-top: 80px; margin-bottom: 60px;">
+      <div class="journey-title-block">
+        <h3 class="journey-title" style="color: var(--gold-light);">
+          Hành trình<br>trải nghiệm
+          <svg class="cloud-decor-left" viewBox="0 0 100 30" width="80" height="24">
+            <path d="M10,15 Q25,5 40,15 T70,15" fill="none" stroke="var(--terracotta)" stroke-width="1.5" stroke-dasharray="2 2" />
+            <path d="M5,20 Q20,10 35,20 T65,20" fill="none" stroke="var(--terracotta)" stroke-width="1" />
+          </svg>
+        </h3>
+      </div>
+      
+      <div class="journey-steps">
+        <div class="journey-step-item">
+          <div class="journey-step-icon" style="background: rgba(192,83,58,0.1); border: 1px solid var(--terracotta); color: var(--terracotta);">
+            <i data-lucide="compass"></i>
+          </div>
+          <div class="journey-step-info">
+            <h4 class="journey-step-name" style="color: var(--gold-light);">Khám phá</h4>
+            <p class="journey-step-desc" style="color: rgba(255,255,255,0.7);">Tìm hiểu di sản</p>
+          </div>
+        </div>
+        
+        <div class="journey-step-item">
+          <div class="journey-step-icon" style="background: rgba(192,83,58,0.1); border: 1px solid var(--terracotta); color: var(--terracotta);">
+            <i data-lucide="hammer"></i>
+          </div>
+          <div class="journey-step-info">
+            <h4 class="journey-step-name" style="color: var(--gold-light);">Trải nghiệm</h4>
+            <p class="journey-step-desc" style="color: rgba(255,255,255,0.7);">Tự tay làm nghề</p>
+          </div>
+        </div>
+        
+        <div class="journey-step-item">
+          <div class="journey-step-icon" style="background: rgba(192,83,58,0.1); border: 1px solid var(--terracotta); color: var(--terracotta);">
+            <i data-lucide="users"></i>
+          </div>
+          <div class="journey-step-info">
+            <h4 class="journey-step-name" style="color: var(--gold-light);">Kết nối</h4>
+            <p class="journey-step-desc" style="color: rgba(255,255,255,0.7);">Giao lưu nghệ nhân</p>
+          </div>
+        </div>
+        
+        <div class="journey-step-item">
+          <div class="journey-step-icon" style="background: rgba(192,83,58,0.1); border: 1px solid var(--terracotta); color: var(--terracotta);">
+            <i data-lucide="scroll"></i>
+          </div>
+          <div class="journey-step-info">
+            <h4 class="journey-step-name" style="color: var(--gold-light);">Gìn giữ</h4>
+            <p class="journey-step-desc" style="color: rgba(255,255,255,0.7);">Bảo tồn văn hóa</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="journey-decor-visual">
+        <svg viewBox="0 0 200 120" width="180" height="110" class="ink-painting-svg">
+          <!-- Soft Mountains in background -->
+          <path d="M10,80 Q40,40 80,70 T160,60 T200,80 L200,120 L10,120 Z" fill="rgba(192, 83, 58, 0.08)" />
+          <path d="M30,80 Q70,30 110,65 T190,55 L190,120 L30,120 Z" fill="rgba(192, 83, 58, 0.05)" />
+          <path d="M50,90 Q90,50 140,80 T200,75 L200,120 L50,120 Z" fill="rgba(212, 175, 55, 0.08)" />
+          
+          <!-- Distant mountains -->
+          <path d="M-20,70 Q20,20 60,60 T140,50" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" />
+          <path d="M110,60 Q140,30 170,55" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.2" />
+
+          <!-- River lines -->
+          <path d="M0,105 Q50,98 100,105 T200,102" fill="none" stroke="rgba(192, 83, 58, 0.25)" stroke-width="1" />
+          <path d="M20,112 Q75,108 130,113 T200,110" fill="none" stroke="rgba(192, 83, 58, 0.2)" stroke-width="0.8" />
+          
+          <!-- Boat -->
+          <g transform="translate(110, 95) scale(0.7)">
+            <!-- Boat body -->
+            <path d="M0,10 C10,10 35,8 45,0 C35,12 10,12 0,10 Z" fill="rgba(255,255,255,0.5)" />
+            <path d="M5,10 C15,8 30,8 40,2 C30,9 15,9 5,10 Z" fill="var(--terracotta)" />
+            <!-- Oar -->
+            <line x1="22" y1="2" x2="10" y2="18" stroke="rgba(255,255,255,0.5)" stroke-width="1" />
+            <!-- Fisherman silhouette -->
+            <path d="M18,8 Q20,4 22,8 L24,12 L16,12 Z" fill="rgba(255,255,255,0.7)" />
+            <circle cx="20" cy="5" r="2" fill="rgba(255,255,255,0.7)" />
+            <!-- Cone hat -->
+            <path d="M17,4 L20,0 L23,4 Z" fill="var(--gold)" />
+          </g>
+          
+          <!-- Reeds/Grass -->
+          <path d="M10,110 L12,98 M13,110 L17,94 M15,110 L22,100" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1.2" />
+          <path d="M170,110 L173,95 M175,110 L180,92 M178,110 L185,102" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+          
+          <!-- Birds in sky -->
+          <path d="M50,30 Q53,27 56,30 Q59,27 62,30" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1" />
+          <path d="M65,24 Q67,22 69,24 Q71,22 73,24" fill="none" stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.8" />
+        </svg>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -216,8 +330,10 @@
 <div class="booking-modal" id="booking-modal">
   <div class="booking-box">
     <button class="close-modal" onclick="closeModal()">✕</button>
-    <h3 style="font-family:var(--font-display); color:var(--terracotta); margin-bottom:8px; font-size:1.8rem;" id="modal-tour-name">Tên Tour</h3>
-    <p style="color:var(--terracotta); margin-bottom:24px; font-weight:bold;" id="modal-tour-price">0đ</p>
+    <div style="margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
+      <h3 style="font-family:var(--font-display); color:var(--gold-light); margin-bottom:8px; font-size:2rem;" id="modal-tour-name" class="text-glow">Tên Tour</h3>
+      <p style="color:var(--terracotta); font-weight:bold; font-size: 1.4rem;" id="modal-tour-price">0đ</p>
+    </div>
     
     <form id="booking-form" onsubmit="submitBooking(event)">
       <div class="form-group">
@@ -228,19 +344,22 @@
         <label class="form-label">Số điện thoại</label>
         <input type="tel" class="form-input" required placeholder="Ví dụ: 0912345678">
       </div>
-      <div class="form-group">
-        <label class="form-label">Ngày khởi hành dự kiến</label>
-        <input type="date" class="form-input" required>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="form-group">
+          <label class="form-label">Khởi hành</label>
+          <input type="date" class="form-input" required style="color: white; color-scheme: dark;">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Số khách</label>
+          <input type="number" class="form-input" min="1" value="1" required>
+        </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Số lượng khách</label>
-        <input type="number" class="form-input" min="1" value="1" required>
-      </div>
-      <button type="submit" class="btn btn-primary" style="width:100%; margin-top:16px; padding:14px; font-size:1.1rem;">Xác nhận Đặt Tour</button>
+      <button type="submit" class="btn btn-primary btn-glow" style="width:100%; margin-top:24px; padding:16px; font-size:1.15rem; border-radius: 12px;">Xác nhận Đặt Tour</button>
     </form>
   </div>
 </div>
 
+<script type="module" src="js/firebase-auth.js"></script>
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
 <script src="js/tours.js"></script>

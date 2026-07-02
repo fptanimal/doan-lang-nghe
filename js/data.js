@@ -69,7 +69,7 @@ const VILLAGES = [
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987290766!6m8!1m7!1sJuwEgQFlEqxzsA2QSH4tTw!2m2!1d20.97938475928094!2d105.7734039812194!3f339.86737!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
       { id: "p2_1", name: "Khăn lụa vẽ tay thủ công cao cấp", artisan: "Nghệ nhân Vạn Phúc", price: 850000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/102001691317097262318-1775577534.jpg.webp", desc: "Khăn lụa vẽ tay thủ công 100% tơ tằm tự nhiên, họa tiết độc bản." },
-      { id: "p2_2", name: "Khăn lụa nhăn nhuộm loang tự nhiên", artisan: "Xưởng lụa Vạn Phúc", price: 450000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/khan-xanh-1758252400.jpg.webp", desc: "Khăn lụa nhăn nhuộm màu loang tự nhiên, siêu mềm mịn." },
+      { id: "p2_2", name: "Khăn lụa nhăn nhuộm loang tự nhiên", artisan: "Xưởng lụa Vạn Phúc", price: 450000, image: "images/khan_lua_nhan_ai.png", desc: "Khăn lụa nhăn nhuộm màu loang tự nhiên, siêu mềm mịn." },
       { id: "p2_3", name: "Cà vạt lụa tơ tằm cao cấp", artisan: "Nghệ nhân Vạn Phúc", price: 350000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/z6750308916537eaf9346b7ea56bc976d366cfca51bb44-1751112228.jpg.webp", desc: "Cà vạt 100% lụa tơ tằm nguyên chất, họa tiết chìm sang trọng." },
       { id: "p2_4", name: "Vải lụa Satin tơ tằm (1m)", artisan: "Làng lụa Vạn Phúc", price: 400000, image: "https://luavanvanphuc.com/watermarks/352x352x1/upload/product/z67783118455700b591033e5ada2693d20920a13e8012f-1762050368.jpg.webp", desc: "Vải lụa satin bóng mượt, chuyên may áo dài cao cấp." }
     ],
@@ -95,7 +95,7 @@ const VILLAGES = [
     location: "Nga Sơn, Thanh Hóa",
     region: "mien-bac",
     category: "det-chieu",
-    thumbnail: "images/Chiếu cói Nga sơn.jpg",
+    thumbnail: "images/chieu_coi_nga_son.png",
     description: "Nổi tiếng qua câu ca dao 'Chiếu Nga Sơn, gạch Bát Tràng'. Dệt những lá chiếu cói hoa văn sắc nét, từng là vật phẩm tiến vua thời phong kiến.",
     funFact: "Sợi cói Nga Sơn có đặc điểm nhỏ, dài, mềm dẻo và óng mượt hơn cói vùng khác do được trồng trên vùng đất lấn biển.",
     established: "Hơn 150 năm",
@@ -152,9 +152,9 @@ const VILLAGES = [
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987488279!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRGp0UE9hNHdF!2m2!1d15.87717948614401!2d108.2992130416365!3f359.88742!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p4_1", name: "Tò he đất nung Thanh Hà", artisan: "Nghệ nhân Làng Thanh Hà", price: 50000, image: "https://images.unsplash.com/photo-1599557457279-d58117769530?auto=format&fit=crop&q=80&w=800", desc: "Đồ chơi dân gian bằng gốm đất nung, hình con giáp, thổi kêu vui tai." },
-      { id: "p4_2", name: "Bình hoa gốm mộc Thanh Hà", artisan: "Xưởng gốm Thanh Hà", price: 150000, image: "https://images.unsplash.com/photo-1600868843577-c3761cc292f7?auto=format&fit=crop&q=80&w=800", desc: "Bình hoa đất nung không tráng men, kiểu dáng thô mộc tự nhiên." },
-      { id: "p4_3", name: "Bộ trà gốm mộc đỏ", artisan: "Nghệ nhân Làng Thanh Hà", price: 350000, image: "https://images.unsplash.com/photo-1595181702787-8d234ba4430e?auto=format&fit=crop&q=80&w=800", desc: "Bộ ấm trà làm từ đất sét sông Thu Bồn nung đỏ tự nhiên." }
+      { id: "p4_1", name: "Tò he đất nung Thanh Hà", artisan: "Nghệ nhân Làng Thanh Hà", price: 50000, image: "images/to_he_dat_ai.png", desc: "Đồ chơi dân gian bằng gốm đất nung, hình con giáp, thổi kêu vui tai." },
+      { id: "p4_2", name: "Bình hoa gốm mộc Thanh Hà", artisan: "Xưởng gốm Thanh Hà", price: 150000, image: "images/binh_hoa_gom_ai.png", desc: "Bình hoa đất nung không tráng men, kiểu dáng thô mộc tự nhiên." },
+      { id: "p4_3", name: "Bộ trà gốm mộc đỏ", artisan: "Nghệ nhân Làng Thanh Hà", price: 350000, image: "images/bo_tra_gom_ai.png", desc: "Bộ ấm trà làm từ đất sét sông Thu Bồn nung đỏ tự nhiên." }
     ],
     tours: [
       { id: "t4_1", name: "Vuốt gốm Thanh Hà & Phố cổ", duration: "Nửa ngày", price: 300000, image: "images/tour_thanhha_1779167591598.png", desc: "Dạo chơi công viên đất nung Thanh Hà, tự tay làm tò he con giáp và dạo phố cổ Hội An." }
@@ -178,7 +178,7 @@ const VILLAGES = [
     location: "Ngũ Hành Sơn, Đà Nẵng",
     region: "mien-trung",
     category: "dieu-khac",
-    thumbnail: "images/tuong-da-lang-my-nghe-non-nuoc.jpg",
+    thumbnail: "images/tuong-da-lang-my-nghe-non-nuoc.png",
     description: "Làng nghề chạm khắc đá dưới chân núi Ngũ Hành Sơn với các tuyệt tác tượng Phật, linh vật.",
     funFact: "Nguyên liệu đá cẩm thạch ban đầu được khai thác ngay tại núi Ngũ Hành Sơn.",
     established: "Thế kỷ 17",
@@ -193,10 +193,10 @@ const VILLAGES = [
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778987653616!6m8!1m7!1sr2fnjB3nOkoLO1IF85ANcw!2m2!1d16.00212397610592!2d108.2633006239604!3f34.24348!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p5_1", name: "Tượng Phật A Di Đà cẩm thạch trắng", artisan: "Nghệ nhân Non Nước", price: 15000000, image: "https://images.unsplash.com/photo-1620610344584-82a884e930f7?auto=format&fit=crop&q=80&w=800", desc: "Tượng A Di Đà nguyên khối đá cẩm thạch tự nhiên, điêu khắc thủ công cao 50cm." },
-      { id: "p5_2", name: "Tượng Quan Âm Bồ Tát ngự liên hoa", artisan: "Xưởng điêu khắc Non Nước", price: 22000000, image: "https://images.unsplash.com/photo-1589139616035-15a0133ad785?auto=format&fit=crop&q=80&w=800", desc: "Tượng Mẹ Quan Âm bằng đá tự nhiên tinh xảo, phong thái từ bi, cao 80cm." },
-      { id: "p5_3", name: "Tượng Di Lặc vác cành đào", artisan: "Nghệ nhân Non Nước", price: 12000000, image: "https://images.unsplash.com/photo-1584444580424-91b656722247?auto=format&fit=crop&q=80&w=800", desc: "Tượng Di Lặc hoan hỉ, mang lại tài lộc ấm no, đá sa thạch." },
-      { id: "p5_4", name: "Cặp Thiềm Thừ (Cóc ngậm tiền) phong thủy", artisan: "Làng đá Non Nước", price: 4500000, image: "https://images.unsplash.com/photo-1602431766548-c2b3e8e2003c?auto=format&fit=crop&q=80&w=800", desc: "Cóc ba chân chiêu tài lộc từ đá ngọc bích tự nhiên." }
+      { id: "p5_1", name: "Tượng tiểu đồng bằng đá", artisan: "Nghệ nhân Non Nước", price: 1500000, image: "images/statue_baby_buddha_1782890421574.png", desc: "Tượng tiểu đồng ngây thơ, đáng yêu, điêu khắc thủ công cẩn thận, cao 30cm." },
+      { id: "p5_2", name: "Tượng Phật Di Lặc trang trí bàn", artisan: "Xưởng điêu khắc Non Nước", price: 1800000, image: "images/statue_laughing_buddha_1782890432205.png", desc: "Tượng Di Lặc hoan hỉ, mang lại tài lộc ấm no, kích thước nhỏ gọn phù hợp để bàn." },
+      { id: "p5_3", name: "Tượng chú tiểu cầm trái đào", artisan: "Nghệ nhân Non Nước", price: 1200000, image: "images/statue_little_monk_1782890443211.png", desc: "Tượng chú tiểu dâng đào tiên, bình an và thanh tịnh." },
+      { id: "p5_4", name: "Cặp Thiềm Thừ (Cóc ngậm tiền) mini", artisan: "Làng đá Non Nước", price: 950000, image: "images/thiem_thu_da_ai.png", desc: "Cóc ba chân chiêu tài lộc từ đá ngọc bích tự nhiên bản nhỏ gọn." }
     ],
     tours: [
       { id: "t5_1", name: "Hành hương Ngũ Hành Sơn & Làng Đá", duration: "1 Ngày", price: 450000, image: "images/tour_nonnuoc_1779167714965.png", desc: "Leo núi Ngũ Hành Sơn thăm chùa chiền hang động, sau đó tham quan xưởng chế tác đá Non Nước." }
@@ -235,9 +235,9 @@ const VILLAGES = [
     images: [""],
     panorama: `<iframe src="https://www.google.com/maps/embed?pb=!4v1778986920879!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0dwOWlnNmdF!2m2!1d20.97889063302469!2d105.916034568623!3f80!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
     products: [
-      { id: "p6_1", name: "Lẵng hoa mây tre đan tay", artisan: "Nghệ nhân Phú Vinh", price: 150000, image: "https://images.unsplash.com/photo-1605417409252-0c9f1a26d7b6?auto=format&fit=crop&q=80&w=800", desc: "Lẵng hoa đan tay tinh xảo từ mây tre tự nhiên." },
-      { id: "p6_2", name: "Giỏ mây đi picnic vintage", artisan: "Xưởng mây Phú Vinh", price: 450000, image: "https://images.unsplash.com/photo-1558231713-b5bb80608051?auto=format&fit=crop&q=80&w=800", desc: "Giỏ mây tre đan lót vải bọc phong cách cổ điển." },
-      { id: "p6_3", name: "Khay mây tre tròn đựng trái cây", artisan: "Nghệ nhân Phú Vinh", price: 200000, image: "https://images.unsplash.com/photo-1615822366668-3e4492bf602a?auto=format&fit=crop&q=80&w=800", desc: "Khay đan tỉ mỉ dùng để trang trí hoặc đựng đồ ăn nhẹ." },
+      { id: "p6_1", name: "Lẵng hoa mây tre đan tay", artisan: "Nghệ nhân Phú Vinh", price: 150000, image: "images/lang_hoa_may_ai.png", desc: "Lẵng hoa đan tay tinh xảo từ mây tre tự nhiên." },
+      { id: "p6_2", name: "Giỏ mây đi picnic vintage", artisan: "Xưởng mây Phú Vinh", price: 450000, image: "images/gio_may_picnic_ai.png", desc: "Giỏ mây tre đan lót vải bọc phong cách cổ điển." },
+      { id: "p6_3", name: "Khay mây tre tròn đựng trái cây", artisan: "Nghệ nhân Phú Vinh", price: 200000, image: "images/khay_may_trai_ai.png", desc: "Khay đan tỉ mỉ dùng để trang trí hoặc đựng đồ ăn nhẹ." },
       { id: "p6_4", name: "Chụp đèn mây tre đan thả trần", artisan: "Xưởng mây Phú Vinh", price: 350000, image: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=800", desc: "Chụp đèn trang trí nội thất phong cách rustic tự nhiên." }
     ],
     tours: [

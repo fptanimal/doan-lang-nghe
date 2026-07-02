@@ -2,3 +2,5 @@
 /backend/.env
 /backend/database.sqlite
 .DS_Store
+
+.vercel

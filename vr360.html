@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Làng Nghề — VR 360° Immersive</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/pages2.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/upgrade.css" />
+  <link rel="stylesheet" href="css/home-redesign.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme" style="background-color: #0d0a09; color: var(--rd-text-light);">
+
+<div id="main-navbar"></div>
+
+<div class="page-wrapper" style="padding-top: 100px;">
+  <section style="max-width:1100px; margin:0 auto; padding:0 24px 80px;">
+
+    <!-- Header -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-bottom:56px;">
+      <div>
+        <p style="color:var(--gold); text-transform:uppercase; letter-spacing:3px; font-size:0.75rem; margin-bottom:8px;">🌏 VR 360° Immersive</p>
+        <h1 style="font-family:var(--font-display); font-size:clamp(1.8rem,4vw,2.8rem); color:var(--cream); margin:0 0 16px; line-height:1.2;">Bước vào thế giới làng nghề</h1>
+        <p style="color:rgba(255,255,255,0.6); line-height:1.7; font-size:0.95rem;">Công nghệ VR 360° đưa bạn đến tận nơi sản xuất — cảm nhận tiếng gõ'm, hạt đắm của gió sông, và tận mắt chứng kiến nghệ nhân tạo ra kiệt tác thủ công.</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px;">
+          <div style="display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.5); font-size:0.85rem;"><i data-lucide="move-3d" style="width:18px;height:18px;color:var(--gold);"></i> Chạm, xoay, khám phá</div>
+          <div style="display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.5); font-size:0.85rem;"><i data-lucide="monitor" style="width:18px;height:18px;color:var(--gold);"></i> Sẵn sàng trên mọi thiết bị</div>
+          <div style="display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.5); font-size:0.85rem;"><i data-lucide="map-pin" style="width:18px;height:18px;color:var(--gold);"></i> Tham quan toàn quốc</div>
+          <div style="display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.5); font-size:0.85rem;"><i data-lucide="glasses" style="width:18px;height:18px;color:var(--gold);"></i> Hỗ trợ kính VR</div>
+        </div>
+      </div>
+      <div style="background:rgba(20,15,10,0.5); border:1px solid rgba(232,184,75,0.15); border-radius:20px; overflow:hidden; height:350px;" id="hero-vr-container">
+        <!-- First village panorama loaded here -->
+      </div>
+    </div>
+
+    <!-- Village VR Cards -->
+    <h2 style="font-family:var(--font-display); color:var(--cream); font-size:1.6rem; margin:0 0 32px; display:flex; align-items:center; gap:10px;"><i data-lucide="compass" style="width:24px;height:24px;color:var(--gold);"></i> Chọn làng nghề để khám phá</h2>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:24px;" id="vr-villages-grid">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align:center; margin-top:56px; background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.2); border-radius:24px; padding:48px 32px;">
+      <h2 style="font-family:var(--font-display); color:var(--gold); font-size:1.5rem; margin:0 0 12px;">Trải nghiệm miễn phí ngay</h2>
+      <p style="color:rgba(255,255,255,0.6); margin:0 0 24px;">Chọn bất kỳ làng nghề ở trên và bắt đầu hành trình VR 360° tuyệt vời.</p>
+      <a href="lobby.html" style="display:inline-block; background:var(--gold); color:#1a1a1a; padding:14px 36px; border-radius:12px; text-decoration:none; font-weight:700; font-size:0.95rem;">Chơi ngay đây</a>
+    </div>
+  </section>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/vr360.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  App.renderNavbar('vr');
+
+  // Load first village panorama into hero
+  if (VILLAGES.length > 0) {
+    const heroContainer = document.getElementById('hero-vr-container');
+    heroContainer.innerHTML = VILLAGES[0].panorama;
+    const iframe = heroContainer.querySelector('iframe');
+    if (iframe) { iframe.style.width='100%'; iframe.style.height='100%'; iframe.style.border='none'; }
+  }
+
+  // Build village VR cards
+  const grid = document.getElementById('vr-villages-grid');
+  VILLAGES.forEach((v, i) => {
+    const card = document.createElement('div');
+    card.style.cssText = 'background:rgba(20,15,10,0.5); border:1px solid rgba(232,184,75,0.15); border-radius:20px; overflow:hidden; transition:transform 0.3s, box-shadow 0.3s; cursor:pointer;';
+    card.onmouseenter = () => { card.style.transform='translateY(-4px)'; card.style.boxShadow='0 12px 40px rgba(232,184,75,0.15)'; };
+    card.onmouseleave = () => { card.style.transform=''; card.style.boxShadow=''; };
+
+    card.innerHTML = `
+      <div style="height:200px; position:relative; overflow:hidden;" id="vr-preview-${v.id}">
+        <div style="width:100%;height:100%;background:url('${v.thumbnail}') center/cover;"></div>
+        <div style="position:absolute; top:12px; right:12px; background:rgba(232,184,75,0.9); color:#1a1a1a; padding:4px 12px; border-radius:8px; font-size:0.75rem; font-weight:700;">360°</div>
+      </div>
+      <div style="padding:20px;">
+        <h3 style="color:var(--cream); font-family:var(--font-display); font-size:1.2rem; margin:0 0 6px;">${v.name}</h3>
+        <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin:0 0 12px; display:flex; align-items:center; gap:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;"></i> ${v.location}</p>
+        <p style="color:rgba(255,255,255,0.6); font-size:0.85rem; line-height:1.5; margin:0;">${v.description.substring(0, 80)}...</p>
+        <button onclick="openVR(${v.id})" style="margin-top:16px; background:var(--gold); color:#1a1a1a; border:none; padding:10px 24px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; transition:opacity 0.2s;" onmouseenter="this.style.opacity='0.85'" onmouseleave="this.style.opacity='1'">Khám phá VR →</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  lucide.createIcons();
+});
+
+function openVR(villageId) {
+  const v = getVillageById(villageId);
+  if (!v) return;
+
+  // Create fullscreen VR modal
+  const modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.95); display:flex; flex-direction:column;';
+  modal.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; background:rgba(0,0,0,0.8);">
+      <h3 style="color:var(--gold); font-family:var(--font-display); margin:0; font-size:1.2rem;">${v.name} — VR 360°</h3>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="background:none; border:1px solid rgba(255,255,255,0.3); color:white; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:0.85rem;">✕ Đóng</button>
+    </div>
+    <div style="flex:1; overflow:hidden;" id="vr-fullscreen-container"></div>
+  `;
+  document.body.appendChild(modal);
+
+  const container = document.getElementById('vr-fullscreen-container');
+  container.innerHTML = v.panorama;
+  const iframe = container.querySelector('iframe');
+  if (iframe) { iframe.style.width='100%'; iframe.style.height='100%'; iframe.style.border='none'; }
+}
+</script>
+</body>
+</html>

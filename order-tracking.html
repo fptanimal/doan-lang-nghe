@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Làng Nghề — Theo dõi đơn hàng</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/pages2.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/upgrade.css" />
+  <style>
+    body { background: #fdfbf7; color: #2a1f18; }
+    .tracking-wrapper { max-width: 900px; margin: 0 auto; padding: 120px 24px 60px; }
+    .tracking-header { text-align: center; margin-bottom: 40px; }
+    .tracking-title { font-family: var(--font-display); font-size: 2.2rem; color: var(--terracotta); margin-bottom: 16px; }
+    
+    .order-summary-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    
+    .summary-block h3 { font-size: 0.9rem; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .summary-block p { font-weight: 700; font-size: 1.1rem; }
+    
+    .timeline-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    
+    .timeline-title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid #eee; }
+    
+    /* Timeline styles */
+    .tracking-timeline { position: relative; padding-left: 30px; }
+    .tracking-timeline::before {
+      content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 2px;
+      background: #eee;
+    }
+    
+    .timeline-step { position: relative; padding-bottom: 32px; }
+    .timeline-step:last-child { padding-bottom: 0; }
+    
+    .timeline-icon {
+      position: absolute; left: -41px; top: 0; width: 24px; height: 24px;
+      border-radius: 50%; background: #eee; border: 3px solid white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: transparent; z-index: 2;
+    }
+    
+    /* Status colors */
+    .step-pending .timeline-icon { background: #e8b84b; }
+    .step-confirmed .timeline-icon { background: #3b82f6; }
+    .step-shipping .timeline-icon { background: #8b5cf6; }
+    .step-done .timeline-icon { background: #377E5C; color: white; }
+    .step-done .timeline-icon::after { content: '✓'; font-size: 12px; }
+    .step-cancelled .timeline-icon { background: #ef4444; color: white; }
+    .step-cancelled .timeline-icon::after { content: '✕'; font-size: 12px; }
+    
+    /* Connector active line */
+    .timeline-step.active::after {
+      content: ''; position: absolute; left: -30px; top: 24px; bottom: -10px; width: 2px;
+      background: #377E5C; z-index: 1;
+    }
+    .timeline-step:last-child::after { display: none; }
+    
+    .timeline-content {
+      background: #fdfbf7; padding: 16px 20px; border-radius: 12px;
+      border-left: 4px solid #eee; transition: 0.3s;
+    }
+    .step-pending .timeline-content { border-left-color: #e8b84b; }
+    .step-confirmed .timeline-content { border-left-color: #3b82f6; }
+    .step-shipping .timeline-content { border-left-color: #8b5cf6; }
+    .step-done .timeline-content { border-left-color: #377E5C; }
+    .step-cancelled .timeline-content { border-left-color: #ef4444; }
+    
+    .step-time { font-size: 0.85rem; color: #888; margin-bottom: 6px; }
+    .step-status { font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; }
+    .step-note { font-size: 0.95rem; color: #555; }
+    
+    .product-list { margin-top: 32px; }
+    .product-item { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .product-item:last-child { border-bottom: none; }
+    .product-item-name { flex: 1; font-weight: 600; }
+    .product-item-qty { color: #666; font-size: 0.9rem; width: 50px; text-align: center; }
+    .product-item-price { font-weight: 700; color: var(--terracotta); }
+    
+    .btn-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; color: #666; text-decoration: none; font-weight: 600; transition: 0.2s; }
+    .btn-back:hover { color: var(--terracotta); transform: translateX(-4px); }
+    
+    .loading-container { text-align: center; padding: 60px; color: #888; }
+    .error-container { text-align: center; padding: 60px; color: #ef4444; display: none; }
+  </style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+<div id="main-navbar"></div>
+
+<div class="tracking-wrapper">
+  <a href="profile.html" class="btn-back">← Quay lại danh sách đơn hàng</a>
+  
+  <div class="tracking-header">
+    <h1 class="tracking-title">Đơn Hàng Của Bạn</h1>
+    <p>Kiểm tra trạng thái đơn hàng mới nhất.</p>
+  </div>
+
+  <div id="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p style="margin-top:16px;">Đang tải thông tin đơn hàng...</p>
+  </div>
+  
+  <div id="error" class="error-container">
+    <h2 style="margin-bottom: 16px;">Không tìm thấy đơn hàng</h2>
+    <p id="error-msg">Đơn hàng không tồn tại hoặc không thuộc về bạn.</p>
+    <button class="btn btn-primary" style="margin-top:24px;" onclick="location.href='profile.html'">Về trang cá nhân</button>
+  </div>
+
+  <div id="order-content" style="display: none;">
+    <!-- Order Summary -->
+    <div class="order-summary-card">
+      <div class="summary-block">
+        <h3>Mã đơn hàng</h3>
+        <p id="t-order-id" style="font-family: monospace; color: var(--terracotta);">ORD_123456</p>
+      </div>
+      <div class="summary-block">
+        <h3>Ngày đặt</h3>
+        <p id="t-order-date">--/--/----</p>
+      </div>
+      <div class="summary-block">
+        <h3>Tổng tiền</h3>
+        <p id="t-order-total" style="color: var(--terracotta);">0 đ</p>
+      </div>
+      <div class="summary-block">
+        <h3>Trạng thái hiện tại</h3>
+        <p id="t-order-status" style="color: #e8b84b;">Đang xử lý</p>
+      </div>
+    </div>
+
+    <!-- Timeline & Details Grid -->
+    <div style="display: grid; grid-template-columns: 1fr; gap: 32px; @media(min-width: 768px) { grid-template-columns: 1.5fr 1fr; }">
+      
+      <!-- Timeline -->
+      <div class="timeline-card">
+        <h2 class="timeline-title">Lịch sử trạng thái</h2>
+        <div class="tracking-timeline" id="timeline-container">
+          <!-- Timeline steps injected here -->
+        </div>
+      </div>
+      
+      <!-- Shipping & Items -->
+      <div class="timeline-card">
+        <h2 class="timeline-title">Thông tin giao hàng</h2>
+        <div style="margin-bottom: 24px; line-height: 1.6;">
+          <strong id="t-cust-name">Nguyễn Văn A</strong><br>
+          <span id="t-cust-phone">0912345678</span><br>
+          <span id="t-cust-address" style="color:#666;">Số nhà, Phố, Quận, TP</span><br>
+          <div style="margin-top:12px; font-size:0.9rem; background:#f9f9f9; padding:8px 12px; border-radius:8px;">
+            <strong>Ghi chú:</strong> <span id="t-cust-note" style="color:#666;">Không có</span>
+          </div>
+        </div>
+        
+        <h2 class="timeline-title" style="margin-top: 40px;">Sản phẩm</h2>
+        <div class="product-list" id="t-products">
+          <!-- Product list injected here -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/firebase-auth.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  const statusMap = {
+    'pending': { text: 'Chờ xác nhận', class: 'step-pending' },
+    'confirmed': { text: 'Đã xác nhận', class: 'step-confirmed' },
+    'shipping': { text: 'Đang giao hàng', class: 'step-shipping' },
+    'done': { text: 'Giao hàng thành công', class: 'step-done' },
+    'cancelled': { text: 'Đã hủy', class: 'step-cancelled' }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    App.renderNavbar('profile'); // Dùng profile nav vì nó thuộc mảng cá nhân
+    
+    if (!App.isLoggedIn()) {
+      window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.href);
+      return;
+    }
+    
+    loadOrderDetails();
+    
+    // Auto refresh status every 30 seconds
+    setInterval(loadOrderDetails, 30000);
+  });
+
+  async function loadOrderDetails() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('id');
+    
+    if (!orderId) {
+      showError('Không tìm thấy mã đơn hàng.');
+      return;
+    }
+
+    try {
+      if (!window.FirebaseAuth) throw new Error('Firebase không tải được');
+      const { db, firestore } = window.FirebaseAuth;
+      const orderRef = firestore.doc(db, 'orders', orderId);
+      const snap = await firestore.getDoc(orderRef);
+      
+      if (!snap.exists()) {
+        showError('Đơn hàng không tồn tại.');
+        return;
+      }
+      
+      const order = snap.data();
+      
+      // Fetch history or create fake history based on status
+      let historyList = [{
+        status: order.status,
+        note: 'Trạng thái hiện tại',
+        created_at: order.createdAt
+      }];
+
+      renderOrder(order, historyList);
+    } catch (err) {
+      console.error('Lỗi tải đơn hàng:', err);
+      if (document.getElementById('loading').style.display !== 'none') {
+        showError('Không thể kết nối đến máy chủ.');
+      }
+    }
+  }
+
+  function showError(msg) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('order-content').style.display = 'none';
+    document.getElementById('error').style.display = 'block';
+    document.getElementById('error-msg').textContent = msg;
+  }
+
+  function renderOrder(order, history) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error').style.display = 'none';
+    document.getElementById('order-content').style.display = 'block';
+
+    // Summary
+    document.getElementById('t-order-id').textContent = order.id;
+    document.getElementById('t-order-date').textContent = new Date(order.createdAt).toLocaleString('vi-VN');
+    document.getElementById('t-order-total').textContent = formatPrice(order.total);
+    
+    const currStatus = statusMap[order.status] || { text: order.status, class: 'step-pending' };
+    document.getElementById('t-order-status').textContent = currStatus.text;
+    
+    // Shipping Info
+    document.getElementById('t-cust-name').textContent = order.customerName;
+    document.getElementById('t-cust-phone').textContent = order.phone;
+    document.getElementById('t-cust-address').textContent = order.address;
+    document.getElementById('t-cust-note').textContent = order.note || 'Không có';
+
+    // Timeline
+    if (!history || history.length === 0) {
+      history = [{
+        status: order.status,
+        note: 'Trạng thái hiện tại',
+        created_at: order.createdAt
+      }];
+    }
+
+    const timelineHtml = history.map((h, index) => {
+      const sMap = statusMap[h.status] || { text: h.status, class: 'step-pending' };
+      const isActive = index < history.length - 1 ? 'active' : ''; // Nối line nếu không phải item cuối
+      
+      return `
+        <div class="timeline-step ${sMap.class} ${isActive}">
+          <div class="timeline-icon"></div>
+          <div class="timeline-content">
+            <div class="step-time">${new Date(h.created_at).toLocaleString('vi-VN')}</div>
+            <div class="step-status">${sMap.text}</div>
+            <div class="step-note">${h.note || ''}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    document.getElementById('timeline-container').innerHTML = timelineHtml;
+
+    // Products
+    const productsHtml = (order.items || []).map(item => `
+      <div class="product-item">
+        <div class="product-item-name">${item.name}</div>
+        <div class="product-item-qty">x${item.quantity}</div>
+        <div class="product-item-price">${formatPrice(item.price * item.quantity)}</div>
+      </div>
+    `).join('');
+    
+    document.getElementById('t-products').innerHTML = productsHtml;
+  }
+</script>
+</body>
+</html>

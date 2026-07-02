@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/pages.css" />
   <link rel="stylesheet" href="css/pages2.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/upgrade.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
 </head>
 <body>
@@ -95,6 +96,8 @@
     </div>
     
     <button class="hg-guess-btn" id="next-btn" style="width:100%; font-size:1.1rem; padding:14px; margin-top:12px;" onclick="nextQuestion()">Câu tiếp theo ⟶</button>
+    <button class="btn btn-secondary" id="skip-history-btn" style="width:100%; font-size:1rem; padding:12px; margin-top:10px; display:none; background:rgba(255,255,255,0.15); color:#333; border:1px solid #ccc; border-radius:12px; font-weight:600; cursor:pointer;" onclick="window.nextQuestion()">Bỏ qua Lịch sử, sang câu tiếp theo ⟶</button>
+    <button class="btn btn-ghost" id="exit-from-result-btn" style="width:100%; font-size:0.95rem; padding:10px; margin-top:8px; color:#666; background:transparent; border:none; cursor:pointer;" onclick="window.location.href='lobby.html'">🚪 Thoát về Sảnh</button>
   </div>
 </div>
 

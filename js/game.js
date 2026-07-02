@@ -26,6 +26,14 @@ const Game = (() => {
   };
 
   function init() {
+    // Bind form submit Luôn luôn thực hiện trước để không bị lỗi khi trả lời câu hỏi sau khi quay về từ history chapter
+    const form = document.getElementById('answer-form');
+    if (form) {
+      form.removeEventListener('submit', handleAnswerSubmit);
+      form.addEventListener('submit', handleAnswerSubmit);
+    }
+    App.setState({ gameInProgress: true, currentSession: null });
+
     // KHÔI PHỤC STATE NẾU TRỞ VỀ TỪ HISTORY CHAPTER
     const savedSession = sessionStorage.getItem('historyChapterState');
     if (savedSession) {
@@ -53,15 +61,6 @@ const Game = (() => {
     state.answered = false;
     state.results = [];
     state.revealed = false;
-
-    // Bind form submit
-    const form = document.getElementById('answer-form');
-    if (form) {
-      form.removeEventListener('submit', handleAnswerSubmit);
-      form.addEventListener('submit', handleAnswerSubmit);
-    }
-
-    App.setState({ gameInProgress: true, currentSession: null });
     renderQuestion();
   }
 
@@ -208,17 +207,19 @@ const Game = (() => {
     renderQuestion();
   };
 
-  window.useHint = useHint;
-  window.skipQuestion = skipQuestion;
-
   function showResultArea(village, isCorrect) {
     const nextBtn = document.getElementById('next-btn');
     const skipBtn = document.getElementById('skip-btn');
+    const skipHistBtn = document.getElementById('skip-history-btn');
     if (skipBtn) skipBtn.style.display = 'none';
     if (nextBtn) {
       nextBtn.style.display = 'inline-block';
       if (isCorrect && village.historyQuestions && village.historyQuestions.length > 0) {
         nextBtn.textContent = `Vào Chương ${state.currentIndex + 1}: Khám phá Lịch sử ⟶`;
+        if (skipHistBtn) {
+          skipHistBtn.style.display = 'inline-block';
+          skipHistBtn.onclick = () => window.nextQuestion();
+        }
         nextBtn.onclick = () => {
           sessionStorage.setItem('historyChapterState', JSON.stringify({
             villageId: village.id,
@@ -229,6 +230,7 @@ const Game = (() => {
           window.location.href = 'history-chapter.html';
         };
       } else {
+        if (skipHistBtn) skipHistBtn.style.display = 'none';
         nextBtn.textContent = state.currentIndex >= state.villages.length - 1 ? '🏁 Xem kết quả' : 'Câu tiếp theo →';
         nextBtn.onclick = () => window.nextQuestion();
       }
