@@ -162,9 +162,11 @@ const App = (() => {
       return;
     }
     const result = await window.FirebaseAuth.signInWithGoogle();
-    if (result.success) {
+    if (result && result.success) {
       setCurrentUser(result.user);
-      window.location.reload();
+      window.location.href = 'lobby.html';
+    } else if (result && result.error) {
+      alert(result.error);
     }
   }
 
